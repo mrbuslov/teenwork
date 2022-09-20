@@ -1,0 +1,24 @@
+{% load static %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+
+    <title>{% translate "Сброс пароля" %}</title>
+</head>
+<body style="background-image: initial;">
+
+    <p><a href="{% url 'board:index' %}" class="come_back"><i class="arrow-back"></i>{% translate "Вернуться на главную" %}</a></p>
+
+    <h1 class="registration_greeting">{% translate "Давайте проверим Ваш почтовый ящик" %}</h1>
+    <h3 class="email_not_sent">{% translate "Письмо не пришло? Нажмите" %} <a href="{% url 'account:reset_email' %}">{% translate "сюда" %}</a></h3>
+    <h3 class="email_not_sent">{% translate "Или посмотрите в папку" %} <span style="color: #c45824; font-size: 14px;">Спам</span></h3>
+</body>
+</html>

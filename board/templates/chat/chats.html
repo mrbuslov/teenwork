@@ -1,0 +1,76 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/chat/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Чати">
+    <meta name="description" content="Ваші чати – почніть діалог з іншими користувачами платформи!">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/chat/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Чаты">
+    <meta name="description" content="Ваши чаты - начните диалог с другими пользователями платформы!">
+    {% endif %}
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/adaptive_chats.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} {% translate "Чаты" %} - Teenwork {% endblock %}
+{% block content %}
+
+    <div class="page_title">
+        <a href="#" onclick="history.back();" class="come_back"><em class="arrow-back"></em></a>
+        <span>{% translate "Ваши чаты" %}</span>
+    </div>
+    
+
+    <h1 class="header_chats">
+		{% translate "Ваши чаты" %}:
+	</h1>
+	
+
+	<div class="chats_search_field">
+		<span class="chats_search">{% translate "Найти чат" %}</span>
+        <input type="text" id="searchInput" name="searchInput">
+	</div>
+
+	
+	<div class="line"></div>
+    <div id="sms_field">
+        {% for val in my_rooms %}
+            <a href="{% url 'chat:room' val.name %}" id="sms_a">
+                <input type="hidden" value="{{val.name}}" class="room_id"">
+                <span class="sms_number">
+                    {{forloop.counter}}
+                </span>
+                <div class="sms">
+                    <span class="adt_name_chat">
+                        {{val.ad_fk.title}}
+                    </span>
+                    <span class="sender_name_chat">
+                        {{val.ad_fk.author.username}}
+                    </span>
+                    <span class="sms_name_chat">
+                        ...
+                    </span>
+                </div>
+            </a>    
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<script src="{% static 'js/chats.js' %}"></script>
+
+{% endblock %}

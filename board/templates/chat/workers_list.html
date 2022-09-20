@@ -1,0 +1,65 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+  <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/chat/workers_list/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Список працівників, яких Ви додали">
+    <meta name="description" content="Коли ви додаєте публікацію, можна 'найняти' працівника, натиснувши галочку в переписці з ним.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/chat/workers_list/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Список работников, которых Вы добавили">
+    <meta name="description" content="Когда Вы добавляете публикацию, можно 'нанять' работника, нажав галочку в переписке с ним.">
+    {% endif %}
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/workers_list.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} {% translate "Работники" %} на Teenwork {% endblock %}
+{% block content %}
+<h1 class="workers_greeting">{% translate "Ваши работники, которых Вы добавили, нажав" %} <div class="add_worker"><img src="{% static 'img/white_tick.svg'%}" alt=""></div> {% translate "в чате" %}</h1>
+<div class="line"></div>
+
+{% for val in board_obj %}
+{% if val.workers.all %}
+<div class="workers_field">
+  <a href="{% url 'board:advertisement' slug=val.slug%}" title="Перейти к объявлению" class="adt_a">
+    <div class="adt_name">
+      <img src="{{val.image1.url}}" alt="{% translate 'Фото Вашего объявления' %} - {{val.title}}">
+      <span class="adt_title">{{val.title}}</span>
+    </div>
+  </a>
+  
+  <ul>
+    {% for worker in val.workers.all %}
+    <form method="POST" action="{% url 'chat:workers_list' %}">
+        <li class="worker_li">
+            {% csrf_token %}
+            {% if worker.image %}
+            <img src="{{worker.image.url}}" alt="{% translate 'Фото работника' %} {{worker.username}}" class="photo">
+            {% else %}
+            <img src="{% static 'img/user.svg' %}" class="photo" alt="{% translate 'У работника' %} {{worker.username}} {% translate 'нет фото профиля' %}">
+            {% endif %}
+            <a href="{% url 'chat:workers_list_a' slug=val.slug %}" aria-multiline="" title="{% translate 'Перейти в чат' %}">{{worker.username}}</a>
+            <input type="hidden" name="worker" value="{{worker.email}}">
+            <input type="hidden" name="slug" value="{{val.slug}}">
+            <input type="submit" value="Удалить" class="remove_worker">
+        </li>
+    </form>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% load static %}  
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/registration/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Регистрация на Teenwork">
+    <meta name="description" content="Зареєструйтесь на Teenwork, щоб мати доступ до повних функцій сайту.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/registration/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Реєстрація на Teenwork">
+    <meta name="description" content="Зарегистрируйтесь на Teenwork , чтобы иметь доступ к полным функциям сайта.">
+    {% endif %}
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+    <title>{% translate "Регистрация" %} на Teenwork</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'account:registration' %}" id="registrationForm">
+        {% csrf_token %}
+        <div class="box">
+            <h1 style="font-size: 24px;">{% translate "Регистрация" %}</h1>
+            <div class="input_textbox">
+                <input type="text" name="username" required="" autofocus id="username" autocapitalize="off"><br>
+                <label>Username</label>
+                <span id="username_error_text"></span>
+            </div>
+            <div class="input_textbox">
+                <input type="text" name="phone_number" required="" id="phone_number"><br>
+                <label>{% translate "Номер телефона" %}</label>
+                <span id="phone_number_error_text"></span>
+            </div>
+            <div class="input_textbox">
+                <input type="text" name="email" required="" id="email" autocapitalize="off"><br>
+                <label>Email</label>	
+                <span id="email_error_text"></span>
+            </div>	
+            <div class="input_textbox">
+                <input type="password" id="password" name="password" required=""><br>
+                <label>Пароль</label>	
+                <div id="show_psswrd" onclick="show_password_eye_registr()"></div>
+                <span id="password_error_text"></span>
+            </div>		    
+            <label class="agree_checkbox_label">
+                <input type="checkbox" class="agree_checkbox">
+                <span class="fake"></span>
+                <span class="registr_privacy">{% translate "Я соглашаюсь с" %} <a href="{% url 'board:privacy_policy' %}">{% translate "Политикой конфиденциальности" %}</a> {% translate "и" %} <a href="{% url 'board:website_rules' %}">{% translate "Правилами сайта" %}</a> {% translate "и даю право на обработку личных данных." %}</span>
+            </label>
+            <button type="submit" class="button">
+                <span class="button_text">{% translate "Зарегистрироваться" %}</span>
+            </button>
+            <p class="go_to_login">{% translate "Вы уже с нами" %}? <a href="{% url 'account:login' %}">{% translate "Войти" %}</a></p>
+
+            <!-- <p class="registr_privacy">{% translate "Спасибо, что прочитали" %} <a href="{% url 'board:privacy_policy' %}">{% translate "Политику конфиденциальности" %}</a> {% translate "и" %} <a href="{% url 'board:website_rules' %}">{% translate "Правила сайта" %}</a></p> -->
+        </div>
+    </form>
+
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/main_instantly.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+
+</html>

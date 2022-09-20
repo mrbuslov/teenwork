@@ -1,0 +1,60 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+  <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/about_us/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Про Teenwork">
+    <meta name="description" content="Тут ми розповімо, що за сервіс Teenwork, і в чому його сенс.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/about_us/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="О Teenwork">
+    <meta name="description" content="Здесь мы расскажем, что за сервис Teenwork, и в чём его смысл.">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/cookies_things.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Про Teenwork{% endblock %}
+{% block content %}  
+
+<div class="page_title">
+  <a href="#" onclick="history.back();" class="come_back"><em class="arrow-back"></em></a>
+  <span>Про Teenwork</span>
+</div>
+
+<div class="privacy">
+  <div class="privacy_block">
+    <h1 class="policy_title">{% translate "Рады представиться, Teenwork" %}</h1> 
+    <p> {% translate "Well... Пока информации немного, ведь мы стартовали 1-го ноября 2021 года, но всё же немного расскажем о нас и нашей миссии." %}</p>
+  </div>
+  
+  <div class="privacy_block">
+    <p style="text-align: center;">{% translate "Teenwork - платформа, где подростки и не только могут найти работу, которая им по душе" %}</p>
+    <p>{% translate "Можем сказать, что, пока что, это небольшая, но не менее энтузиастичная платформа, команда которой занимается не только улучшением сервиса как в области программного обеспечения, так и в области дизайна, а и помощью в просьбах наших гостей на сайте. Также мы стремимся к тому, чтобы максимальное количество жителей Украины, а также за её пределами, узнали о нашем сервисе, а также публиковали свою работу здесь." %}</p>
+    <p>{% translate "К слову, если Вы увидите ошибки в дизайне или самой работе сайта, пожалуйста, сообщите нам на почту" %} <span style="color: #2b84cd;">help@teenwork.com.ua</span> {% translate "или в Телеграм" %} <span style="color: #2b84cd;">@teenwork_ua</span> {% translate "(в Телеграме мы ответим Вам быстрее)" %}.</p>
+    <p>{% translate "А больше всего мы ценим Ваши идеи! Если у Вас есть интересные мысли, как модернизировать Teenwork - добавить/унять, пишите нам на email или Телеграм, указанные выше. Всегда рады получить такие сообщения)" %}.</p>
+  </div>
+
+  <div class="privacy_block">
+    <p style="text-align: center;">{% translate "Для чего и для кого эта платформа" %}</p>
+    <p>{% translate "Наша цель - создать условия и возможности для подработки и официальной работы как подросткам, так и людям постарше." %}</p>
+    <ul>
+      <li><strong>{% translate "Работник" %}</strong> | {% translate "Как Вы знаете, на данны момент наш диапазон возрастов - от 14 лет до 21 года. Соответственно работниками могут быть люди этих возрастов, которые заинтересованы в поиске работы/подработки." %}</li>
+      <li><strong>{% translate "Работодатель" %}</strong> | {% translate "Работодателем может же быть любой человек, которому нужна помощь в его работе. Вид подработки может варьироваться от покраски гаража до доставки документов - всё, в чём Вам не хватает времени, а передать эту работу подросткам за небольшую плату было бы замечательно) Win-Win, скажем так." %}</li>
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+{% endblock %}

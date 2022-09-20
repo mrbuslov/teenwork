@@ -1,0 +1,203 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="alternate" href="https://teenwork.com.ua/" hreflang="ru-UA">
+    <link rel="alternate" href="https://teenwork.com.ua/uk/" hreflang="uk-UA">
+    <link rel="canonical" href="https://teenwork.com.ua/uk/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Робота для підлітків">
+    <meta name="description" content="Teenwork - платформа, де підлітки, школярі, студенти, молоді люди і не тільки можуть знайти підробіток чи офіційну роботу в Україні, яка їм до вподоби, на teenwork.com.ua.">
+    <meta name="google-site-verification" content="LYmsdtQ4eN0WEJNjYI0yJBALfq30apLvkaRi57ityw4" />
+    <meta name="yandex-verification" content="d272ada611e6752e" />
+    {% else %}
+    <link rel="alternate" href="https://teenwork.com.ua/" hreflang="ru-UA">
+    <link rel="alternate" href="https://teenwork.com.ua/uk/" hreflang="uk-UA">
+    <link rel="canonical" href="https://teenwork.com.ua">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Работа для подростков">
+    <meta name="description" content="Teenwork - платформа, где подростки, школьники, студенты, молодые люди и не только могут найти подработку или официальную работу в Украине, которая им по душе, на teenwork.com.ua.">
+    <meta name="google-site-verification" content="LYmsdtQ4eN0WEJNjYI0yJBALfq30apLvkaRi57ityw4" />
+    <meta name="yandex-verification" content="d272ada611e6752e" />
+    {% endif %}
+{% endblock %}
+
+{% block title %}Teenwork{% endblock %}
+
+{% block content %}  
+    {% if response.number < 2 %}
+        <div class="logo_teenwork">
+            <img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы подросткам Teenwork' %}" class="logo_teenwork_img">
+        </div>
+    
+
+    <form method="get" data-branches-url="{% url 'board:ajax_load_branches' %}" id="searchForm">
+        <div class="search_field">
+            <div class="more_filters"><span class="search_arrow_down"></span></div>
+            {{myFilter.form.title_content}}
+            <button type="submit" class="search_btn">{% translate "Найти" %}</button>
+            <div class="more_filters_field" style="display: none;">
+    
+            <div class="sal_field">
+                <span>{% translate "Оплата от" %}
+                    {{myFilter.form.price}}
+                </span>
+            </div>
+    
+            <div class="age_field">
+                <label for="id_age">{% translate "Возраст" %}</label>
+                {{myFilter.form.age}}
+            </div>
+    
+            <div class="region_field">
+                <div class="region">
+                <label for="id_region">Область</label>
+                {{myFilter.form.region}}
+                </div>
+                <div class="city">
+                <label for="id_city">{% translate "Город" %}</label>
+                {{myFilter.form.city}}
+                </div>
+            </div>
+    
+            <div class="type_of_emp">
+                <label for="id_rubric">{% translate "Вид занятости" %}</label>
+                {{myFilter.form.rubric}}
+            </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="age_main">
+        <h1 class="age_span">
+            {% translate "Работа по Вашему возрасту" %}:
+        </h1>
+        <div class="age_block" id="age_block">
+          <ul class="age_range">
+            {% for age in age_range %}
+            <a href="?title_content=&price_min=&price_max=&age={{age.id}}&region=&city=&rubric=">
+              <li class="age_circle">
+                {{age}}
+              </li>
+            </a>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    <div class="lines_container">
+        <div class="lines">
+          <div class="diamond"></div>
+        </div>
+    </div>
+
+    {% endif %}
+    
+
+<div class="adt_container"> 
+    {% for val in response %}
+        <div class="adt">
+            <div class="container">
+                <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
+                    <div class="adt_image_block">
+                        <img class="adt_image zoom" src="{{val.image1.url}}" alt="{{val.rubric}}:{{val.title}}">	
+                    </div>
+                    <span class="adt_name"> <span class="adt_n">{{val.title}}</span> 
+                        {% if val.author.is_official %}
+                            <div class="tick">
+                                <div class="tick_right"></div>
+                                <div class="tick_left"></div>
+                            </div>
+                            <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+                        {% endif %}
+                    </span> 
+                </a>
+                <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
+                <br>
+                {% if val.age %}
+                    <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} лет.</span>
+                {% else %}
+                    <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
+                {% endif %}
+                <br>
+                <span class="adt_rubric">{{val.rubric}}</span>
+                <br>
+                <span class="adt_city">{{ val.city }}</span>
+                <br>
+                <span class="adt_created">
+                    {% if time_now1 == val.published|date:"d.m.Y" %}
+                        {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
+                    {% elif time_now2 == val.published|date:"d.m.Y" %}
+                        {% translate "Вчера" %} в {{val.published|date:"H:i"}}
+                    {% else %}
+                        {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
+                    {% endif %}
+                </span>
+                <div class="heart"> <a href="{% url 'account:favourite_add' val.id%}">
+                    {% if user in val.favourites.all %}
+                    <img src="{% static 'img/full_heart.svg'%}" alt="">
+                    {% else %}
+                    <img src="{% static 'img/heart.svg'%}" alt="">
+                    {% endif %}
+                </a> 
+                </div>
+
+            <div class="adt_more_info">
+                <div class="adt_arrow_down_div"><em class="adt_arrow_down"></em></div> 
+                <div class="adt_info">
+                    <div id="close_adt_more_info">+</div>
+                    <div class="adt_author_info">
+                        <span class="name">
+                            {% if val.author.pk %}
+                                <a href="{% url 'account:account_profile' val.author.username %}">{{val.author_name}}</a>
+                            {% else %}
+                                {{val.author_name}} <span style="color: white; padding: 3px; background: #06b006; border-radius: 5px;">24h</span>
+                            {% endif %}
+                        </span>
+                        <span class="phone_n_span">{% translate "Номер телефона" %}:<span class="phone_number">{{val.phone_number}}</span></span> 
+                        <span class="email_span">Email: <span class="email">{{val.email}}</span></span>            
+                    </div>
+                    <div class="adt_content">{{ val.content|linebreaks }}</div>
+                </div>
+            </div>
+        </div>
+
+        </div> 
+    {% empty %}
+    <span class="empty_index">{% translate "Пока что объявлений нет. Подпишитесь на" %} <a href="{% url 'telegram_filter:get_unique_code' %}">{% translate "Телеграм Бота" %}</a> {% translate ", чтобы получать свежие вакансии, когда они появятся." %}</span>
+    <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Это платформа, где подростки и не только могут помочь Вам в работе. " %}<a href="{% url 'board:add' %}" style="color: inherit;">{% translate "Опубликуйте объявление" %}</a>{% translate ", чтобы дать задание." %}</div>
+    <!-- <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Есть работа, но не хватает рук? " %}<a href="{% url 'board:add' %}" style="color: inherit;">{% translate "Дайте задание" %}</a>{% translate " молодым людям за небольшую оплату." %}</div> -->
+    <!-- <img src="{% static 'img/main_empty.svg' %}" alt="Телеграм Бот отправит Вам уведомление, когда появится новая вакансия" style="margin: auto; display: block;"> -->
+
+
+    <div class="main_img">
+        <div class="main_man">
+            <div class="oval">
+                <span class="mans_speech">{% translate "Хорошая работа!" %}<br>{% translate "Спасибо за помощь" %}</span>
+            </div>
+            <img src="{% static 'img/main_man.svg' %}" alt="">
+        </div>
+        <div class="main_teen">
+            <div class="oval oval_teen">
+                <span class="teen_speech">{% translate "Зовите ещё, всегда рад подработать" %}</span>
+            </div>
+            <img src="{% static 'img/main_teen.svg' %}" alt="">
+        </div>
+    </div>
+    {% endfor %} 
+</div>
+    {% if response %}
+        <button class="load_main_btn" id="load_main">{% translate "Загрузить ещё" %}</button>
+    {% endif %} 
+    
+    <div style="position: relative; width: 100%; height: 50px;"></div>
+
+{% endblock %}
+{% block scripts %}
+{% endblock %}

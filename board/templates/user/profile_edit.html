@@ -1,0 +1,119 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/profile_edit/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Змінити мій профіль на Teenwork">
+    <meta name="description" content="Це Ваш профіль, де Ви можете змінити дані про себе та скористатися Телеграм Ботом.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/profile_edit/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Изменить мой профиль на Teenwork">
+    <meta name="description" content="Это Ваш профиль, где Вы можете изменить данные о себе и воспользоваться Телеграм Ботом.">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile_account.css' %}">
+<link rel="stylesheet" href="{% static 'css/adaptive_profile_account.css' %}">
+{% endblock %}
+
+{% block title %} {% translate "Изменить профиль" %} на Teenwork {% endblock %}
+{% block content %}
+<h1 class='profile_header'>{% translate "Давайте добавим несколько данных, чтобы мы могли предлагать Вам НУЖНЫЕ объявления" %}</h1>
+
+<form method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="data">
+		<div class="photo_field">
+			{% if account.image %}
+			<img src="{{account.image.url}}" alt="{% translate 'У Вас такие выразительные глаза :)' %}" class="photo">
+			{% else %}
+			<img src="{% static 'img/user_add.svg' %}" class="photo" alt="{% translate 'Фото пока нет, но Вы можете добавить своё самое красивое :)' %}">
+			{% endif %}
+			<br>
+			<input type="file" name="img" id="file" accept="image/*">
+			<label for="file" class="input_label">{% translate "Загрузить фото" %}</label> 
+			<div id="uploaded_image_name"></div>
+		</div>
+
+		<div class="other_data_field">
+			<div class="other_data">
+				<div class="labels">
+					<label for="first_name" class="first_name_label">{% translate "Имя" %}</label>		
+					<label for="last_name" class="last_name_label">{% translate "Фамилия" %}</label>
+					<label for="age" class="age_label">{% translate "Возраст" %}</label>
+					<label for="phone" class="phone_label">{% translate "Номер телефона" %}</label>
+				</div>
+				
+				<div class="labels_options">
+					{{form.first_name}}
+					{{form.last_name}}
+					{{form.person_age}}
+					{{form.phone_number}}
+				</div>
+
+			</div>
+			<br>
+			<input type="submit" value='{% translate "Изменить"%}' name="profile_edit_btn" id="prof_btn">
+			<input type="button" value='{% translate "Удалить профиль"%}' onclick="open_delete_account()" id="del_btn">
+		</div>
+	</div>
+</form>
+
+
+<div class="pop_delete_account">
+	<div class="delete_account_content">
+		<div class="close_pop_delete_account" onclick="close_delete_account()">+</div>
+
+		<form action="">
+			<h2 class="h2_delete_account">{% translate "Это правда, что Вы хотите удалить страницу" %}?</h2>
+			<input type="submit" name="delete_account_btn" class="delete_account_btn" value='{% translate "Удалить" %}'>
+		</form>
+	</div>
+</div>	
+
+<!-- ---------------------------------------------------------Telegram-------------------------------------------------------------------------- -->
+<h2 class='profile_header indent'>{% translate "Давайте заполним поля, чтобы мы могли отправлять Вам интересные вакансии через Телеграм Бота" %}</h2>
+<form method = "post">
+	{% csrf_token %}
+	<div class="telegram_on">
+		<span class="tlg_header">Телеграм Бот</span> 
+		<input type="checkbox" name="tlg_checkbox" id="tlg_checkbox" value="" onclick="check()">
+		
+		<span class="watch_tlg">{% translate "Вы можете перейти в Телеграм Бота, нажав на кнопку Bot в верху нашего сайта или же" %} <a href="{% url 'telegram_filter:get_unique_code' %}">{% translate "сюда" %}</a></span>
+	</div>
+	<div class="telegram_field">
+		<div style="display: block; text-align: right;">
+			<span class="info" onmouseover="info_show()" onmouseleave="info_hide()">i</span>
+			<span class="info_text">{% translate "Вы можете не вставлять все данные. Объявления будут приходить по тем, что Вы выбрали" %}.</span>
+		</div>
+		<ul class="tlg_label_ul">
+			<li>{% translate "Вид занятости" %}: </li>
+			<li>{% translate "Возраст" %}: </li>
+			<li>{% translate "Область" %}: </li>
+			<li>{% translate "Город" %}: </li>
+		</ul>
+		<ul class="tlg_ul">
+			<li>{{tlg_form.rubric}}</li>
+			<li>{{tlg_form.age}}</li>
+			<li>{{tlg_form.region}}</li>
+			<li>{{tlg_form.city}}</li>
+		</ul>
+	</div>
+	<input type="submit" name="tlg_btn" id="tlg_btn" value='{% translate "Изменить" %}'>
+</form>
+<div class="indent_block"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/profile_edit.js' %}" type="text/javascript"></script>
+{% endblock %}

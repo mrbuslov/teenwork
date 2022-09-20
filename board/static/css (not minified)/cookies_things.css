@@ -1,0 +1,266 @@
+/*------------------------ COOKIES FIELD ----------------------------------------------------------*/
+.accept_cookie{
+	padding: 32px;
+	border-radius: 7px;
+	background-color: #3a3e42 ; /*33373c*/
+	width: 512px;
+	box-sizing: border-box;
+	right: 16px;
+	bottom: 16px;
+	position: fixed;
+	z-index: 1000;
+
+	display: none;
+}
+.cookies_show{
+	display: inline-block;
+}
+.cookie_photo{
+	float: left;
+}
+.cookie_photo img{
+	width: 120px;
+	user-select: none;
+	pointer-events: none;
+}
+.cookie_text{
+	color: #fff;
+	font-size: 15px;
+	display: inline-block;
+	position: relative;
+	width: 300px;
+	margin-left: 20px;
+	top: 10px;
+}
+
+.cookie_buttons{
+	display: inline-block;
+	top: 15px;
+	margin-left: 212px;
+	position: relative;
+}
+.cookie_know_more{
+	text-align: center;
+	display: inline-block;
+	margin-right: 10px;
+}
+.cookie_know_more a{
+	text-decoration: none;
+	color: #fff;
+	text-decoration: none;
+}
+.cookie_know_more_text {
+	display: inline-block;
+	position: relative;
+	font-size: 13px;
+}
+.cookie_know_more_text:after {
+	content: "";
+	border-bottom: 1px solid;
+	width: 100%;
+	height: 1em;
+	display: inline-block;
+	margin-top: 4px;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+	-webkit-transform: scale(0, 1);
+	transform: scale(0, 1);
+}
+.cookie_know_more_text:hover:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.cookie_submit_button{
+	padding: 8px;
+	font-size: 16px;
+	background: #35bd35;
+	border: none;
+	color: #fff;
+	border-radius: 7px;
+	width: 110px;
+	cursor: pointer;
+}
+.cookie_submit_button:hover{
+	background: #2ca72c;
+}
+/*------------------------ 24 HOUR FIELD ----------------------------------------------------------*/
+.try_24h{
+	padding: 12px;
+	border-radius: 7px;
+	background-image: linear-gradient(to right top, #5de243, #72e65b, #85ea70, #96ee85, #a7f298);
+	width: 444px;
+	box-sizing: border-box;
+	right: 16px !important;
+	top: 80px !important;
+	position: fixed;
+	z-index: 1000;
+    display: none;
+}
+.try_24h_show{
+	display: inline-block;
+}
+.try_24h_photo{
+	float: right;
+}
+.try_24h_photo img{
+	width: 120px;
+	user-select: none;
+	pointer-events: none;
+}
+.try_24h_text{
+	color: #000;
+	font-size: 16px;
+	display: inline-block;
+	position: relative;
+	width: 300px;
+	top: 10px;
+}
+
+.try_24h_buttons{
+	display: inline-block;
+	top: 25px;
+	position: relative;
+	margin-right: 10px;
+}
+.try_24h_know_more{
+	text-align: center;
+	display: inline-block;
+}
+.try_24h_know_more a:hover{
+  color: rgba(0, 0, 0, 1);
+}
+.try_24h_know_more a{
+	text-decoration: none;
+  color: rgba(0, 0, 0, 0.6);
+	text-decoration: none;
+}
+.try_24h_know_more_text {
+	display: inline-block;
+	position: relative;
+	font-size: 13px;
+    margin-left: 10px;
+}
+.try_24h_know_more_text:after {
+	content: "";
+	border-bottom: 1px solid;
+	width: 100%;
+	height: 1em;
+	display: inline-block;
+	margin-top: 4px;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+	-webkit-transform: scale(0, 1);
+	transform: scale(0, 1);
+}
+.try_24h_know_more_text:hover:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.try_24h_submit_button{
+	padding: 8px;
+	font-size: 16px;
+	background: #b5a51e;
+	border: none;
+	color: #fff;
+	border-radius: 7px;
+	width: 110px;
+	cursor: pointer;
+}
+.try_24h_submit_button:hover{
+	background: #2ca72c;
+}
+/*---------- 24 hour ----------------------------------------------------------------------------*/
+.try_24_how_works, .cookies_how_works{
+	margin: 25px 54px 25px 54px;
+	padding: 20px;
+	border-radius: 7px;
+	background: #fff;
+}
+.cookies_how_works{
+	min-height: 100px;
+}
+.cookies_how_works img{
+	float: left;
+}
+.cookies_how_works span{
+	display: block;
+    margin-top: 15px;
+}
+.try_24h_greeting{
+	font-weight: lighter;
+	margin-bottom: 20px;
+	font-size: 25px;
+}
+.try_24h_text2, .try_24h_how_it_works .text, .why_register .text, .thanks{
+	line-height: 1.5;
+	font-size: 13px;
+	margin: 30px 0 20px 10px;
+	display: block;
+}
+
+.try_24h_how_it_works h3, .why_register h3{
+	font-weight: lighter;
+	margin: 30px 0 20px 0;
+	font-size: 17px;
+}
+.why_register a{
+	text-decoration: none;
+}
+
+.increase_text{
+	font-size: 15px;
+}
+
+.add_post_24{
+	padding: 0px 10px 0px 10px;
+	border-radius: 3px;
+	background: #fff;
+	height: 43px;
+	font-size: 15px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	position: absolute;
+	font-family: Verdana;
+	right: 490px;
+	top: 320px;
+	border: 1px solid;
+}
+.add_post_24 a{
+	text-decoration: none;
+	color:#000;
+}
+.add_cross_24{
+	position: relative;
+	font-size: 25px;
+	padding: 2px;
+	margin-left: 0;
+	float: right;
+	top: -2px;
+	transition: all 0.7s ease-in-out;
+}
+.add_post_24:hover .add_cross_24{
+	transform: rotateY(360deg);
+}
+
+@media (orientation:portrait) and (max-width:480px){
+    .try_24_how_works, .cookies_how_works{
+        margin: 25px 0 0 0;
+    }
+}
+@media (orientation:landscape) and (max-width:900px){
+    .try_24_how_works, .cookies_how_works{
+        margin: 25px 0 0 0;
+    }
+}

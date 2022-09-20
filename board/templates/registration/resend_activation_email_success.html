@@ -1,0 +1,25 @@
+{% load static %}  
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+
+    {% if current_lang == 'uk' %}
+        <meta http-equiv="Content-Language" content="uk">
+    {% else %}
+        <meta http-equiv="Content-Language" content="ru">
+    {% endif %}
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <title>{% translate "Повторная отправка письма" %}</title>
+</head>
+<body style="background-image: initial;">
+    <h1 class="registration_greeting">{% translate "Замечательно" %}!</h1>
+    <h1 class="confirm_text">{% translate "Давайте подтвердим новое письмо счастья" %}<br> {% translate "для завершения регистрации" %}</h1>
+    <h3 class="email_not_sent">{% translate "Если письмо не пришло, посмотрите в папку" %} <span style="color: #2785d1; font-size: 14px;">{% translate "Вся почта" %}</span> {% translate "или" %} <span style="color: #c45824; font-size: 14px;">Спам</span></h3>
+</body>
+</html>

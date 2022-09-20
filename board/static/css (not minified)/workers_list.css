@@ -1,0 +1,279 @@
+/*---------------------------------------------------WORKERS  LIST------------------------------------------------------------------------*/
+.workers_greeting{
+  font-size: 25px;
+  font-weight: normal;
+  letter-spacing: -0.6px;
+  padding: 0 25px 10px 0;
+  margin-left: 120px;
+  display: block;
+}
+.dark .workers_greeting{
+  color: #fff;
+}
+.add_worker {
+  display: inline-block;
+  top: 18px;
+  position: relative;
+  height: 44px;
+  background: #45d544;
+  width: 50px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.add_worker img {
+  width: 50px;
+  height: 50px;
+}
+.line {
+  height: 0.8px;
+  width: 1500px;
+  background: #000;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 10px;
+  opacity: 0.5;
+}
+.dark .line{
+  background-color: #fdfdfd;;
+}
+
+
+
+
+.workers_field{
+  margin: 10px auto 30px 120px;
+  border: 1px solid;
+  border-radius: 10px;
+  display: block;
+  width: 600px;
+  padding-bottom: 10px;
+}
+.dark .workers_field{
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.adt_a{
+  text-decoration: none !important;
+}
+.adt_name{
+  height: 42px;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 5px 0 10px 0;
+  border-radius: 10px 10px 0 0;
+  background: #efbfbf3d;
+  margin: 0;
+}
+.adt_name img{
+  height: 30px;
+  object-fit: scale-down;
+  margin: 2px 3px 0 5px;
+}
+.adt_title{
+  position: relative;
+  color: #000;
+  font-family: Verdana;
+  bottom: 7px;
+  font-size: 13px;
+}
+.dark .adt_title, .dark .worker_li a{
+  color: #fff;
+}
+
+
+ul{
+  padding: 0;
+  margin: 0;
+}
+.worker_li{
+  list-style-type: none;
+  padding: 5px 0 5px 15px;
+  display: block;
+}
+.worker_li img{
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  top: 9px;
+  position: relative;
+}
+.worker_li a{
+  text-decoration: none;
+  color: #000;
+}
+.remove_worker{
+  font-size: 14px;
+  padding: 6px;
+  background: #00646c;
+  color: #fff;
+  border-radius: 15px;
+  margin-left: 20px;
+  cursor: pointer;
+  border: none;
+}
+.remove_worker:hover{
+  background: #005259;
+}
+
+
+
+*{
+  font-family: Verdana;
+}
+.page_title{
+  background: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+.page_title span{
+font-size: 18px;
+width: 90%;
+display: inline-block;
+}
+.come_back{
+float: left;
+}
+.arrow-back{
+border: solid black;
+border-width: 0 2px 2px 0;
+display: inline-block;
+padding: 5px;
+transform: rotate(135deg);
+-webkit-transform: rotate(135deg);
+margin-bottom: 2px;
+}
+.dark .come_back{
+color: rgb(175, 155, 155);
+}
+.dark .arrow-back{
+border: solid rgb(175, 155, 155);
+border-width: 0 2px 2px 0;
+}
+/*--------------------------------- ПЛАНШЕТ ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){
+  .main{
+    padding: 0;
+  } 
+  .workers_greeting{
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .add_worker{
+    position: relative;
+    top: 10px;
+    height: 31px;
+    width: initial;
+    margin: 0;
+  }
+  .add_worker img{
+    width: initial;
+    height: 33px;
+  }
+
+  .workers_field{
+    margin: 10px auto 30px 0;
+    border: 0.5px solid;
+    width: 100%;
+    border-radius: 5px;
+  }
+}
+@media (orientation:portrait) and (max-width:768px) and (max-height:1024px){ 	
+
+}
+@media (orientation:portrait) and (max-width:600px) and (max-height:960px){ 	
+
+}
+@media (orientation:portrait) and (max-width:540px) and (max-height:720px){ 	
+
+}
+
+/*--------------------------------- ПЛАНШЕТ ГОРИЗОНТАЛЬНО --------------------------------------*/
+@media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){
+  .main{
+    padding: 0;
+  }
+  .workers_greeting{
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .add_worker{
+    position: relative;
+    top: 10px;
+    height: 31px;
+    width: initial;
+    margin: 0;
+  }
+  .add_worker img{
+    width: initial;
+    height: 33px;
+  }
+
+  .workers_field{
+    margin: 10px auto 30px 0;
+    border: 0.5px solid;
+    width: 100%;
+    border-radius: 5px;
+  }
+}
+
+
+@media (orientation:landscape) and (max-width:1024px) and (max-height:768px){
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------- Телефон ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:480px){
+  
+}
+@media (max-width:420px){
+
+}
+@media (max-width:380px){
+
+}
+@media (max-width:360px){
+
+}
+@media (max-width:320px){
+
+}
+
+@media (max-width:280px){	
+
+}
+
+
+/*--------------------------------- Телефон Горизонтально --------------------------------------*/
+@media (orientation:landscape) and (max-width:900px){
+  
+}
+@media (orientation:landscape) and (max-width:850px){
+  
+}
+@media (orientation:landscape) and (max-width:740px){
+  
+}
+@media (orientation:landscape) and (max-width:600px){
+
+}

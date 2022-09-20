@@ -1,0 +1,173 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/ad/{{val.slug}}/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Teenwork - {{val.title}}">
+    <meta name="description" content="{{val.age}} років:{{val.rubric}}:{{val.content}}">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/ad/{{val.slug}}/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Teenwork - {{val.title}}">
+    <meta name="description" content="{{val.age}} лет:{{val.rubric}}:{{val.content}}">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/advertisement.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'css/adaptive_advertisement.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block title %} {{val.title}} - Teenwork{% endblock %}
+
+{% block content %}
+
+<div class="heart"> <a href="{% url 'account:favourite_add' val.id%}">
+    {% if user in val.favourites.all %}
+    <img src="{% static 'img/full_heart.svg'%}" alt="">
+    {% else %}
+    <img src="{% static 'img/heart.svg'%}" alt="">
+    {% endif %}
+</a> 
+</div>
+
+<div class="photo_slides">
+    <div id="arr_bck"><em class="arrow_back"></em></div> 
+    <div id="arr_frwrd"><em class="arrow_forward"></em></div>
+    <div class="slider">
+        <div class="slides">
+            <input type="radio" name="radio-btn" id="radio1" onchange="check_radio1()">
+            <input type="radio" name="radio-btn" id="radio2" onchange="check_radio2()">
+            <input type="radio" name="radio-btn" id="radio3" onchange="check_radio3()">
+
+            <div class="slide first" id="slide1">
+                <img src="{{photo_list.0}}" alt="Фото 1 {% translate 'с' %} рубрики {{val.rubric}}, {% translate 'возраст' %} - {{val.age}} {% translate 'лет' %}" id="img1">
+            </div>
+            <div class="slide" id="slide2">
+                <img src="{{photo_list.1}}" alt="Фото 2 {% translate 'с' %} рубрики {{val.rubric}}, {% translate 'возраст' %} - {{val.age}} {% translate 'лет' %}" id="img2">
+            </div>
+            <div class="slide" id="slide3">
+                <img src="{{photo_list.2}}" alt="Фото 3 {% translate 'с' %} рубрики {{val.rubric}}, {% translate 'возраст' %} - {{val.age}} {% translate 'лет' %}" id="img3">
+            </div>
+        </div>
+        <div class="navigation_manual" id="navigation_manual">
+                <label for="radio1" class="manual_btn" id="label1"></label>
+                <label for="radio2" class="manual_btn" id="label2"></label>
+                <label for="radio3" class="manual_btn" id="label3"></label>
+        </div>
+    </div>
+</div>
+
+
+<div class="info">
+    <div class="adt_info">
+        <h1 class="title">{{val.title}}</h1>
+        
+        {% if val.workers_amount %}
+        <span class="vacancies">{% translate "Свободных мест" %}: 
+            <span class="vacancies_num">
+                {% if val.workers_amount == 0 %}
+                    {% translate "мест нет" %}
+                {% else %}
+                    {{val.workers_amount}}
+                {% endif %}
+            </span>
+        </span>
+        {% endif %}
+        <span class="payment">Оплата: <span class="payment_num">{{val.price}} {{val.currency}}</span></span>
+        <span class="age">
+            {% if val.age %}
+                {% translate "Возраст" %}: <span class="_age">{{val.age}}</span> {% translate "лет" %}
+            {% else %}
+                Возраст: <span class="_age">{% translate "Все" %}</span>
+            {% endif %}
+        </span>
+        <span class="rubric">{% translate "Тип занятости" %}: {{val.rubric}}</span>
+        <a href="https://google.com.ua/maps/place/{{val.city}},+{{val.region}}/" class="city_link">{% translate "Город" %}: {{val.city}}</a>
+        {% if is_not_author %}
+        {% else %}
+        <span class="views_count">{% translate "Просмотров" %}: <span class="payment_num">{{val.views}}</span></span>
+        {% endif %}
+        <span class="published">{% translate "Опубликовано" %}: 
+            {% if time_now1 == val.published|date:"d.m.Y" %}
+                {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
+            {% elif time_now2 == val.published|date:"d.m.Y" %}
+                {% translate "Вчера" %} в {{val.published|date:"H:i"}}
+            {% else %}
+                {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="employer_info">
+        <span class="employer">
+            <span class="emp">
+                {% if val.author.pk %}
+                    {% if account.image %}
+                    <img src="/{{account.image}}" alt="{% translate 'Фото профиля' %} {{account.username}}" class="photo">
+                    {% else %}
+                    <img src="{% static 'img/user.svg' %}" alt="{% translate 'У Пользователя нет фото профиля' %}" class="photo">
+                    {% endif %}
+                {% else %}
+                    <img src="{% static 'img/user.svg'%}" alt="{% translate 'У Пользователя нет фото' %}" class="photo">
+                {% endif %}
+                <span class="name">
+                    {% if val.author.pk %}
+                        <a href="{% url 'account:account_profile' val.author.username %}">{{val.author_name}}</a>
+                    {% else %}
+                        {{val.author_name}} <span class="h24">24h</span>
+                    {% endif %}
+                </span>
+            </span>
+        </span>
+        <span class="phone_num_span">{% translate "Номер телефона" %}:</span> <span class="phone_number"">{{val.phone_number}}<span class="help_copied_phone">{% translate "Скопировано" %}</span></span>
+        {% if val.email %}
+            <span class="email_span">Email: <span class="email">{{val.email}}</span></span>
+        {% endif %}        
+        {% if is_not_author %}
+        <div class="send_message_field">
+            <form method="POST">
+                {% csrf_token %}
+                {% if current_lang == 'uk' %}
+                    <textarea rows="10" cols="45" placeholder="Написати автору..." id="txtArea" name="txtArea"></textarea>
+                {% else %}
+                    <textarea rows="10" cols="45" placeholder="Написать автору..." id="txtArea" name="txtArea"></textarea>
+                {% endif %}
+                <button type="submit" id='send_msg_btn'><img src="{% static 'img/send_msg.svg' %}" alt=""></button>
+                <!-- <button type="submit" class="send_resume" onmouseover="send_resume_show()" onmouseleave="send_resume_hide()"></button> -->
+                <!-- <span class="send_resume" onmouseover="send_resume_show()" onmouseleave="send_resume_hide()"></span> -->
+                <!-- <span class="help_send_resume">Нажав на эту кнопку, Вы сможете вкратце рассказать о себе. Попробуйте!</span> -->
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+		
+<div class="description">{{val.content|linebreaks}}</div>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+<script src="{% static 'js/advertisement.js' %}"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script> <!--ДЛЯ ТОГО, ЧТОБЫ МОЖНО БЫЛО СВАЙПАТЬ ФОТО ПРИ НАЖАТИИ-->
+
+<script>
+    var swiper = new Swiper('.slide', {
+        navigation:{
+            nextEl: '#arr_bck',
+            prevEl: '#arr_frwrd',
+        },
+    }); 
+</script>
+{% endblock %}

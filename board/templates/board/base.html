@@ -1,0 +1,195 @@
+{% load static %}  
+{% load i18n %} 
+
+
+<!DOCTYPE html>
+{% block language %}
+{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+  {% block head %}{% endblock %}
+ 
+  <meta name="robots" content="index,follow,noodp"><!-- Все поисковые системы -->
+  <meta name="googlebot" content="index,follow"><!-- Указание отдельно для Google -->
+
+  <link href="{% static 'css/style.css' %}?v=1" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/cookies_things.css' %}" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" media="(max-width: 1367px)" href="{% static 'css/adaptive_index.css' %}?v=2">
+  
+  <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+
+  {% block styles %}{% endblock %}
+</head>
+<body>
+  <div class="main">
+    <div class="test">
+      <a href="{% url 'board:index' %}"><img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы подросткам Teenwork' %}" class="logo" title="{% translate 'Teenwork - работа для подростков и не только' %}"></a>
+
+      {% get_available_languages as LANGUAGES %}
+      {% get_language_info_list for LANGUAGES as languages %}
+      <div class="langs">
+        <a href="/" class="ru">Русский</a> 
+        <input type="checkbox" name="lang_checkbox" id="lang_checkbox" value="">
+        <a href="/{{languages.1.code}}/" class="uk">Українська</a> 
+      </div>
+
+      
+      <ul class="test_ul">
+        <li>
+          <div class="account"><div class="account_icon"> <img src="{% static 'img/profile.svg' %}" alt="">
+            {% if user.is_authenticated %}
+            {{user.username}}</div>
+            <div class="dropdown-content">
+              <a href="{% url 'account:profile_edit' %}">{% translate "Открыть профиль" %}</a>
+              <a href="{% url 'account:profile' %}">{% translate "Мои объявления" %}</a>
+              <a href="{% url 'chat:show_chats' %}">{% translate "Сообщения" %}</a>
+              <a href="{% url 'account:logout' %}">{% translate "Выйти" %}</a>
+            </div>
+            {% else %}
+            <a href="{% url 'account:login' %}">{% translate "Войти в профиль" %}</a></div>
+            {% endif %}
+          </div>
+        </li>
+
+        <li>
+          <div class="telegram">
+            <div>
+              <a href="{% url 'telegram_filter:get_unique_code' %}" class="tgrm_icon"> 
+                <img src="{% static 'img/telegram.svg' %}" alt="" class="telegram_icon">
+                Bot</a></div>
+            <div class="prompt_telegram_bot">Телеграм Бот</div>
+          </div>
+        </li>
+        
+        <li>
+          <div class="add_post"><span class=add_cross>+</span><a href="{% url 'board:add' %}">{% translate "Добавить объявление" %}</a></div>
+        </li>
+
+        <li>
+          <a href="{% url 'account:favourite_list' %}" >
+            <img src="{% static 'img/full_heart.svg' %}" alt="" class="liked_posts">
+          </a>
+        </li>
+
+        <li><span class="toggle"></span></li>
+      </ul>
+    </div>
+
+  <div class="accept_cookie">
+    <div class="cookie_photo">
+        <img src="{% static 'img/cookie.svg'%}" alt="">
+    </div>
+    <span class="cookie_text">
+        {% translate "Мы будем использовать куки, чтобы запоминать Ваши предпочтения, менять тему сайта и многое полезное" %}
+    </span>
+    <div class="cookie_buttons">
+        <div class="cookie_know_more">
+            <a href="{% url 'board:about_cookies' %}"><span class="cookie_know_more_text">{% translate "Узнать больше" %}</span></a>
+        </div>
+        <button type="button" class="cookie_submit_button">{% translate "Принять" %}</button>
+    </div>
+  </div>
+
+
+  <div class="try_24h">
+    <div class="try_24h_photo">
+        <img src="{% static 'img/24h.svg'%}" alt="">
+    </div>
+    <span class="try_24h_text">
+        {% translate "Давайте опубликуем объявление без регистрации? Попробуйте, это бесплатно" %}
+    </span>
+    <div class="try_24h_buttons">
+      <button type="button" class="try_24h_submit_button">{% translate "Окей" %}</button>
+        <div class="try_24h_know_more">
+          <a href="{% url 'board:how_24h_works' %}" target="_blank"><span class="try_24h_know_more_text">{% translate "Как это работает?" %}</span></a>
+        </div>
+    </div>
+  </div>
+
+
+  {% block content %}  {% endblock %}
+
+
+
+  
+
+  
+
+<div class="bottom_navigation">
+  <ul>
+      <li class="home_nav"><a href="{% url 'board:index' %}"><img src="{% static 'img/icons/home_icon.svg' %}" alt=""><span>{% translate "Главная" %}</span></a></li>
+      <li class="search_nav"><img src="{% static 'img/icons/search_icon.svg' %}" alt=""><span>{% translate "Поиск" %}</span></li>
+      <li class="add_nav"><a href="{% url 'board:add' %}"><img src="{% static 'img/icons/add_icon.svg' %}" alt=""><span>{% translate "Добавить" %}</span></a></li>
+      <li class="fav_nav"><a href="{% url 'account:favourite_list' %}"><img src="{% static 'img/full_heart.svg' %}" alt=""><span>{% translate "Избранные" %}</span></a></li>
+      <li class="others_nav"><a href="{% url 'board:others_page' %}"><img src="{% static 'img/icons/others_icon.svg' %}" alt=""><span>{% translate "Другое" %}</span></a></li>
+  </ul>
+</div>
+<div class="main_dark_search"></div>
+<div class="adt_more_dark"></div>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script async src="{% static 'js/main_instantly.js' %}" type="text/javascript"></script>
+</div>
+<footer>
+    <div class="navigation">
+      <span>{% translate "Интересные ссылки" %}</span>
+      <ul>
+        <li><a href="{% url 'board:index' %}">{% translate "Главная" %}</a></li>
+        <li><a href="{% url 'board:add' %}">{% translate "Добавить объявление" %}</a></li>
+        <li><a href="{% url 'telegram_filter:get_unique_code' %}">Телеграм Бот</a></li>
+        <li><a href="{% url 'chat:show_chats' %}">{% translate "Ваши чаты" %}</a></li>
+        <li><a href="{% url 'account:profile' %}">{% translate "Ваши объявления" %}</a></li>
+        <li><a href="{% url 'account:profile_edit' %}">{% translate "Профиль" %}</a></li>
+      </ul>
+    </div>
+    <div class="other">
+      <span>{% translate "Почитать на досуге" %}</span>
+      <ul>
+        <li><a href="{% url 'board:for_employers' %}">{% translate "Для работодателей" %}</a></li>
+        <li><a href="{% url 'board:privacy_policy' %}">{% translate "Политика конфиденциальности" %}</a></li>
+        <li><a href="{% url 'board:website_rules' %}">{% translate "Правила сайта" %}</a></li>
+        <li><a href="{% url 'board:lawbook' %}">{% translate "Официальное трудоустройство молодёжи" %}</a></li>
+        <br>
+        <li><a href="{% url 'board:how_24h_works' %}">{% translate 'Как работает "Публикация на 24ч"' %}</a></li>
+        <li><a href="{% url 'board:about_cookies' %}">{% translate "Cookies (надкусанное печенье)" %}</a></li>
+        <li><a href="{% url 'account:tw_blog' %}">Наш блог</a></li>
+      </ul>
+    </div>
+    <div class="contacts">
+      <span>{% translate "Контакты" %}</span>
+      <ul>
+        <li><a href="tel:+380(67)-421-63-64" style="color:inherit; text-decoration:none;">+380(67)-421-63-64</a></li>
+        <li>{% translate "Идеи, замечания пишите сюда:" %}</li>
+        <li>help@teenwork.com.ua</li>
+        <li>Telegram: teenwork_ua</li>
+      </ul>
+      <span style="margin-top: 15px;">{% translate "Присоединяйтесь к нам" %}</span>
+      <ul>
+        <li>Inst: @teenwork_ua</li>
+      </ul>
+    </div>
+    <div class="about">
+      <span class="footer_about_span">Про нас</span>
+      <span class="footer_about">
+        {% translate "Teenwork - платформа, где подростки и не только могут найти работу, которая им по душе." %}
+        <br>
+        <a href="{% url 'board:about_us' %}" style="color: inherit;">Узнать ещё</a>
+        <br>
+        <br>
+        &#169;2022 Teenwork
+      </span>
+    </div>
+  </footer>
+</body>
+    
+  <script src="{% static 'js/adaptive_index.js' %}" type="text/javascript"></script>
+  <script async src="{% static 'js/script.js' %}" type="text/javascript"></script>
+  {% block scripts %}{% endblock %}
+</html>

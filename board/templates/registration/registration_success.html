@@ -1,0 +1,48 @@
+{% load static %}
+{% load i18n %} 
+
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <style>
+      @media (orientation:landscape) and (max-width:900px){
+        .envelope{
+          width: 100%;
+        }
+      }
+      @media (orientation:portrait) and (max-width:480px){
+        .envelope{
+          width: 100%;
+        }
+      }
+    </style>
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+
+    <title>{% translate "Подтвердите письмо регистрации" %}</title>
+</head>
+<body style="background-image: initial;">
+
+    <p><a href="{% url 'board:index' %}" class="come_back"><i class="arrow-back"></i>{% translate "Вернуться на главную" %}</a></p>
+
+    <h1 class="registration_greeting">{% translate "Ура, теперь Вы с нами" %}!</h1>
+    <h1 class="confirm_text">{% translate "Давайте подтвердим письмо счастья" %}<br> {% translate "для завершения регистрации" %}</h1>
+    <h3 class="email_not_sent">{% translate "Письмо не пришло? Нажмите" %} <a href="{% url 'account:resend_activation_email' %}">{% translate "сюда" %}</a></h3>
+    <h3 class="email_not_sent">{% translate "Также посмотрите в папку" %} <span style="color: #2785d1; font-size: 14px;">{% translate "Вся почта" %}</span> {% translate "или" %} <span style="color: #c45824; font-size: 14px;">Спам</span></h3>
+    <ul style="font-weight: normal; text-align: center;list-style: none;margin: 0; padding: 0;">{% translate "Если будут вопросы или проблемы, обращайтесь к нам в:" %}
+      <li style="margin-top: 5px;">Телеграм: @teenwork_ua</li>
+      <li style="margin-top: 5px;">Вайбер: +380(67)421-63-64</li>
+    </ul>
+
+    <div class="envelope">
+      <span class="from">{% translate "От" %}: Teenwork</span>
+      <img src="{% static 'img/registration_envelope.svg' %}" alt="{% translate 'Конверт - символ Teenwork прихода письма счастья' %}">
+      <span class="to">Кому: {{email}}</span>
+    </div>
+</body>
+</html>

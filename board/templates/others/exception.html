@@ -1,0 +1,36 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Teenwork Помилка">
+    <meta name="description" content="Сталася непередбачена помилка, варто спробувати ще раз.">
+    {% else %}
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Teenwork Ошибка">
+    <meta name="description" content="Случилась непредвиденная ошибка, стоит попробовать ещё раз.">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/error_pages.css' %}">
+{% endblock %}
+
+{% block title %} Teenwork {% translate "ошибка" %}{% endblock %}
+
+{% block content %}  
+    <h1 class="h1_error">Teenwork {% translate "ошибка, попробуйте ещё раз" %}</h1>
+    <h3 class="h3_error"></h3>
+    <span class="span_error"><a a href="#" onclick="event.preventDefault();history.back();">< {% translate "Вернуться назад" %}</a></span>
+
+    <div class="quote">
+        <div class="quote_text">{{quote}}</div>
+        <div class="quote_author">{{author}}</div>
+    </div>
+{% endblock %}

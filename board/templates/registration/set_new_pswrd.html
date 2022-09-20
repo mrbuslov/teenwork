@@ -1,0 +1,37 @@
+{% load static %}  
+
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <title>{% translate "Новый пароль" %}</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'account:set_new_pswrd' uidb64 token %}">
+        {% csrf_token %}
+        <div class="box">
+            <h1>{% translate "Введите новый пароль" %}</h1>	
+            <div class="input_textbox">
+                <input type="password" id="password" name="password" required=""><br>
+                <label>Password</label>	
+                <div id="show_psswrd" onclick="show_password_eye_registr()"></div>
+            </div>		    
+            <button type="submit" class="button login" onclick="this.classList.add('button_loading')">
+                <span class="button_text">{% translate "Окей" %}</span>
+            </button>
+        </div>
+    </form>
+
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/main_instantly.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+</html>

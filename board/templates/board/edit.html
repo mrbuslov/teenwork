@@ -1,0 +1,121 @@
+{% load static %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+
+    {% if current_lang == 'uk' %}
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Змінити оголошення на Teenwork">
+    <meta name="description" content="Змінити постійне оголошення на Teenwork, щоб актуалізувати інформацію.">
+    {% else %}
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Змінити объявление на Teenwork">
+    <meta name="description" content="Змінити объявление на Teenwork, чтобы актуализировать информацию.">
+    {% endif %}
+    
+    <link href="{% static 'css/add.css' %}" type="text/css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    
+    <script async src="{% static 'js/add.js' %}?v=1"></script>
+    <script async src="{% static 'js/advertisement.js' %}"></script>
+    
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <title>{% translate "Изменить объявление" %}</title>
+</head>
+<body>
+<div class="main">
+  <div class="add_header">
+    <p><a href="{% url 'board:index' %}" class="come_back"><i class="arrow-back"></i>{% translate "Вернуться на главную" %}</a></p>
+
+    <h1 class="add_header_h1">{% translate "Давайте изменим объявление" %}</h1>
+  </div>
+
+<form method = "POST" action="{% url 'board:edit' pk=pk %}" enctype="multipart/form-data" id="boardForm" data-branches-url="{% url 'board:ajax_load_branches' %}" novalidate autocomplete="off">
+  {% csrf_token %}
+<div class="add_border_ad">
+  <p class="border_name_ad">{% translate "Заполним все поля" %}</p>
+  <div class="adt">
+    <div class="container">
+        <div class="adt_image">
+          {% if photo_list.1 %}
+            <div id="arr_bck"><em class="arrow_back"></em></div> 
+            <div id="arr_frwrd"><em class="arrow_forward"></em></div>
+          {% endif %}
+            <div class="slider">
+                <div class="slides">
+                    <input type="radio" name="radio-btn" id="radio1" onchange="check_radio1()">
+                    <input type="radio" name="radio-btn" id="radio2" onchange="check_radio2()">
+                    <input type="radio" name="radio-btn" id="radio3" onchange="check_radio3()">
+
+                    <div class="slide first" id="slide1">
+                        <img src="{{photo_list.0}}" alt="{% translate 'Фото 1 Вашего объявления' %}" id="img1">
+                    </div>
+                    <div class="slide" id="slide2">
+                        <img src="{{photo_list.1}}" alt="{% translate 'Фото 2 Вашего объявления' %}" id="img2">
+                    </div>
+                    <div class="slide" id="slide3">
+                        <img src="{{photo_list.2}}" alt="{% translate 'Фото 3 Вашего объявления' %}" id="img3">
+                    </div>
+                </div>
+                <div class="navigation_manual" id="navigation_manual">
+                        <label for="radio1" class="manual_btn" id="label1"></label>
+                        <label for="radio2" class="manual_btn" id="label2"></label>
+                        <label for="radio3" class="manual_btn" id="label3"></label>
+                    </div>
+            </div>
+        </div>
+
+        
+        <span maxlength="70" required>{{form.title}}</span>
+        <span maxlength="10" required>{{form.price}} {{form.currency}}</span>
+        <br>
+        <span class="adt_age">Возраст: {{form.age}} лет.</span>
+        <br>
+        <span class="select_span">{{form.rubric}}</span>
+        <br>
+        <span class="select_span">{{form.region}} {{form.city}}</span>
+        <div class="heart"><img src="{% static 'img/full_heart.svg'%}" style="width: 21px;height: 20px;" id="heart_image_1" alt=""></div>
+    </div>
+    <span class="workers_num">{% translate "Сколько Вам нужно человек" %} <span class="unnecessary">{% translate "(необяз.)" %}</span> : {{form.workers_amount}}</span>  
+  </div>
+</div>
+
+<div class="add_border_desc">
+  <p class="border_name_ad">{% translate "Опишем Вашу работу" %}</p>
+  {{form.content}}
+  <span class="desc_count">0/5000</span>
+</div>
+
+<div class="add_border_author">
+  <p class="border_name_ad">{% translate "Немного расскажите о себе" %}</p>
+  <div class="author_container">
+    <p class="contacts_author_name_text">{% translate "Как можно к Вам обращаться?" %}</p>
+    {{form.author_name}}
+    <p class="contacts_phone_number_text">{% translate "Ваш номер телефона" %}</p>
+    {{form.phone_number}}
+    <p class="contacts_email_text">Ваш e-mail</p>
+    {{form.email}}
+  </div>
+  {% if current_lang == 'uk' %}
+      <input type="submit" name="submit" value="Змінити" class="submit_button"/>
+  {% else %}
+    <input type="submit" name="submit" value="Изменить" class="submit_button"/>
+  {% endif %}
+</div>
+
+</form>
+</div>
+</body>
+    
+
+
+</html>

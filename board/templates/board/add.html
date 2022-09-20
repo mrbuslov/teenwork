@@ -1,0 +1,152 @@
+{% load static %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+    <link href="{% static 'css/add.css' %}" type="text/css" rel="stylesheet">
+
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/add/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Додати постійне оголошення на Teenwork">
+    <meta name="description" content="Додати постійне оголошення на Teenwork, щоб потенційні працівники знайшли Вас.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/add/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Добавить постоянное объявление на Teenwork">
+    <meta name="description" content="Добавить постоянное объявление на Teenwork, чтобы потенциальные работники нашли Вас.">
+    {% endif %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <link href="{% static 'css/adaptive_add.css' %}" type="text/css" rel="stylesheet"  media="(max-width: 1367px)">
+    <link href="{% static 'css/adaptive_add_.css' %}" type="text/css" rel="stylesheet">
+
+    
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <title>{% translate "Добавить объявление" %} на Teenwork</title>
+</head>
+<body>
+<div class="main">
+
+  <div class="page_title">
+    <a href="#" onclick="event.preventDefault();history.back();" class="come_back"><em class="arrow-back"></em></a>
+    <span>{% translate "Добавить объявление" %}</span>
+  </div>
+
+  <div class="add_header">
+    <p><a href="{% url 'board:index' %}" class="come_back"><i class="arrow-back"></i>{% translate "Вернуться на главную" %}</a></p>
+
+    <h1 class="add_header_h1">{% translate "Давайте добавим объявление" %}</h1>
+    {% if not_registered %}
+    <h3 class="add_header_h2">{% translate "Это объявление будет активным" %} <strong>24</strong> {% translate "часа, и потом мы, к сожалению, его удалим" %}. <br>
+      {% translate "Для публикации" %} <strong>{% translate "постоянных" %}</strong> {% translate "объявлений нужно" %} <a href="{% url 'account:registration' %}">{% translate "бесплатно зарегистрироваться" %} <i class="arrow-forward"></i></a> .</h3>
+    {% endif %}
+  </div>
+
+  <form method="POST" id="ajax">
+    {% csrf_token %}
+
+    <div class="add_border">
+      <div class="add_border_name">
+        <p class="border_name">{% translate "Для начала загрузим до 3-х фото" %}</p>	
+        <label for="img_upload" class="upload_button">
+          <img src="{% static 'img/upload.svg' %}" alt="{% translate 'Кнопка для загрузки фото' %}">
+        </label>
+      </div>
+        
+      <input type="file" name="img" multiple max="3" id="img_upload" accept="image/*"/>
+      <div class='photos'>
+        <div class='photo' id="photo1"><p class="photo_text">+</p></div>
+        <div class='photo' id="photo2"><p class="photo_text">+</p></div>
+        <div class='photo' id="photo3"><p class="photo_text">+</p></div>
+      </div>
+      <div class='cloned_photos' id='cloned_photos'></div>
+      <div class="help_image_text">{% translate "Вы можете поменять порядок изображений" %} <br> {% translate "Первое будет главным на странице" %}</div>
+    </div>    
+  </form>
+
+
+
+
+
+  <form method = "POST" action="{% url 'board:add' %}" enctype="multipart/form-data" id="boardForm" data-branches-url="{% url 'board:ajax_load_branches' %}" novalidate autocomplete="off">
+    {% csrf_token %}
+    <div class="add_border_ad">
+      <p class="border_name_ad">{% translate "Заполним все поля" %}</p>
+      <div class="adt">
+        <div class="container">
+          <div class="adt_image"><div class="image-text">{% translate "Здесь" %} <br> {% translate "будет" %} <br>фото</div></div>
+          <span maxlength="70" required>{{form.title}}</span>
+          <span maxlength="10" required class="sal_span">{{form.price}} {{form.currency}}</span>
+          <br>
+          <span class="adt_age">{% translate "Возраст" %}: {{form.age}} {% translate "лет" %}.</span>
+          <br>
+          <span class="select_span">{{form.rubric}}</span>
+          <br>
+          <span class="select_span">{{form.region}} {{form.city}}</span>
+          <div class="heart"><img src="{% static 'img/full_heart.svg'%}" id="heart_image_1" alt=""></div>
+        </div>
+        <span class="workers_num">{% translate "Сколько Вам нужно человек" %} <span class="unnecessary">{% translate "(необяз.)" %}</span> : {{form.workers_amount}}</span>  
+      </div>
+    </div>
+
+    <div class="add_border_desc">
+      <p class="border_name_ad">{% translate "Опишем Вашу работу" %}</p>
+      {{form.content}}
+      <span class="desc_count">0/5000</span>
+    </div>
+
+    <div class="add_border_author">
+      <p class="border_name_ad">{% translate "Немного расскажите о себе" %}</p>
+      <div class="author_container">
+        <p class="contacts_author_name_text">{% translate "Как можно к Вам обращаться?" %}</p>
+        {{form.author_name}}
+        <p class="contacts_phone_number_text">{% translate "Ваш номер телефона" %}</p>
+        {{form.phone_number}}
+        <p class="contacts_email_text">Ваш e-mail <span style="font-size: 14px;">{% translate "(необяз.)" %}</span></p>
+        {{form.email}}
+      </div>
+      <div class="create_adt_input">
+        <input type="hidden" name="photo1_src" id="photo1_src"/>
+        <input type="hidden" name="photo2_src" id="photo2_src"/>
+        <input type="hidden" name="photo3_src" id="photo3_src"/>
+
+        <input type="hidden" name="photo1_pos" id="photo1_pos"/>
+        <input type="hidden" name="photo2_pos" id="photo2_pos"/>
+        <input type="hidden" name="photo3_pos" id="photo3_pos"/>
+
+        <button type="submit" name="submit"  class="submit_button">{% translate "Добавить" %}</button>
+      </div>
+    </div>
+  </form>
+
+    {% if not_registered %}
+    <h4 class="add_header_h4">{% translate "Опубликовывая объявления на teenwork.com.ua, Вы разрешаете администрации сайта собирать и обрабатывать Ваши личные данные в соответствии с " %} 
+      <a href="{% url 'board:privacy_policy' %}">{% translate "Политикой конфиденциальности" %}</a> {% translate "и" %} <a href="{% url 'board:website_rules' %}">{% translate "Правилами сайта" %}</a></h4>
+    {% endif %}
+</div>
+
+
+<div class="bottom_navigation">
+  <ul>
+    <li class="home_nav"><a href="{% url 'board:index' %}"><img src="{% static 'img/icons/iglo_icon.svg' %}" alt=""><span>{% translate "Главная" %}</span></a></li>
+    <li class="search_nav"><img src="{% static 'img/icons/search_icon.svg' %}" alt=""><span>{% translate "Поиск" %}</span></li>
+    <li class="add_nav"><a href="{% url 'board:add' %}"><img src="{% static 'img/icons/add_icon.svg' %}" alt=""><span>{% translate "Добавить" %}</span></a></li>
+    <li class="fav_nav"><a href="{% url 'account:favourite_list' %}"><img src="{% static 'img/full_heart.svg' %}" alt=""><span>{% translate "Избранные" %}</span></a></li>
+    <li class="others_nav"><a href="{% url 'board:others_page' %}"><img src="{% static 'img/icons/others_icon.svg' %}" alt=""><span>{% translate "Другое" %}</span></a></li>
+  </ul>
+</div>
+
+
+
+<script src="{% static 'js/add.js' %}?v=1"></script>
+</body>
+
+</html>

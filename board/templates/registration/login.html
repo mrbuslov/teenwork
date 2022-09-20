@@ -1,0 +1,64 @@
+{% load static %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+    <link href="{% static 'css/registration.css' %}" type="text/css" rel="stylesheet">
+
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/login/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Вхід на Teenwork">
+    <meta name="description" content="Увійдіть у профіль, щоб переглядати та створювати постійні оголошення.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/login/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Вход на Teenwork">
+    <meta name="description" content="Войдите в профиль, чтобы просматривать и создавать постоянные объявления.">
+    {% endif %}
+    
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+    <title>{% translate "Вход" %} на Teenwork</title>
+</head>
+<body>
+    <div class="main">
+    <div class="box">
+        <h1>{% translate "Вход" %}</h1>
+
+        <form method="post" action="{% url 'account:login' %}" id="loginForm"> 
+            {% csrf_token %}
+            <div class="input_textbox">
+                <input type="text" name="username" required="" autofocus id="email_login" autocapitalize="off"><br>
+                <label>{% translate "Телефон, имя пользователя или email" %}</label>
+                <span id="email_error_text"></span>
+            </div>
+            <div class="input_textbox">
+                <input type="password" id="password" name="password" required=""><br>
+                    <label>Пароль</label>	
+                    <div id="show_psswrd" onclick="show_password_eye()">
+                    </div>
+            </div>		    
+
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% endif %}
+
+            <button type="submit" class="button" onclick="this.classList.add('button_loading')">
+                <span class="button_text">{% translate "Войти" %}</span>
+            </button>
+            <p class="go_to_register">{% translate "Вы ещё не с нами?" %} <a href="{% url 'account:registration' %}">{% translate "Зарегистрироваться" %}</a></p>
+            <p class="forgot_password"><a href="{% url 'account:reset_email' %}">{% translate "Забыли пароль?" %}</a></p>
+        </form>
+        <p class="registr_privacy">{% translate "Спасибо, что прочитали" %} <a href="{% url 'board:privacy_policy' %}">{% translate "Политику конфиденциальности" %}</a> {% translate "и" %} <a href="{% url 'board:website_rules' %}">{% translate "Правила сайта" %}</a></p>
+    </div>
+    </div>
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/main_instantly.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+</html>

@@ -1,0 +1,185 @@
+{% extends 'board/base.html' %}
+{% load static %}
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/by/{{requested_user.username}}/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Профіль {{requested_user.username}} на Teenwork">
+    <meta name="description" content="Це профіль нашого користувача {{requested_user.username}}.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/by/{{requested_user.username}}/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Профиль {{requested_user.username}} на Teenwork">
+    <meta name="description" content="Это профиль нашего пользователя {{requested_user.username}}">
+    {% endif %}
+{% endblock %}
+
+{% block title %} {% translate "Профиль" %} {{requested_user.username}} на Teenwork{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile_account.css' %}">
+<link rel="stylesheet" href="{% static 'css/adaptive_profile_account.css' %}">
+
+<style>
+    .adt_salary, .adt_age, .adt_rubric, .adt_created{
+        display: initial;
+    }
+    @media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){
+        .container{
+            height: 287px;
+        }
+        .adt_created{
+            float: initial;
+        }
+        .adt_n{
+            font-size: initial;
+        }
+        .adt_image{
+            max-height: 150px;
+        }
+        .heart{
+            top: -83%;
+        }
+    }
+    @media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){
+        .container{
+            height: 287px;
+        }
+        .adt_created{
+            float: initial;
+        }
+        .adt_n{
+            font-size: initial;
+        }
+        .adt_image{
+            max-height: 150px;
+        }
+        .heart{
+            top: -83%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="greeting" style="font-weight: normal; font-size: 24px;">{% translate "Вы сейчас на профиле" %} 
+    {% if requested_user.first_name and requested_user.last_name %}
+        {{requested_user.first_name}} {{requested_user.last_name}}
+    {% elif requested_user.first_name %}
+        {{requested_user.first_name}}
+    {% elif requested_user.last_name %}
+        {{requested_user.last_name}}
+    {% else %}
+        {{requested_user.username}}
+    {% endif %}
+    {% if requested_user.is_official %}
+        <div class="tick">
+            <div class="tick_right"></div>
+            <div class="tick_left"></div>
+        </div>
+        <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+    {% endif %}
+</h1>
+
+<div class="line"></div>
+
+<span id="adt_header" style="display:block;">{% translate "Объявления" %}:</span>
+
+<div class="adt_container"> 
+{% for val in board_obj %}
+<div class="adt">
+    <div class="container">
+        <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
+            <img class="adt_image" src="{{val.image1.url}}" alt="{{val.rubric}}:{{val.title}}">	
+            <span class="adt_name"> <span class="adt_n">{{val.title}}</span> 
+                {% if val.author.is_official %}
+                    <div class="tick">
+                        <div class="tick_right"></div>
+                        <div class="tick_left"></div>
+                    </div>
+                    <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+                {% endif %}
+            </span> 
+        </a>
+        <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
+        <br>
+        {% if val.age %}
+        <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} {% translate "лет" %}.</span>
+        {% else %}
+            <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
+        {% endif %}
+        <br>
+        <span class="adt_rubric">{{val.rubric}}</span>
+        <br>
+        <span class="adt_city">{{ val.city }}</span>
+        <br>
+        <span class="adt_created">
+            {% if time_now1 == val.published|date:"d.m.Y" %}
+                {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
+            {% elif time_now2 == val.published|date:"d.m.Y" %}
+                {% translate "Вчера" %} в {{val.published|date:"H:i"}}
+            {% else %}
+                {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
+            {% endif %}
+        </span>
+        <div class="heart"> <a href="{% url 'account:favourite_add' val.id%}">
+            {% if requested_user in val.favourites.all %}
+            <img src="{% static 'img/full_heart.svg'%}" alt="">
+            {% else %}
+            <img src="{% static 'img/heart.svg'%}" alt="">
+            {% endif %}
+        </a> 
+        </div>
+
+        <div class="adt_more_info">
+            <div class="adt_arrow_down_div"><em class="adt_arrow_down"></em></div> 
+            <div class="adt_info">
+                <div id="close_adt_more_info">+</div>
+                <div class="adt_author_info">
+                    <span class="name">
+                        {% if val.author.pk %}
+                            <a href="{% url 'account:account_profile' val.author.username %}">{{val.author_name}}</a>
+                        {% else %}
+                            {{val.author_name}} <span style="color: white; padding: 3px; background: #06b006; border-radius: 5px;">24h</span>
+                        {% endif %}
+                    </span>
+                    <span class="phone_n_span">{% translate "Номер телефона" %}:<span class="phone_number"">{{val.phone_number}}</span></span> 
+                    <span class="email_span">Email: <span class="email">{{val.email}}</span></span>            
+                </div>
+                <div class="adt_content">{{val.content|linebreaks}}</div> 
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+    <h3 class="empty_list">{% translate "Пока что объявлений нет, давайте" %} <a href="{% url 'board:index' %}?open_search">{% translate "поищем" %} <i class="arrow-forward"></i></a></h3>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        document.querySelector('.greeting').style.fontSize = '22px';
+        document.querySelector('.greeting').style.margin = '0';
+        document.querySelector('.greeting').style.textAlign = 'center';
+        document.querySelector('.greeting').style.padding = '25px 0px 10px 0';
+
+        document.querySelector('.line').style.height = '0.8px';
+        document.querySelector('.line').style.width = '1500px';
+        document.querySelector('.line').style.margin = 'auto';
+        document.querySelector('.line').style.marginTop = '10px';
+        document.querySelector('.line').style.opacity = '0.5';
+        document.querySelector('.line').style.background = '#000';
+
+        document.querySelector('.adt_container').style.textAlign = 'initial';
+    });
+</script>
+{% endblock %}

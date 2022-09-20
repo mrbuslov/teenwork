@@ -1,0 +1,60 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+  <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/how_24h_works/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Оголошення на 24 години">
+    <meta name="description" content="Як можна опублікувати пробне оголошення без реєстрації.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/how_24h_works/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Объявление на 24 часа">
+    <meta name="description" content="Как можно опубликовать пробное объявление без регистрации.">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/cookies_things.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} {% translate "Объявление на 24 часа" %} - Teenwork {% endblock %}
+{% block content %}  
+
+<div class="try_24_how_works">
+    <h3 class="try_24h_greeting">{% translate "Здравствуйте" %}!</h3>
+    <span class="try_24h_text2">
+      {% translate "Мы поняли, что Вас заинтересовала данная тема касательно публикации объявлений без регистрации" %}. <br>
+      {% translate "Это интересная новинка, которую мы решили ввести на сайте, чтобы Вы смогли больше узнать о нас" %}.<br>
+      {% translate "Также нам важно, чтобы Вы остались в приятном впечатлении от пребывания здесь" %})<br>
+    </span>
+    <span class="try_24h_how_it_works">
+      <h1 style="font-size: 19px;">{% translate "И всё же, как это работает" %}?</h1>
+      <span class="text">
+        {% translate "Вы можете подать" %} <span class="increase_text">2</span> {% translate "объявления о Ваших вакансиях без регистрации на сайте, просто нажав эту кнопку" %} <div class="add_post_24"><span class="add_cross_24">+</span><a href="{% url 'board:add' %}">{% translate "Добавить объявление" %}</a></div><br>
+        {% translate "Ваши объявления будут на сайте" %} <span class="increase_text">{% translate "24 часа" %}</span>, {% translate "то есть одни сутки, после чего удалятся" %}.<br>
+        {% translate "Когда Вы привыкните к сайту, Вам понравится работать с нами, Вы можете перейти к регистрации, чтобы подать больше объявлений" %}.<br>
+        {% translate "Мы всегда рады Вам" %}!)<br>
+      </span>
+    </span>
+    <span class="why_register">
+      <h3>{% translate "Зачем Вам нужна регистрирация" %}?</h3>
+      <span class="text">
+        {% translate "Расслабьтесь, мы не будем передавать Ваши данные Пентагону" %} :)<br>
+        {% translate "Регистрация нужна исключительно в положительном русле - мы сможем давать Вашим работникам, как и работодателям, связь друг с другом" %}.<br>
+        {% translate "Вы сможете договариваться друг с другом о встречах. Если Вы работодатель, сможете вести" %} <span class="increase_text"><a href="{% url 'chat:workers_list' %}">{% translate "учёт" %}</a></span> {% translate "нанятых работников по каждому объявлению(Мои объявления -> Принятые на работу)" %}.<br>
+        {% translate "Также важная особенность нашего сервиса - использование" %} <span class="increase_text"><a href="{% url 'telegram_filter:get_unique_code' %}">Телеграм Бота</a></span>. В <a href="{% url 'account:profile_edit' %}?tel" class="increase_text">{% translate "настройках" %}</a> {% translate "Вы сможете задать нужные требования боту, какие объявления хотите получать. После публикации Вам сразу приходит письмо" %} "{% translate "счастья" %}" {% translate "в Ваш Телеграм со" %} "{% translate "свежеиспечённым" %}" {% translate "объявлением" %}.<br>
+      </span>
+    </span>
+    <span class="thanks">
+      {% translate "Спасибо, что Вы с нами" %}! <br>
+      {% translate "Мы неустанно трудимся, чтобы Вам было комфортно работать как и с нами, так и с новыми людьми" %})<br>
+    </span>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'board/base.html' %}
+{% load static %}
+{% load i18n %} 
+
+{% block language %}
+    <html lang="{{current_lang}}">
+{% endblock %}
+
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/profile/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Мій профіль на Teenwork">
+    <meta name="description" content="Ви можете змінити публікації – видалити, архівувати або змінити вміст.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/profile/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Мой профиль на Teenwork">
+    <meta name="description" content="Вы можете изменить публикации - удалить, архивировать или поменять содержимое.">
+    {% endif %}
+{% endblock %}
+
+{% block title %} {% translate "Профиль" %} на Teenwork {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile_account.css' %}">
+<link rel="stylesheet" href="{% static 'css/adaptive_profile_account.css' %}">
+{% endblock %}
+{% block content %}
+
+<h1 class="greeting">
+    {% translate "Здравствуйте" %}, {% if user.first_name and user.last_name %}
+        {{user.first_name}} {{user.last_name}}
+    {% elif user.first_name %}
+        {{user.first_name}}
+    {% elif user.last_name %}
+        {{user.last_name}}
+    {% else %}
+        {{user.username}}
+    {% endif %}
+    )
+    {% if user.is_official %}
+        <div class="tick">
+            <div class="tick_right"></div>
+            <div class="tick_left"></div>
+        </div>
+        <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+    {% endif %}
+</h1>
+<div class="list">
+    <ul>
+        <li><a href="{% url 'chat:show_chats' %}" class="list_a"><img src="{% static 'img/messages.svg' %}" alt="" class="sms">{% translate "Сообщения" %}</a></li>
+        <li><a href="{% url 'account:profile_edit' %}" class="list_a"><img src="{% static 'img/profile_others.svg' %}" alt="" class="sett">{% translate "Настройки" %}</a></li>
+        <li><a href="{% url 'account:profile_edit' %}?tel" class="list_a" id="telegram_a"><img src="{% static 'img/telegram_others.svg' %}" alt="" class="tel">Телеграм Бот</a></li>
+        <li><a href="{% url 'chat:workers_list' %}" class="list_a"><img src="{% static 'img/hired.svg' %}" alt="" class="workers">{% translate "Принятые на работу" %}</a></li>
+
+    </ul>
+</div>
+
+<div class="line"></div>
+
+<span id="adt_header">{% translate "Ваши объявления" %}:</span>
+
+{% for val in board_obj %} 
+<div class="profile_adt">
+    {% if val.status == 'archive' %}
+    <div class="adt archive">
+    {% elif val.status == 'edited'  or val.status == 'draft' %}
+    <div class="adt edited">
+    {% else %}
+    <div class="adt">
+    {% endif %}
+        <div class="container">
+            <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
+                <img class="adt_image" src="{{val.image1.url}}" alt="{{val.rubric}}:{{val.title}}">	
+                <span class="adt_name">{{val.title}}</span>
+            </a>
+            <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
+            <br>
+            {% if val.age %}
+                <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} лет.</span>
+            {% else %}
+                <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
+            {% endif %}
+            <br>
+            <span class="adt_rubric">{{ val.rubric }}</span>
+            <br>
+            <span class="adt_created">
+                {% if time_now1 == val.published|date:"d.m.Y" %}
+                    {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
+                {% elif time_now2 == val.published|date:"d.m.Y" %}
+                    {% translate "Вчера" %} в {{val.published|date:"H:i"}}
+                {% else %}
+                    {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
+                {% endif %}
+            </span>
+            <div class="buttons">
+                <span class="edit_btn"><a href="{% url 'board:edit' pk=val.pk %}">{% translate "Изменить" %}</a></span>
+                <span class="archive_btn"><a href="{% url 'board:archive' pk=val.pk %}">{% translate "В архив" %}</a></span>
+                <span class="delete_btn">{% translate "Удалить" %}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop_delete_adt">
+        <div class="delete_adt_content">
+            <div class="close_pop_delete_adt">+</div>
+            <form method = "POST" action="{% url 'board:delete' pk=val.pk %}">
+                <h2 class="h2_delete_adt">{% translate "Удалить" %} <div>"{{val.title}}"?</div></h2>
+                {% csrf_token %}
+                <input type="submit" value='{% translate "Удалить" %}'  class="delete_adt_btn" style="background: #ff0000;">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% empty %}
+    <h3 class="empty_list" style="text-align: center; margin-left: 0;">{% translate "Пока что у Вас объявлений нету, поэтому давайте предложим" %} <a href="{% url 'board:add' %}">
+        {% translate "Добавить объявление" %} <i class="arrow-forward"></i></a></h3>
+    <div style="width:300px; text-align: center; margin: auto;">
+        <img src="{% static 'img/my_ads_empty.svg' %}" alt="Нажмите на сердечко вверху объявления, чтобы добавить в 'Избранные'" style="max-width: 60%;">
+    </div>
+{% endfor %}
+<div style="position: relative; width: 100%; height: 50px;"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/profile_edit.js' %}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block language %}
+  <html lang="{{current_lang}}">
+{% endblock %}
+
+{% block head %}
+    {% if current_lang == 'uk' %}
+    <link rel="canonical" href="https://teenwork.com.ua/uk/how_24h_works/">
+    <meta http-equiv="Content-Language" content="uk">
+    <meta name="subject" content="Оголошення на 24 години">
+    <meta name="description" content="Як можна опублікувати пробне оголошення без реєстрації.">
+    {% else %}
+    <link rel="canonical" href="https://teenwork.com.ua/how_24h_works/">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="subject" content="Объявление на 24 часа">
+    <meta name="description" content="Как можно опубликовать пробное объявление без регистрации.">
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/cookies_things.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Про Cookies {% endblock %}
+{% block content %}  
+
+<div class="cookies_how_works">
+  <img src="{% static 'img/cookie.svg' %}" alt="">
+  <span>
+    {% translate "Наш сервис использует Cookies (куки). Это небольшие по размеру файлы с данными, расположенные на устройстве пользователя, которые не представляют угрозу и помогают запоминать Ваши предпочтения, такие как: выбор темы сайта, языка и.т.д. Полный перечень Вы можете увидеть, перейдя в консоль разработчика -> Application -> Cookies -> дальше из выпавшего меню выбираете сервис Teenwork и просматриваете" %}.
+  </span>
+  <span>{% translate "Информация взята из" %} <a href="{% url 'board:privacy_policy' %}">{% translate "Политики Конфиденциальности" %}</a> {% translate "веб-сервиса" %} Teenwork (п. 3.1.)</span>
+</div>
+{% endblock %}

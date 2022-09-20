@@ -1,0 +1,25 @@
+{% load static %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="{{current_lang}}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
+
+    <title>{% translate "Успешно отписались от рассылки" %}</title>
+</head>
+<body style="background-image: initial;">
+
+    <p><a href="{% url 'board:index' %}" class="come_back"><i class="arrow-back"></i>{% translate "Вернуться на главную" %}</a></p>
+
+    <h1 class="registration_greeting">{% translate "Вы отписались от рассылки" %}</h1>
+    <ul style="font-weight: normal; text-align: center;list-style: none;margin: 0; padding: 0;">{% translate "Если Вы захотите получать нашу рассылку, обращайтесь к нам в:" %}
+        <li style="margin-top: 5px;">Телеграм: @teenwork_ua</li>
+        <li style="margin-top: 5px;">Вайбер: +380(67)421-63-64</li>
+      </ul></body>
+</html>
