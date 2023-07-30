@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/lawbook/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Закони України - Teenwork">
-    <meta name="description" content="Як можна влаштуватися працювати офіційно підлітку.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/lawbook/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Законы Украины - Teenwork">
-    <meta name="description" content="Как можно устроиться на работу официально подростку.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Законы Украины' %} - Teenwork">
+    <meta name="description" content="{% translate 'Как можно устроиться на работу официально студенту.' %}">
 {% endblock %}
 
 {% block title %}{% translate "КЗОТ УКРАИНЫ ГЛАВА 13-14 ТРУД МОЛОДЁЖИ" %}{% endblock %}

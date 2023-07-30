@@ -1,12 +1,9 @@
 from django.shortcuts import render
 from board.models import Board
-from account.models import Account, TeenworkBlog
+from account.models import Account
+from board.models import TeenworkBlog
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate, login, logout
-
-from django.core.mail import EmailMessage
-from django.template.loader import get_template, render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import token_generator
 from django.conf import settings
@@ -20,6 +17,11 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 import re
+from .forms import ProfileEditForm
+from telegram_filter.models import Telegram
+from telegram_filter.forms import TelegramForm
+from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import get_template
 
 
 import threading
@@ -40,34 +42,26 @@ def profile(request):
     time_now1 = str(datetime.today().date().day).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2)
     time_now2 = str(datetime.today().date().day-1).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2) # для того, чтобы вместо дня 1 марта превратить в 01 марта
 
-    
-    current_lang = get_language() # для того, чтобы установить в шаблоне html ru или html uk 
-
     context={
         'board_obj':board_obj,
         'time_now1':time_now1,
         'time_now2':time_now2,
-        'current_lang':current_lang,
     }
 
     return render(request, 'user/profile.html', context)
 
-def account_profile(request, username):
+def account(request, username):
     if Account.objects.filter(username=username).exists():
         board_obj = Board.objects.filter(Q(author=Account.objects.get(username=username).pk), Q(status='published')|Q(status='24hour'))
-        user=Account.objects.get(username=username)
+        user = Account.objects.get(username=username)
         time_now1 = str(datetime.today().date().day).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2)
         time_now2 = str(datetime.today().date().day-1).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2) # для того, чтобы вместо дня 1 марта превратить в 01 марта
-
-        
-        current_lang = get_language() # для того, чтобы установить в шаблоне html ru или html uk 
 
         context={
             'board_obj':board_obj,
             'requested_user':user,
             'time_now1':time_now1,
             'time_now2':time_now2,
-            'current_lang':current_lang,
         }
 
         if user == request.user:
@@ -77,6 +71,68 @@ def account_profile(request, username):
         return render(request, 'user/account.html', context)
     else:
         return HttpResponse('Такий Юзер зник о_о')
+
+
+@login_required(login_url='/login/')
+@csrf_exempt 
+def profile_edit(request):
+
+    if request.is_ajax():
+        data = request.POST.get('data', None)
+        isTelegram = request.POST.get('isTelegram', None)
+
+        
+        tel = Telegram.objects.get(person = request.user)
+        if data:
+            if data == 'checked':
+                tel.telegram = True
+                data = 'true'
+            else:
+                tel.telegram = False
+                data = 'false'
+            tel.save()
+            return JsonResponse(data, safe=False)
+        elif isTelegram:
+            if tel.telegram == True:
+                isTelegram = 'true'
+            else:
+                isTelegram = 'false'
+            return JsonResponse(isTelegram, safe=False)
+
+
+    username = request.user.username
+    account = Account.objects.get(username=username) 
+    form = ProfileEditForm(instance=account)
+    if request.method == 'POST' and 'profile_edit_btn' in request.POST:
+        form = ProfileEditForm(request.POST, instance=account)
+        if form.is_valid():
+            post = form.save(commit=False)
+            if request.FILES.get('img'):
+                post.image = request.FILES.get('img')
+            post.save()
+        return redirect('account:profile_edit')
+
+    tlg_obj = Telegram.objects.get(person=request.user)
+    tlg_form = TelegramForm(instance=tlg_obj)
+    if request.method =='POST' and 'tlg_btn' in request.POST:
+        tlg_form = TelegramForm(request.POST, instance=tlg_obj)
+        if tlg_form.is_valid():
+            tel = tlg_form.save(commit=False)
+            tel.person = request.user
+            tlg_form.save()
+            return redirect('account:profile_edit')
+        else:  
+            return redirect('account:profile_edit')
+            
+    if request.method == 'POST' and 'delete_account_btn' in request.POST:
+        for board_obj in Board.objects.filter(author=request.user):
+            board_obj.delete() # чтобы в Deleted Ads сохранить его опублик.объявл.
+        Account.objects.get(id=request.user.id).delete()
+        return redirect('board:index')
+
+    return render(request, 'user/profile_edit.html', {'form':form, 'account':account, 'tlg_form':tlg_form,})
+
+
 
 
 def registration(request):
@@ -175,9 +231,9 @@ def registration(request):
         EmailThreading(msg).start()
         
 
-        return render(request, 'registration/registration_success.html', {'email':email, 'current_lang':get_language()})
+        return render(request, 'registration/registration_success.html')
     else:
-        return render(request, 'registration/registration.html', {'current_lang':get_language()})
+        return render(request, 'registration/registration.html')
 
 def resend_activation_email(request):
     if request.method == 'POST':
@@ -210,9 +266,9 @@ def resend_activation_email(request):
         EmailThreading(msg).start()
         
 
-        return render(request, 'registration/resend_activation_email_success.html', {'current_lang':get_language()})
+        return render(request, 'registration/resend_activation_email_success.html')
     else:
-        return render(request, 'registration/resend_activation_email.html', {'current_lang':get_language()})
+        return render(request, 'registration/resend_activation_email.html')
 
 
 
@@ -241,7 +297,6 @@ class VerificationView(View):
             raise Exception
 
 
-import bcrypt
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('board:index')
@@ -299,9 +354,9 @@ def user_login(request):
                     return redirect(request.POST.get('next'))
                 return redirect('board:index')
             else:  
-                return render(request, 'registration/login.html', {'current_lang':get_language()})
+                return render(request, 'registration/login.html')
         else:  
-            return render(request, 'registration/login.html', {'current_lang':get_language()})
+            return render(request, 'registration/login.html')
 def user_logout(request):
     logout(request)
     return redirect('board:index')
@@ -316,7 +371,6 @@ class PasswordResetPSWRDView(PasswordResetView):
 
 
 
-from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
@@ -342,96 +396,27 @@ def favourite_list(request):
     time_now1 = str(datetime.today().date().day).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2)
     time_now2 = str(datetime.today().date().day-1).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2) # для того, чтобы вместо дня 1 марта превратить в 01 марта
 
-    
-    current_lang = get_language() # для того, чтобы установить в шаблоне html ru или html uk 
-
     context = {
         'new':new,
         'time_now1':time_now1,
         'time_now2':time_now2,
-        'current_lang':current_lang,
     }
 
     return render(request, 'board/favourites.html', context)
 
 
 
-from .forms import ProfileEditForm
-from telegram_filter.models import Telegram
-from telegram_filter.forms import TelegramForm
-@login_required(login_url='/login/')
-@csrf_exempt 
-def profile_edit(request):
-
-    if request.is_ajax():
-        data = request.POST.get('data', None)
-        isTelegram = request.POST.get('isTelegram', None)
-
-        
-        tel = Telegram.objects.get(person = request.user)
-        if data:
-            if data == 'checked':
-                tel.telegram = True
-                data = 'true'
-            else:
-                tel.telegram = False
-                data = 'false'
-            tel.save()
-            return JsonResponse(data, safe=False)
-        elif isTelegram:
-            if tel.telegram == True:
-                isTelegram = 'true'
-            else:
-                isTelegram = 'false'
-            return JsonResponse(isTelegram, safe=False)
-
-
-    username = request.user.username
-    account = Account.objects.get(username=username) 
-    form = ProfileEditForm(instance=account)
-    if request.method == 'POST' and 'profile_edit_btn' in request.POST:
-        form = ProfileEditForm(request.POST, instance=account)
-        if form.is_valid():
-            post = form.save(commit=False)
-            if request.FILES.get('img'):
-                post.image = request.FILES.get('img')
-            post.save()
-        return redirect('account:profile_edit')
-
-    tlg_obj = Telegram.objects.get(person=request.user)
-    tlg_form = TelegramForm(instance=tlg_obj)
-    if request.method =='POST' and 'tlg_btn' in request.POST:
-        tlg_form = TelegramForm(request.POST, instance=tlg_obj)
-        if tlg_form.is_valid():
-            tel = tlg_form.save(commit=False)
-            tel.person = request.user
-            tlg_form.save()
-            return redirect('account:profile_edit')
-        else:  
-            return redirect('account:profile_edit')
-            
-    if request.method == 'POST' and 'delete_account_btn' in request.POST:
-        for board_obj in Board.objects.filter(author=request.user):
-            board_obj.delete() # чтобы в Deleted Ads сохранить его опублик.объявл.
-        Account.objects.get(id=request.user.id).delete()
-        return redirect('board:index')
-
-    current_lang = get_language() # для того, чтобы установить в шаблоне html ru или html uk 
-
-    return render(request, 'user/profile_edit.html', {'form':form, 'account':account, 'tlg_form':tlg_form, 'current_lang':current_lang,})
-
-
 
 class RequestResetEmailView(View):
     def get(self, request):
-        return render(request, 'registration/reset_email.html', {'current_lang':get_language()})
+        return render(request, 'registration/reset_email.html')
     
     def post(self, request):
         email = request.POST.get('email', None)
         
         if email is None:
             # messages.error(request, 'Не забудьте вписать email')
-            return render(request, 'registration/reset_email.html', {'current_lang':get_language()})
+            return render(request, 'registration/reset_email.html')
 
         user = Account.objects.filter(email=email)
         if user.exists():
@@ -483,9 +468,10 @@ class RequestResetEmailView(View):
             EmailThreading(msg).start() # мы быстрее отправляем email
 
 
-            return render(request, 'registration/reset_email_success.html', {'current_lang':get_language()})
+            return render(request, 'registration/reset_email_success.html')
         else:
             return redirect('/registration/')
+        
     
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib import messages
@@ -505,9 +491,9 @@ class SetNewPswrdView(View):
 
             if PasswordResetTokenGenerator().check_token(user, token):
                 # Пароль кликают 2-ой раз, так нельзя. Отошлём на повторную отправку
-                return render(request, 'registration/reset_email.html', {'current_lang':get_language()})
+                return render(request, 'registration/reset_email.html')
         except DjangoUnicodeDecodeError as identifier:
-            return render(request, 'registration/reset_email.html', {'current_lang':get_language()})
+            return render(request, 'registration/reset_email.html')
         return render(request, 'registration/set_new_pswrd.html', context)
     
     def post(self, request, uidb64, token):
@@ -557,37 +543,3 @@ class UnsubscribeView(View):
             
             
             
-            
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-def tw_blog(request):
-    blog_obj = TeenworkBlog.objects.filter(status = 'published')
-    paginator = Paginator(blog_obj, 20)
-
-    page = request.GET.get('page')
-    try:
-        response = paginator.page(page)
-    except PageNotAnInteger:
-        response = paginator.page(1)
-    except EmptyPage:
-        response = paginator.page(paginator.num_pages)
-    
-    time_now1 = str(datetime.today().date().day).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2)
-    time_now2 = str(datetime.today().date().day-1).zfill(2) + '.' + str(datetime.today().date().month).zfill(2) + '.' + str(datetime.today().date().year).zfill(2) # для того, чтобы вместо дня 1 марта превратить в 01 марта
-
-    context={
-        'blog_obj':response, 
-        'current_lang':get_language(),
-        'time_now1': time_now1,
-        'time_now2': time_now2,
-    }
-
-    return render(request, 'others/blog.html', context)
-
-from django.db.models import F
-def tw_blog_post(request, slug):
-    if TeenworkBlog.objects.filter(slug=slug).exists:
-        blog_obj = TeenworkBlog.objects.get(slug=slug)
-        TeenworkBlog.objects.filter(slug=slug).update(views=F('views')+1)
-        return render(request, 'others/blog_post.html', {'blog_obj':blog_obj, 'current_lang':get_language()})
-    else:
-        return redirect('account:tw_blog')

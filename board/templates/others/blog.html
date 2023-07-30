@@ -2,28 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="alternate" href="https://teenwork.com.ua/blog/" hreflang="ru-UA">
-    <link rel="alternate" href="https://teenwork.com.ua/uk/blog/" hreflang="uk-UA">
-    <link rel="canonical" href="https://teenwork.com.ua/uk/blog/">
-    
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Teenwork блог">
-    <meta name="description" content="Це розділ блогу Teenwork, який розповідає про роботу та підробіток для підлітків, студентів та молодих людей.">
-    {% else %}
-    <link rel="alternate" href="https://teenwork.com.ua/blog/" hreflang="ru-UA">
-    <link rel="alternate" href="https://teenwork.com.ua/uk/blog/" hreflang="uk-UA">
-    <link rel="canonical" href="https://teenwork.com.ua/blog/">
-    
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Teenwork блог">
-    <meta name="description" content="Это раздел блога Teenwork, который рассказывает о работе и подработке для подростков, студентов и молодых людей.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Teenwork блог' %}">
+    <meta name="description" content="{% translate 'Это раздел блога Teenwork, который рассказывает о работе и подработке для студентов и молодых людей.' %}">
 {% endblock %}
 
 {% block styles %}
@@ -35,50 +18,28 @@
 {% block content %}  
 
     <h1 class="blog_h1">{% translate "Teenwork блог - статьи для развития и не только" %}</h1>
-
+    {% if request.user.is_staff %}<h3 style="text-align: center;"><a href="{% url 'board:add_blog_post' %}">{% translate "Добавить статью" %}</a></h3>{% endif %}
     <div class="blog">
         <div class="blog_block">
-            {% if current_lang == 'uk' %}
-                {% for val in blog_obj %}
-                    <a href="{% url 'account:tw_blog_post' val.slug %}" class="article">
-                        <span>
-                            <span class="a_title">{{val.title_uk}}</span>
-                            {% if time_now1 == val.published|date:"d.m.Y" %}
-                                <span class="a_publ">{% translate "Сегодня" %}</span>
-                                <span class="fresh">{% translate "Свежее" %}</span>
-                            {% elif time_now2 == val.published|date:"d.m.Y" %}
-                                <span class="a_publ">{% translate "Вчера" %}</span>
-                                <span class="fresh">{% translate "Свежее" %}</span>
-                            {% else %}
-                                <span class="a_publ">{{val.published|date:"d.m.Y"}}</span>
-                            {% endif %}
-                        </span>
-                        <span class="a_content">{{val.post_content_uk}}</span>
-                    </a>
-                {% empty %}
-                    <p>{% translate "Публикаций пока нет, но мы вскоре напишем что-то интересное" %}</p>
-                {% endfor %}
-            {% else %}
-                {% for val in blog_obj %}
-                    <a href="{% url 'account:tw_blog_post' val.slug %}" class="article">
-                        <span>
-                            <span class="a_title">{{val.title_ru}}</span>
-                            {% if time_now1 == val.published|date:"d.m.Y" %}
-                                <span class="a_publ">{% translate "Сегодня" %}</span>
-                                <span class="fresh">{% translate "Свежее" %}</span>
-                            {% elif time_now2 == val.published|date:"d.m.Y" %}
-                                <span class="a_publ">{% translate "Вчера" %}</span>
-                                <span class="fresh">{% translate "Свежее" %}</span>
-                            {% else %}
-                                <span class="a_publ">{{val.published|date:"d.m.Y"}}</span>
-                            {% endif %}
-                        </span>
-                        <span class="a_content">{{val.post_content_ru}}</span>
-                    </a>
-                {% empty %}
-                    <p>{% translate "Публикаций пока нет, но мы вскоре напишем что-то интересное" %}</p>
-                {% endfor %}
-            {% endif %}
+            {% for val in blog_obj %}
+                <a href="{% url 'board:tw_blog_post' val.slug %}" class="article">
+                    <span>
+                        <span class="a_title">{{val.title}}</span>
+                        {% if time_now1 == val.published|date:"d.m.Y" %}
+                            <span class="a_publ">{% translate "Сегодня" %}</span>
+                            <span class="fresh">{% translate "Свежее" %}</span>
+                        {% elif time_now2 == val.published|date:"d.m.Y" %}
+                            <span class="a_publ">{% translate "Вчера" %}</span>
+                            <span class="fresh">{% translate "Свежее" %}</span>
+                        {% else %}
+                            <span class="a_publ">{{val.published|date:"d.m.Y"}}</span>
+                        {% endif %}
+                    </span>
+                    <span class="a_content">{{val.post_content}}</span>
+                </a>
+            {% empty %}
+                <p>{% translate "Публикаций пока нет, но мы вскоре напишем что-то интересное" %}</p>
+            {% endfor %}
         </div>
     </div>
     {% if blog_obj.paginator.num_pages > 1 %}

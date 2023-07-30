@@ -1,26 +1,21 @@
 {% load static %}
 {% load i18n %} 
+{% load remove_lang_code_from_url %}
 <!DOCTYPE html>
-<html lang="{{current_lang}}">
+<html lang="{{request.LANGUAGE_CODE}}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
+    <link rel="alternate" href="https://teenwork.com.ua{{request.path|remove_lang_code_from_url}}" hreflang="uk-UA">
+    <link rel="alternate" href="https://teenwork.com.ua/ru{{request.path|remove_lang_code_from_url}}" hreflang="ru-UA">
+    <link rel="canonical" href="https://teenwork.com.ua{{request.path}}">
+    <meta http-equiv="Content-Language" content="{{request.LANGUAGE_CODE}}">
+    
     <link href="{% static 'css/add.css' %}" type="text/css" rel="stylesheet">
 
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/add/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Додати постійне оголошення на Teenwork">
-    <meta name="description" content="Додати постійне оголошення на Teenwork, щоб потенційні працівники знайшли Вас.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/add/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Добавить постоянное объявление на Teenwork">
-    <meta name="description" content="Добавить постоянное объявление на Teenwork, чтобы потенциальные работники нашли Вас.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Добавить постоянное объявление на Teenwork' %}">
+    <meta name="description" content="{% translate 'Добавить постоянное объявление на Teenwork, чтобы потенциальные работники нашли Вас.' %}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -76,22 +71,27 @@
 
 
 
-  <form method = "POST" action="{% url 'board:add' %}" enctype="multipart/form-data" id="boardForm" data-branches-url="{% url 'board:ajax_load_branches' %}" novalidate autocomplete="off">
+  <form method = "POST" action="{% url 'board:add' %}" enctype="multipart/form-data" id="boardForm" novalidate autocomplete="off">
     {% csrf_token %}
     <div class="add_border_ad">
       <p class="border_name_ad">{% translate "Заполним все поля" %}</p>
       <div class="adt">
         <div class="container">
           <div class="adt_image"><div class="image-text">{% translate "Здесь" %} <br> {% translate "будет" %} <br>фото</div></div>
-          <span maxlength="70" required>{{form.title}}</span>
-          <span maxlength="10" required class="sal_span">{{form.price}} {{form.currency}}</span>
-          <br>
-          <span class="adt_age">{% translate "Возраст" %}: {{form.age}} {% translate "лет" %}.</span>
-          <br>
-          <span class="select_span">{{form.rubric}}</span>
-          <br>
-          <span class="select_span">{{form.region}} {{form.city}}</span>
-          <div class="heart"><img src="{% static 'img/full_heart.svg'%}" id="heart_image_1" alt=""></div>
+          <div style="flex: 1;">
+            <span maxlength="70" required>{{form.title}}</span>
+            <span maxlength="10" required class="sal_span">{{form.price}} {{form.currency}}</span>
+            <br>
+            <span class="adt_age">{% translate "Возраст" %}: {{form.age}} {% translate "лет" %}.</span>
+            <br>
+            <span class="select_span">{{form.rubric}}</span>
+            <br>
+            <span class="select_span">
+              {{form.city}}
+            <div id="city_results"></div>
+            </span>
+            <div class="heart"><img src="{% static 'img/full_heart.svg'%}" id="heart_image_1" alt=""></div>
+          </div>
         </div>
         <span class="workers_num">{% translate "Сколько Вам нужно человек" %} <span class="unnecessary">{% translate "(необяз.)" %}</span> : {{form.workers_amount}}</span>  
       </div>
@@ -114,9 +114,9 @@
         {{form.email}}
       </div>
       <div class="create_adt_input">
-        <input type="hidden" name="photo1_src" id="photo1_src"/>
-        <input type="hidden" name="photo2_src" id="photo2_src"/>
-        <input type="hidden" name="photo3_src" id="photo3_src"/>
+        <input type="hidden" name="photo1_id" id="photo1_id"/>
+        <input type="hidden" name="photo2_id" id="photo2_id"/>
+        <input type="hidden" name="photo3_id" id="photo3_id"/>
 
         <input type="hidden" name="photo1_pos" id="photo1_pos"/>
         <input type="hidden" name="photo2_pos" id="photo2_pos"/>
@@ -146,7 +146,7 @@
 
 
 
-<script src="{% static 'js/add.js' %}?v=1"></script>
+<script src="{% static 'js/add.js' %}"></script>
 </body>
 
 </html>

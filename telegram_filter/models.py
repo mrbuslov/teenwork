@@ -6,8 +6,7 @@ class Telegram(models.Model):
 
     rubric=models.ForeignKey('board.Rubric',null=True, on_delete=models.PROTECT,verbose_name='Рубрика', blank=True)
     age = models.ForeignKey('board.Age',null=True, on_delete=models.PROTECT,verbose_name='Возраст', blank=True)
-    region = models.ForeignKey('board.Region', null=True, on_delete=models.PROTECT, verbose_name='Область', blank=True)
-    city = models.ForeignKey('board.City', null=True, on_delete=models.PROTECT,  verbose_name='Город', blank=True)
+    city = models.CharField(null=True, max_length=100,  verbose_name='Город', blank=True)
 
     person = models.ForeignKey('account.Account',null=True, on_delete=models.CASCADE, verbose_name='Человек', blank=True)
     chat_id = models.BigIntegerField(null=True, blank=True, verbose_name='chat id', editable=False)

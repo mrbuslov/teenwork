@@ -1,8 +1,13 @@
-# Teenwork
-Teenwork - free platform for young people: teenagers, students, schoolboys in their spare time. + Telegram Bot to notify about new vacancies.
-This project is ready to be deployed on the server. Missing Gunicorn and Nginx configuration (if you need help in compiling, feel free to ask).
+# Teenwork Readme
 
-![image](https://user-images.githubusercontent.com/68155915/199688480-69b7d4e6-17be-4fee-9323-0558798ca762.png)
+### Local Build
+You can just run `python manage.py runserver 0.0.0.0:80` for running on 80 port or `python manage.py runserver` for running on 8000 port
 
+### Docker build
+The best practice is using production mode (below)
+- build docker image (production) `docker-compose build` or `docker-compose -f docker-compose.yml build`
+- start docker container (production) `docker-compose up` or `docker-compose -f docker-compose.yml up`
+- execute commands in container `docker-compose exec [service-name] [command]`, for example: `docker-compose exec server python manage.py createsuperuser`
 
-![4](https://user-images.githubusercontent.com/68155915/199688338-f57833ff-357d-4eb6-a53d-05b64406f86c.jpg)
+[Dockerization resource](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+*(backend) in feeorder/run.sh we have migrate. If you don't want migrate every time you launch container, comment this line.

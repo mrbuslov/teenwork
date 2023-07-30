@@ -1,1 +1,465 @@
-*{font-family:Verdana!important}.main{padding-bottom:30px}.accept_cookie{bottom:40px}.close_img{font-size:30px;transform:rotate(45deg);position:absolute;top:0;right:0;color:#fff;z-index:1002;display:none}.heart{display:none;top:38px;right:0;position:absolute}.heading_span,.heading_span_emp,.description_header{display:none}@media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){.main{padding-top:0}:root{--description-background:none}.adaptive_white{background:#fff;padding:5px;box-sizing:border-box;overflow:hidden;border-radius:5px}.heart{display:inline-block}.photo_slides{margin-top:38px;padding:0;width:100%}#arr_bck,#arr_frwrd{display:none}.slider{width:100%;border-radius:0;height:330px}.slides{height:100%}.slide{background:#000}.slide img{max-width:100%;max-height:200%;min-height:initial;min-width:initial}.navigation_manual{width:50%;background:rgba(255,255,255,.65)}.info{all:initial;position:relative}.adt_info{all:initial;padding:5px;font-size:15px;overflow:hidden}.title{all:initial;font-size:20px;margin:-20px 0;display:block;padding:5px;padding:0}.heading_span,.heading_span_emp{margin:0;margin:30px 0 10px 5px;display:block;font-size:15px;font-weight:700}.heading_span_emp{margin-top:0}.vacancies,.payment{margin-top:5px}.employer_info{all:initial;font-size:15px}.emp{position:fixed;top:0;width:100%;left:0;transition:top 0.25s ease-in-out}.emp_hide{top:-38px}.phone_number{display:inline}.help_copied_phone{top:initial;left:initial;position:absolute;margin:-25px 0 0 -110px}.bottom_navigation{display:none}.bot_nav_hide{bottom:-50px}.send_message_field{position:fixed;z-index:10;left:0;height:50px;bottom:0;width:100%;transition:bottom 0.25s ease-in-out}.smf_hide{bottom:-50px}.send_message_field textarea{height:50px;background:#fff;border-radius:0;margin:0;width:80%;outline:none}#send_msg_btn{border-radius:0;bottom:0;width:20%;height:100%;position:absolute;right:0}#send_msg_btn img{height:60%}.send_resume{display:none}.email{margin-top:5px}.description_header{margin-top:10px;padding:5px;display:block;font-size:15px;font-weight:700}.description{all:initial;display:block;position:relative;background:#fff;padding:10px;border-radius:5px}.description:before{position:absolute;z-index:1;bottom:0;left:0;width:100%;height:15px;content:"";background:var(--description-background)}.description_more{position:relative;top:-3px;left:20px;font-size:13px;font-weight:700;display:initial}}@media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){.main{padding-top:0}.heart{display:inline-block}.adaptive_white{background:#fff;padding:5px;box-sizing:border-box;overflow:hidden;border-radius:5px}.photo_slides{margin-top:38px;padding:0;width:100%}#arr_bck,#arr_frwrd{display:none}.slider{width:100%;border-radius:0;height:330px}.slides{height:100%}.slide{background:#000}.slide img{max-width:100%;max-height:200%}.navigation_manual{width:50%;background:rgba(255,255,255,.65)}.info{all:initial;position:relative;padding:5px}.adt_info{all:initial;padding:5px;font-size:15px;overflow:hidden}.title{all:initial;margin:-20px 0;display:block;padding:0}.heading_span,.heading_span_emp{margin:0;margin-top:35px;display:block;font-size:15px;font-weight:700}.heading_span_emp{margin-top:0}.vacancies,.payment{margin-top:5px}.employer_info{all:initial;font-size:15px}.emp{position:fixed;top:0;width:100%;left:0;transition:top 0.25s ease-in-out}.emp_hide{top:-38px}.phone_number{display:inline}.help_copied_phone{top:initial;left:initial;position:absolute;margin:-25px 0 0 -110px}.bottom_navigation{display:none}.send_message_field{position:fixed;z-index:10;left:0;height:50px;bottom:0;width:100%;transition:bottom 0.25s ease-in-out}.smf_hide{bottom:-50px}.send_message_field textarea{height:50px;background:#fff;border-radius:0;margin:0;outline:none}#send_msg_btn{border-radius:0;bottom:0;height:100%;position:absolute;right:0}#send_msg_btn img{height:60%}.send_resume{display:none}.email{margin-top:5px}.description_header{margin-top:10px;padding:5px;display:block;font-size:15px;font-weight:700}.description{all:initial;display:block;position:relative;background:#fff;padding:10px;border-radius:5px}:root{--description-background:none}.description:before{position:absolute;z-index:1;bottom:0;left:0;width:100%;height:15px;content:"";background:var(--description-background)}.description_more{display:initial;position:relative;top:-3px;left:20px;font-size:13px;font-weight:700}}@media (orientation:portrait) and (max-width:480px){.slider{height:230px}}@media (orientation:landscape) and (max-width:900px){.slider{height:230px}}
+*{
+  font-family: Verdana !important;
+}
+.main{
+  padding-bottom: 30px;
+}
+.accept_cookie {
+  bottom: 40px;
+}
+.close_img{
+  font-size: 30px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  z-index: 1002;
+  display: none;
+}
+.heart{
+  display: none;
+  top: 38px;
+  right: 0;
+  position: absolute;
+}
+.heading_span, .heading_span_emp, .description_header{
+  display: none;
+}
+/*--------------------------------- ПЛАНШЕТ ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){ 
+    .main{
+        padding-top: 0;
+    }
+  :root {
+    --description-background: none;
+  }
+  .adaptive_white{
+    background: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .heart{
+    display: inline-block;
+  }
+
+  .photo_slides{
+    margin-top: 38px;
+    padding: 0;
+    width: 100%;
+  }
+  #arr_bck, #arr_frwrd{
+    display: none;
+  }
+  .slider{
+    width: 100%;
+    border-radius: 0;
+    height: 330px;
+  }
+  .slides{
+    height: 100%;
+  }
+  .slide{
+    background: #000;
+  }
+  .slide img{
+    max-width: 100%;
+    max-height: 200%;
+    min-height: initial;
+    min-width: initial;
+  }
+  .navigation_manual{
+    width: 50%;
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .info{
+    all: initial;
+    position: relative;
+  }
+  .adt_info{
+    all: initial;
+    padding: 5px;
+    font-size: 15px;
+    overflow: hidden;
+  }
+  .title{
+    all: initial;
+    font-size: 20px;
+    margin: -20px 0;
+    display: block;
+    padding: 5px;
+    padding: 0;
+  }
+  .heading_span, .heading_span_emp{
+    margin: 0;
+    margin: 30px 0 10px 5px;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .heading_span_emp{
+    margin-top: 0;
+  }
+  .vacancies, .payment {
+    margin-top: 5px;
+  }
+
+
+
+  .employer_info{
+    all: initial;
+    font-size: 15px;
+  }
+  .emp{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    transition: top 0.25s ease-in-out;
+  }
+  .emp_hide{
+    top: -38px;
+  }
+
+  .phone_number{
+    display: inline;
+  }
+  .help_copied_phone{
+    top: initial;
+    left: initial;
+    position: absolute;
+    margin: -25px 0 0 -110px;
+  }
+
+
+  .bottom_navigation{
+    display: none;
+  }
+  .bot_nav_hide{
+    bottom: -50px;
+  }
+  .send_message_field{
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    transition: bottom 0.25s ease-in-out;
+  }
+  .smf_hide{
+    bottom: -50px;
+  }
+  .send_message_field textarea{
+    height: 50px;
+    background: #fff;
+    border-radius: 0;
+    margin: 0;
+    width: 80%;
+    outline: none;
+  }
+  #send_msg_btn{
+    border-radius: 0;
+    bottom: 0;
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+  }
+  #send_msg_btn img{
+    height: 60%;
+  }
+  .send_resume{
+    display: none;
+  }
+  .email{
+    margin-top: 5px;
+  }
+
+
+  .description_header{
+    margin-top: 10px;
+    padding: 5px;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .description{
+    all: initial;
+    display: block;
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .description:before{
+    position:absolute;
+    z-index: 1;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:15px;
+    content:"";
+    background: var(--description-background);
+  }
+  .description_more{
+    position: relative;
+    top: -3px;
+    left: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    display: initial;
+  }
+}
+@media (orientation:portrait) and (max-width:768px) and (max-height:1024px){ 	
+
+}
+@media (orientation:portrait) and (max-width:600px) and (max-height:960px){ 	
+
+}
+@media (orientation:portrait) and (max-width:540px) and (max-height:720px){ 	
+
+}
+  
+  /*--------------------------------- ПЛАНШЕТ ГОРИЗОНТАЛЬНО --------------------------------------*/
+@media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){
+ 
+    .main{
+        padding-top: 0;
+    }
+  .heart{
+    display: inline-block;
+  }
+  .adaptive_white{
+    background: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .photo_slides{
+    margin-top: 38px;
+    padding: 0;
+    width: 100%;
+  }
+  #arr_bck, #arr_frwrd{
+    display: none;
+  }
+  .slider{
+    width: 100%;
+    border-radius: 0;
+    height: 330px;
+  }
+  .slides{
+    height: 100%;
+  }
+  .slide{
+    background: #000;
+  }
+  .slide img{
+    max-width: 100%;
+    max-height: 200%;
+  }
+  .navigation_manual{
+    width: 50%;
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .info{
+    all: initial;
+    position: relative;
+    padding: 5px; 
+  }
+  .adt_info{
+    all: initial;
+    padding: 5px;
+    font-size: 15px;
+    overflow: hidden;
+  }
+  .title{
+    all: initial;
+    margin: -20px 0;
+    display: block;
+    padding: 0;
+  }
+  .heading_span, .heading_span_emp{
+    margin: 0;
+    margin-top: 35px;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .heading_span_emp{
+    margin-top: 0;
+  }
+  .vacancies, .payment {
+    margin-top: 5px;
+  }
+
+
+
+  .employer_info{
+    all: initial;
+    font-size: 15px;
+  }
+  .emp{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    transition: top 0.25s ease-in-out;
+  }
+  .emp_hide{
+    top: -38px;
+  }
+
+  .phone_number{
+    display: inline;
+  }
+  .help_copied_phone{
+    top: initial;
+    left: initial;
+    position: absolute;
+    margin: -25px 0 0 -110px;
+  }
+
+
+  .bottom_navigation{
+    display: none;
+  }
+  .send_message_field{
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    transition: bottom 0.25s ease-in-out;
+  }
+  .smf_hide{
+    bottom: -50px;
+  }
+  .send_message_field textarea{
+    height: 50px;
+    background: #fff;
+    border-radius: 0;
+    margin: 0;
+    outline: none;
+  }
+  #send_msg_btn{
+    border-radius: 0;
+    bottom: 0;
+    height: 100%;
+    position: absolute;
+    right: 0;
+  }
+  #send_msg_btn img{
+    height: 60%;
+  }
+  .send_resume{
+    display: none;
+  }
+  .email{
+    margin-top: 5px;
+  }
+
+
+  .description_header{
+    margin-top: 10px;
+    padding: 5px;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .description{
+    all: initial;
+    display: block;
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  :root {
+    --description-background: none;
+  }
+  .description:before{
+    position:absolute;
+    z-index: 1;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:15px;
+    content:"";
+    background: var(--description-background);
+  }
+  .description_more{
+    display: initial;
+    position: relative;
+    top: -3px;
+    left: 20px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+}
+
+
+@media (orientation:landscape) and (max-width:1024px) and (max-height:768px){
+  
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*--------------------------------- Телефон ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:480px){
+  .slider{
+    height: 230px;
+  }
+}
+@media (max-width:420px){
+
+}
+@media (max-width:380px){
+
+}
+@media (max-width:360px){
+
+}
+@media (max-width:320px){
+
+}
+
+@media (max-width:280px){	
+
+}
+  
+  
+  /*--------------------------------- Телефон Горизонтально --------------------------------------*/
+@media (orientation:landscape) and (max-width:900px){
+  .slider{
+    height: 230px;
+  }
+}
+@media (orientation:landscape) and (max-width:850px){
+    
+}
+@media (orientation:landscape) and (max-width:740px){
+    
+}
+@media (orientation:landscape) and (max-width:600px){
+
+}
+  

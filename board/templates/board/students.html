@@ -1,0 +1,46 @@
+{% extends 'board/base.html' %} 
+{% load static %} 
+{% load i18n %} 
+{% load get_age_from_date %}
+
+
+
+{% block head %}
+    <meta name="subject" content="{% translate 'Ответственные студенты' %}">
+    <meta name="description" content="{% translate 'Выберите студента, который поможет в работе!' %}">
+{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/students.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{% translate 'Ответственные студенты' %}{% endblock %}
+
+{% block content %} 
+    <div class="all_students">   
+        <div class="students_block">
+            {% for student in students %}
+                <div class="student_block">
+                    <img class="student_img" src="{{student.image}}" alt="{% translate 'Фото студента' %} {{student.name}} {{student.surname}}">
+                    <div class="student_info">
+                        <div class="student_name"><strong>{{student.name}} {{student.surname}}</strong></div>
+                        <div class="student_age">{{student.birthDate|get_age_from_date}} {% translate 'лет' %}</div>
+                        <div class="student_university_info">{{student.speciality}}, {{student.faculty}}, {{student.city}}</div>
+                    </div>
+                    <a class="write_to_student" href="mailto:{{student.email}}">{% translate 'Написать' %}</a>
+                </div>
+            {% empty %}
+                <h1>{% translate 'К сожалению, пока студентов нет. Вернитесь сюда завтра!' %}</h1>
+            {% endfor %}
+        </div>
+        <div class="university_info">
+            <img src="{{university.image}}" alt="{% translate 'Фото университета' %} {{university.title}}">
+            <span class="university_title"><strong>{{university.title}}</strong></span>
+            <span class="university_body">{{university.body}}</span>
+            <span class="university_address"><strong>{% translate 'Адрес' %}:</strong> {{university.address}}</span>
+            <span class="university_phone"><strong>{% translate 'Позвонить' %}:</strong> <a href="tel:{{university.phone}}">{{university.phone}}</a>
+        </div>
+    </div> 
+{% endblock %}
+{% block scripts %}
+{% endblock %}

@@ -2,9 +2,12 @@ from django.contrib import admin
 from django.http.request import QueryDict
 from django.http.response import HttpResponseRedirect
 
-from .models import Board, Rubric,Region,City, Image, Age, Currency, DeletedAds
+from .models import Board, Rubric, Image, Age, Currency, DeletedAds
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
+from board.models import TeenworkBlog
+
+admin.site.register(TeenworkBlog)
 
 
 def make_published(modeladmin, request, queryset):
@@ -45,7 +48,7 @@ class BoardAdmin(admin.ModelAdmin): # класс-редактор предста
     prepopulated_fields = {'slug': ('title',)} # slug применяет значение title
     ordering = ['status', 'published',]
     list_filter = ('status', adts_24_todelete) # поле с фильтрами справа
-    fields = ( 'image_tag', 'image1','image2','image3','title','slug','content','price','rubric','region','city','age','currency','workers_amount','author','author_name','phone_number','email','views','favourites','workers','published','status')
+    fields = ( 'image_tag', 'title','slug','content','price','rubric','city','age','currency','workers_amount','author','author_name','phone_number','email','views','favourites','workers','published','status')
     readonly_fields = ('image_tag', 'published')
 
     
@@ -62,29 +65,29 @@ class BoardAdmin(admin.ModelAdmin): # класс-редактор предста
             self.message_user(request, f'Опубликована запись "{obj.title}"')
             
             if Board.objects.filter(pk = (obj.pk+1)).exists():
-                return redirect(f"/teenwork_admin_page_secret/board/board/{Board.objects.get(pk = (obj.pk+1)).pk}/change")
+                return redirect(f"/admin/board/board/{Board.objects.get(pk = (obj.pk+1)).pk}/change")
             else:
-                return HttpResponseRedirect('/teenwork_admin_page_secret/board/board/')
+                return HttpResponseRedirect('/admin/board/board/')
         elif "delete_btn" in request.POST:
             next_obj = obj.pk + 1 
             obj_title = obj.title
             obj.delete()
             self.message_user(request, f'Удалена публикация "{obj_title}"')
             if Board.objects.filter(pk = next_obj).exists():
-                return redirect(f"/teenwork_admin_page_secret/board/board/{Board.objects.get(pk = (next_obj)).pk}/change")
+                return redirect(f"/admin/board/board/{Board.objects.get(pk = (next_obj)).pk}/change")
             else:
-                return HttpResponseRedirect('/teenwork_admin_page_secret/board/board/')
+                return HttpResponseRedirect('/admin/board/board/')
         elif "publish_24_btn" in request.POST:
             obj.status = '24hour'
             obj.save()
             self.message_user(request, f'Опубликована запись На 24 часа "{obj.title}"')
             
             if Board.objects.filter(pk = (obj.pk+1)).exists():
-                return redirect(f"/teenwork_admin_page_secret/board/board/{Board.objects.get(pk = (obj.pk+1)).pk}/change")
+                return redirect(f"/admin/board/board/{Board.objects.get(pk = (obj.pk+1)).pk}/change")
             else:
-                return HttpResponseRedirect('/teenwork_admin_page_secret/board/board/')
+                return HttpResponseRedirect('/admin/board/board/')
         else:
-                return HttpResponseRedirect('/teenwork_admin_page_secret/board/board/')
+                return HttpResponseRedirect('/admin/board/board/')
             
 
             
@@ -97,12 +100,6 @@ class DeletedAdsAdmin(admin.ModelAdmin):
     search_fields = ('title',) 
     list_filter = ('rubric',)  
     readonly_fields = ('published',)
-
-class CityAdmin(admin.ModelAdmin): 
-    list_display=('name', 'region',)
-    list_display_links=('name',) 
-    search_fields = ('name',) 
-
 
 
 
@@ -132,12 +129,10 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Board, BoardAdmin) # добавили на админ-панель
-# admin.site.register(Rubric) # зарегестрировали Рубрику
-# admin.site.register(Region)
-# admin.site.register(City, CityAdmin)
+admin.site.register(Rubric) # зарегестрировали Рубрику
 admin.site.register(Image, ImageAdmin)
-# admin.site.register(Age)
-# admin.site.register(Currency)
+admin.site.register(Age)
+admin.site.register(Currency)
 admin.site.register(DeletedAds, DeletedAdsAdmin)
 
 admin.site.unregister(Group)

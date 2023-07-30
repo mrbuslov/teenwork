@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/chat/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Чати">
-    <meta name="description" content="Ваші чати – почніть діалог з іншими користувачами платформи!">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/chat/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Чаты">
-    <meta name="description" content="Ваши чаты - начните диалог с другими пользователями платформы!">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Чаты' %}">
+    <meta name="description" content="{% translate 'Ваши чаты - начните диалог с другими пользователями платформы!' %}">
 {% endblock %}
 
 

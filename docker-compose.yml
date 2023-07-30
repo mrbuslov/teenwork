@@ -1,0 +1,57 @@
+name: "teenwork"
+
+services:
+  database:
+    image: postgres:13.0-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=teenwork
+      - POSTGRES_PASSWORD=teenwork
+      - POSTGRES_DB=teenwork
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+
+  # nginx:
+  #   build: ./containers/nginx
+  #   ports:
+  #     - 80:8000
+  #   depends_on:
+  #     - server
+  #   volumes:
+  #     - static_volume:/var/teenwork/static
+  #     - media_volume:/var/teenwork/media
+
+  server:
+    build: 
+      dockerfile: ./containers/server/Dockerfile
+    command: ["sh", "-c", "/var/teenwork/run.sh"]
+    # command: ["python", "manage.py", "runserver"]
+    volumes:
+      - ./:/var/teenwork
+      - static_volume:/var/teenwork/static
+      - media_volume:/var/teenwork/media
+    # WIth expose port 8000 is only exposed internally, to other Docker services. The port will no longer be published to the host machine.
+    # expose:
+    #   - 8000
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_USER=teenwork
+      - DATABASE_NAME=teenwork
+      - DATABASE_PASSWORD=teenwork
+      # host is named as docker-compose server
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+    env_file:
+      - ./.env
+    depends_on:
+      - database
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

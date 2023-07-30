@@ -2,20 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Teenwork 404 сторінка не знайдена">
-    <meta name="description" content="Ви потрапили на цю сторінку, тому що була вказана неправильна адреса.">
-    {% else %}
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Teenwork 404 страница не найдена">
-    <meta name="description" content="Вы попали на эту страницу, потому что был указан неправильный адрес.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Teenwork 404 страница не найдена' %}">
+    <meta name="description" content="{% translate 'Вы попали на эту страницу, потому что был указан неправильный адрес.' %}">
 {% endblock %}
 
 {% block styles %}

@@ -1,25 +1,28 @@
 {% load static %}  
 {% load i18n %} 
+{% load remove_lang_code_from_url %}
 
 
 <!DOCTYPE html>
-{% block language %}
-{% endblock %}
+<html lang="{{request.LANGUAGE_CODE}}">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="alternate" href="https://teenwork.com.ua{{request.path|remove_lang_code_from_url}}" hreflang="uk-UA">
+  <link rel="alternate" href="https://teenwork.com.ua/ru{{request.path|remove_lang_code_from_url}}" hreflang="ru-UA">
+  <link rel="canonical" href="https://teenwork.com.ua{{request.path}}">
+  <meta http-equiv="Content-Language" content="{{request.LANGUAGE_CODE}}">
+
   <title>{% block title %}{% endblock %}</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
   {% block head %}{% endblock %}
  
   <meta name="robots" content="index,follow,noodp"><!-- Все поисковые системы -->
   <meta name="googlebot" content="index,follow"><!-- Указание отдельно для Google -->
 
-  <link href="{% static 'css/style.css' %}?v=1" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
   <link href="{% static 'css/cookies_things.css' %}" type="text/css" rel="stylesheet">
-  <link rel="stylesheet" media="(max-width: 1367px)" href="{% static 'css/adaptive_index.css' %}?v=2">
+  <link rel="stylesheet" media="(max-width: 1367px)" href="{% static 'css/adaptive_index.css' %}">
   
   <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
 
@@ -28,16 +31,15 @@
 <body>
   <div class="main">
     <div class="test">
-      <a href="{% url 'board:index' %}"><img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы подросткам Teenwork' %}" class="logo" title="{% translate 'Teenwork - работа для подростков и не только' %}"></a>
+      <a href="{% url 'board:index' %}"><img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы студентов Teenwork' %}" class="logo" title="{% translate 'Teenwork - работа для студентов и не только' %}"></a>
 
       {% get_available_languages as LANGUAGES %}
       {% get_language_info_list for LANGUAGES as languages %}
       <div class="langs">
-        <a href="/" class="ru">Русский</a> 
+        <a href="/" class="uk">Українська</a> 
         <input type="checkbox" name="lang_checkbox" id="lang_checkbox" value="">
-        <a href="/{{languages.1.code}}/" class="uk">Українська</a> 
+        <a href="/{{languages.0.code}}/" class="en">English</a> 
       </div>
-
       
       <ul class="test_ul">
         <li>
@@ -159,7 +161,7 @@
         <br>
         <li><a href="{% url 'board:how_24h_works' %}">{% translate 'Как работает "Публикация на 24ч"' %}</a></li>
         <li><a href="{% url 'board:about_cookies' %}">{% translate "Cookies (надкусанное печенье)" %}</a></li>
-        <li><a href="{% url 'account:tw_blog' %}">Наш блог</a></li>
+        <li><a href="{% url 'board:tw_blog' %}">Наш блог</a></li>
       </ul>
     </div>
     <div class="contacts">
@@ -178,12 +180,12 @@
     <div class="about">
       <span class="footer_about_span">Про нас</span>
       <span class="footer_about">
-        {% translate "Teenwork - платформа, где подростки и не только могут найти работу, которая им по душе." %}
+        {% translate "Teenwork - платформа, где студенты и не только могут найти работу, которая им по душе." %}
         <br>
         <a href="{% url 'board:about_us' %}" style="color: inherit;">Узнать ещё</a>
         <br>
         <br>
-        &#169;2022 Teenwork
+        &#169;2023 Teenwork
       </span>
     </div>
   </footer>

@@ -2,23 +2,12 @@
 {% load i18n %} 
 {% load static %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/others_page/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Інше">
-    <meta name="description" content="Виберіть щось із пунктів меню, щоб розпочати роботу.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/others_page/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Другое">
-    <meta name="description" content="Выберите что-то из пунктов меню, чтобы начать работу.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Другое' %}">
+    <meta name="description" content="{% translate 'Выберите что-то из пунктов меню, чтобы начать работу.' %}">
 {% endblock %}
 
 
@@ -47,9 +36,9 @@
         {% get_available_languages as LANGUAGES %}
         {% get_language_info_list for LANGUAGES as languages %}
         <div class="langs">
-          <a href="/" class="ru">Русский</a> 
+            <a href="/" class="uk">Українська</a> 
           <input type="checkbox" name="lang_checkbox" id="lang_checkbox_others" class="lang_checkbox_others" value="">
-          <a href="/{{languages.1.code}}/" class="uk">Українська</a> 
+          <a href="/{{languages.0.code}}/" class="en">English</a> 
         </div>
     </li>
     {% if user.is_authenticated %}
@@ -72,7 +61,7 @@
     <a href="{% url 'board:website_rules' %}"><li>{% translate "Правила сайта" %}</li></a>
     <a href="{% url 'board:lawbook' %}"><li>{% translate "Официальный труд молодёжи" %}</li></a>
     <a href="{% url 'board:about_us' %}"><li>Про Teenwork</li></a>
-    <a href="{% url 'account:tw_blog' %}"><li>Наш блог</li></a>
+    <a href="{% url 'board:tw_blog' %}"><li>Наш блог</li></a>
 
     <div class="others_div">{% translate "Контакты" %}</div>
     <div class="others_contacts"><a href="tel:+380(67)-421-63-64" style="color:inherit; text-decoration:none;">+380(67)-421-63-64</a></div>

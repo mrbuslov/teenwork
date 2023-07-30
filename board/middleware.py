@@ -70,7 +70,6 @@ class MyMiddleware:
         get_quote = randint(0, len(quotes)-1)
 
         context = {
-            'current_lang': get_language(),
             'quote': quotes[get_quote],
             'author': authors[get_quote]
         }

@@ -2,36 +2,15 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="alternate" href="https://teenwork.com.ua/blog/{{blog_obj.slug}}/" hreflang="ru-UA">
-    <link rel="alternate" href="https://teenwork.com.ua/uk/blog/{{blog_obj.slug}}/" hreflang="uk-UA">
-    <link rel="canonical" href="https://teenwork.com.ua/uk/blog/{{blog_obj.slug}}/">
-
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="{{blog_obj.title_uk}}">
-    <meta name="description" content="{{blog_obj.post_content_uk|truncatechars:70}} - робота та підробіток для підлітків, студентів і не тільки на Teenwork">
-    {% else %}
-    <link rel="alternate" href="https://teenwork.com.ua/blog/{{blog_obj.slug}}/" hreflang="ru-UA">
-    <link rel="alternate" href="https://teenwork.com.ua/uk/blog/{{blog_obj.slug}}/" hreflang="uk-UA">
-    <link rel="canonical" href="https://teenwork.com.ua/blog/{{blog_obj.slug}}/">
-    
-    <meta http-equiv="Content-Language" content="ru">
     <meta name="subject" content="{{blog_obj.title_ru}}">
-    <meta name="description" content="{{blog_obj.post_content_ru|truncatechars:70}} - работа и подработка для подростков, студентов и не только на Teenwork">
-    {% endif %}
+    <meta name="description" content="{{blog_obj.post_content_ru|truncatechars:70}} - {% translate 'работа и подработка для студентов, студентов и не только на Teenwork' %}">
 {% endblock %}
 
 {% block title %}
-    {% if current_lang == 'uk' %}
-        {{blog_obj.title_uk}} - Teenwork
-    {% else %}
-        {{blog_obj.title_ru}} - Teenwork
-    {% endif %}
+    {{blog_obj.title}} - Teenwork
 {% endblock %}
 
 {% block styles %}
@@ -45,45 +24,27 @@
     </div>
 
     <div class="blog">
-        {% if current_lang == 'uk' %}
-            <div class="blog_block">
-                <h1 class="blog_h1">{{blog_obj.title_uk}}</h1>
-                <span class="blog_publ">
-                    <span style="margin-right:40px;">
-                        <img src="{% static 'img/blog_viewed.svg' %}" alt="Кол-во просмотров" style="height: 10px;">
-                        {{blog_obj.views}}
-                    </span>
-                    <span>{{blog_obj.published|date:"d E Y"}}</span>
+        <div class="blog_block">
+            <h1 class="blog_h1">{{blog_obj.title}}</h1>
+            <span class="blog_publ">
+                <span style="margin-right:40px;">
+                    <img src="{% static 'img/blog_viewed.svg' %}" alt="Кол-во просмотров" style="height: 10px;">
+                    {{blog_obj.views}}
                 </span>
-                <img src="{{blog_obj.img_src}}" alt="Фото к публикации {{blog_obj.title_uk}}" style="max-width: 70%; display: block; margin: auto;">
+                <span>{{blog_obj.published|date:"d E Y"}}</span>
+            </span>
+            <div class="blog_content">
                 {% autoescape off %}
-                    <p class="blog_content">{{blog_obj.post_content_uk|linebreaks}}</p>
+                    <p>{{blog_obj.content}}</p>
                 {% endautoescape %}
             </div>
-        {% else %}
-            <div class="blog_block">
-                <h1 class="blog_h1">{{blog_obj.title_ru}}</h1>
-                <span class="blog_publ">
-                    <span style="margin-right:40px;">
-                        <img src="{% static 'img/blog_viewed.svg' %}" alt="Кол-во просмотров" style="height: 10px;">
-                        {{blog_obj.views}}
-                    </span>
-                    <span>{{blog_obj.published|date:"d E Y"}}</span>
-                </span>
-                <img src="{{blog_obj.img_src}}" alt="Фото к публикации {{blog_obj.title_ru}}" style="max-width: 70%; display: block; margin: auto;">
-                <div class="blog_content">
-                    {% autoescape off %}
-                        <p>{{blog_obj.post_content_ru|linebreaks}}</p>
-                    {% endautoescape %}
-                </div>
-            </div>
-        {% endif %}
+        </div>
 
         <div class="blog_block end_block">
             <p class="subscribe_block"><strong>{% translate "Подписывайтесь на наши соц.сети и узнавайте много нового" %}</strong></p>
             <p>Instagram: <a href="https://www.instagram.com/teenwork_ua/">@teenwork_ua</a></p>
             <p>Facebook: <a href="https://www.facebook.com/teenworkua">@teenworkua</a></p>
-            <p style="color: #979797; text-align: center;">{% translate "Teenwork - платформа, где подростки и не только могут найти работу, которая им по душе." %}</p>
+            <p style="color: #979797; text-align: center;">{% translate "Teenwork - платформа, где студенты и не только могут найти работу, которая им по душе." %}</p>
             <p style="color: #979797; text-align: center;">{% translate "Присоединяйтесь к " %} <a href="{% url 'telegram_filter:get_unique_code' %}">Телеграм Боту</a>{% translate ", чтобы он Вам первым отправлял уведомление о новой вакансии." %}</p>
         </div>
     </div>

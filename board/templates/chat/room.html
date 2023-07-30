@@ -1,30 +1,22 @@
 {% load static %}
 {% load i18n %} 
 <!DOCTYPE html>
-<html lang="{{current_lang}}">
+<html lang="{{request.LANGUAGE_CODE}}">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% if current_lang == 'uk' %}
-    <meta http-equiv="Content-Language" content="uk">
-  {% else %}
-    <meta http-equiv="Content-Language" content="ru">
-  {% endif %}
-  <!-- <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script> -->
+  <meta http-equiv="Content-Language" content="{{request.LANGUAGE_CODE}}">
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
   <link href="{% static 'css/room.css' %}" type="text/css" rel="stylesheet">
   <link href="{% static 'css/adaptive_room.css' %}" type="text/css" rel="stylesheet">
   <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
 
   <title>Чат - {{room.ad_fk.title}}</title>
-
-  
-
 </head>
 <body>
 <div class="main">
   <div class="container">
     <div class="title">
-      <a href="{% url 'account:account_profile' participant.username %}" class="emp_a">
+      <a href="{% url 'account:account' participant.username %}" class="emp_a">
         {% if show_add_workers_icon %}
           <span class="emp_data">
             {% if participant.image %}
@@ -71,7 +63,7 @@
       
       <a href="{% url 'board:advertisement' slug=room.ad_fk.slug%}" title="Перейти к объявлению" class="adt_title_a">
         <div class="adt_title">
-          <img src="{{room.ad_fk.image1.url}}" alt="" >
+          <img src="{{room.ad_fk.get_image}}" alt="" >
           <span class="title_name">{{room.ad_fk.title}}</span>
           <span class="sal">{{room.ad_fk.price}} {{room.ad_fk.currency}}</span>
         </div>

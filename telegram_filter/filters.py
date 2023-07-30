@@ -10,10 +10,9 @@ class TelegramFilter(filters.FilterSet):
 
     rubric = filters.ModelChoiceFilter(queryset=Telegram.objects.all())
     age  = filters.ModelChoiceFilter(queryset=Telegram.objects.all())
-    region = filters.ModelChoiceFilter(queryset=Telegram.objects.all())
     city = filters.ModelChoiceFilter(queryset=Telegram.objects.all())
 
     class Meta:
         model = Telegram
-        fields=['rubric', 'age', 'region', 'city']
+        fields=['rubric', 'age', 'city']
 

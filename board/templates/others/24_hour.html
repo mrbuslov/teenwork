@@ -2,22 +2,9 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-  <html lang="{{current_lang}}">
-{% endblock %}
-
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/how_24h_works/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Оголошення на 24 години">
-    <meta name="description" content="Як можна опублікувати пробне оголошення без реєстрації.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/how_24h_works/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Объявление на 24 часа">
-    <meta name="description" content="Как можно опубликовать пробное объявление без регистрации.">
-    {% endif %}
+  <meta name="subject" content="{% translate 'Объявление на 24 часа' %}">
+  <meta name="description" content="{% translate 'Как можно опубликовать пробное объявление без регистрации.' %}">
 {% endblock %}
 
 {% block styles %}

@@ -2,20 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Teenwork 500 проблема із сервером">
-    <meta name="description" content="Ви потрапили на цю сторінку, тому що сервер або впав або щось з ним не так.">
-    {% else %}
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Teenwork 500 проблема с сервером">
-    <meta name="description" content="Вы попали на эту страницу, потому что сервер или упал, или что-то с ним не так.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Teenwork 500 проблема с сервером' %}">
+    <meta name="description" content="{% translate 'Вы попали на эту страницу, потому что сервер или упал, или что-то с ним не так.' %}">
 {% endblock %}
 
 {% block styles %}

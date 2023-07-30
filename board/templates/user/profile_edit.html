@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/profile_edit/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Змінити мій профіль на Teenwork">
-    <meta name="description" content="Це Ваш профіль, де Ви можете змінити дані про себе та скористатися Телеграм Ботом.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/profile_edit/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Изменить мой профиль на Teenwork">
-    <meta name="description" content="Это Ваш профиль, где Вы можете изменить данные о себе и воспользоваться Телеграм Ботом.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Изменить мой профиль на Teenwork' %}">
+    <meta name="description" content="{% translate 'Это Ваш профиль, где Вы можете изменить данные о себе и воспользоваться Телеграм Ботом.' %}">
 {% endblock %}
 
 {% block styles %}
@@ -51,6 +40,7 @@
 					<label for="last_name" class="last_name_label">{% translate "Фамилия" %}</label>
 					<label for="age" class="age_label">{% translate "Возраст" %}</label>
 					<label for="phone" class="phone_label">{% translate "Номер телефона" %}</label>
+					<label for="phone" class="phone_label">{% translate "Я студент, хочу работать" %}</label>
 				</div>
 				
 				<div class="labels_options">
@@ -58,6 +48,7 @@
 					{{form.last_name}}
 					{{form.person_age}}
 					{{form.phone_number}}
+					{{form.im_working_student}}
 				</div>
 
 			</div>
@@ -84,31 +75,31 @@
 <h2 class='profile_header indent'>{% translate "Давайте заполним поля, чтобы мы могли отправлять Вам интересные вакансии через Телеграм Бота" %}</h2>
 <form method = "post">
 	{% csrf_token %}
-	<div class="telegram_on">
-		<span class="tlg_header">Телеграм Бот</span> 
-		<input type="checkbox" name="tlg_checkbox" id="tlg_checkbox" value="" onclick="check()">
-		
-		<span class="watch_tlg">{% translate "Вы можете перейти в Телеграм Бота, нажав на кнопку Bot в верху нашего сайта или же" %} <a href="{% url 'telegram_filter:get_unique_code' %}">{% translate "сюда" %}</a></span>
-	</div>
-	<div class="telegram_field">
-		<div style="display: block; text-align: right;">
-			<span class="info" onmouseover="info_show()" onmouseleave="info_hide()">i</span>
-			<span class="info_text">{% translate "Вы можете не вставлять все данные. Объявления будут приходить по тем, что Вы выбрали" %}.</span>
+	<div class="telegram_area">
+		<div class="telegram_on">
+			<span class="tlg_header">Телеграм Бот</span> 
+			<input type="checkbox" name="tlg_checkbox" id="tlg_checkbox" value="" onclick="check()">
+			
+			<span class="watch_tlg">{% translate "Вы можете перейти в Телеграм Бота, нажав на кнопку Bot в верху нашего сайта или же" %} <a href="{% url 'telegram_filter:get_unique_code' %}">{% translate "сюда" %}</a></span>
 		</div>
-		<ul class="tlg_label_ul">
-			<li>{% translate "Вид занятости" %}: </li>
-			<li>{% translate "Возраст" %}: </li>
-			<li>{% translate "Область" %}: </li>
-			<li>{% translate "Город" %}: </li>
-		</ul>
-		<ul class="tlg_ul">
-			<li>{{tlg_form.rubric}}</li>
-			<li>{{tlg_form.age}}</li>
-			<li>{{tlg_form.region}}</li>
-			<li>{{tlg_form.city}}</li>
-		</ul>
+		<div class="telegram_field">
+			<div class="tlg_info">
+				<span class="info" onmouseover="info_show()" onmouseleave="info_hide()">i</span>
+				<span class="info_text">{% translate "Вы можете не вставлять все данные. Объявления будут приходить по тем, что Вы выбрали" %}.</span>
+			</div>
+			<ul class="tlg_label_ul">
+				<li>{% translate "Вид занятости" %}: </li>
+				<li>{% translate "Возраст" %}: </li>
+				<li>{% translate "Город" %}: </li>
+			</ul>
+			<ul class="tlg_ul">
+				<li>{{tlg_form.rubric}}</li>
+				<li>{{tlg_form.age}}</li>
+				<li>{{tlg_form.city}}</li>
+			</ul>
+			<input type="submit" name="tlg_btn" id="tlg_btn" value='{% translate "Изменить" %}'>
+		</div>
 	</div>
-	<input type="submit" name="tlg_btn" id="tlg_btn" value='{% translate "Изменить" %}'>
 </form>
 <div class="indent_block"></div>
 {% endblock %}

@@ -2,20 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Teenwork Помилка">
-    <meta name="description" content="Сталася непередбачена помилка, варто спробувати ще раз.">
-    {% else %}
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Teenwork Ошибка">
-    <meta name="description" content="Случилась непредвиденная ошибка, стоит попробовать ещё раз.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Teenwork Ошибка' %}">
+    <meta name="description" content="{% translate 'Случилась непредвиденная ошибка, стоит попробовать ещё раз.' %}">
 {% endblock %}
 
 {% block styles %}

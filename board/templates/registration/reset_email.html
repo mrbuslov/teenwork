@@ -2,7 +2,7 @@
 
 {% load i18n %} 
 <!DOCTYPE html>
-<html lang="{{current_lang}}">
+<html lang="{{request.LANGUAGE_CODE}}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +10,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
-
-    {% if current_lang == 'uk' %}
-        <link rel="canonical" href="https://teenwork.com.ua/uk/reset_email">
-        <meta http-equiv="Content-Language" content="uk">
-    {% else %}
-        <link rel="canonical" href="https://teenwork.com.ua/reset_email">
-        <meta http-equiv="Content-Language" content="ru">
-    {% endif %}
 
     <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
     <title>{% translate "Сброс пароля" %}</title>

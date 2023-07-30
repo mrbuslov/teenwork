@@ -9,7 +9,7 @@ import requests
 from board.models import Board
 from django.http.request import QueryDict
 from board.filters import OrderFilter
-from board.models import Board, Rubric, City, Region, Age
+from board.models import Board, Rubric, Age
 import random
 from aiogram import types
 from asgiref.sync import sync_to_async
@@ -34,7 +34,6 @@ def telegram_new_ad(instance):
     for teleg in telegram_obj:
         rubric = teleg.rubric
         age = teleg.age
-        region = teleg.region
         city = teleg.city
 
 
@@ -48,17 +47,13 @@ def telegram_new_ad(instance):
             age = ''
         else:
             age = Age.objects.get(name=age).pk
-        if region == None:
-            region = ''
-        else:
-            region = Region.objects.get(name=region).pk
         if city == None:
             city = ''
         else:
             city = City.objects.get(name=city).pk
 
 
-        qdict = QueryDict(f'title_content=&price_min=&price_max=&age={age}&region={region}&city={city}&rubric={rubric}') # для того, чтобы мы могли через OrderFilter (django-filters) искать нужны Board`ы
+        qdict = QueryDict(f'title_content=&price_min=&price_max=&age={age}&city={city}&rubric={rubric}') # для того, чтобы мы могли через OrderFilter (django-filters) искать нужны Board`ы
         search = OrderFilter(qdict, queryset=board_qs)
 
         if search.qs:
@@ -96,9 +91,9 @@ def telegram_send(chat_id, instance):
 def ad_created(chat_id, instance):
     BOT_TOKEN = settings.TOKEN
     
-    parse_message = f'''Новое объявление, проверь-ка :) :
-<strong>Название:</strong> {instance.title}
-https://teenwork.com.ua/teenwork_admin_page_secret/board/board/{instance.pk}/change/
+    parse_message = f'''Нове оголошення, перевір-ка :) :
+<strong>Назва:</strong> {instance.title}
+http://localhost/admin/board/board/{instance.pk}/change/
     '''
 
     requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={parse_message}&parse_mode=HTML")
@@ -113,7 +108,7 @@ def ad_edited(chat_id, instance):
     
     parse_message = f'''Изменили объявление :
 <strong>Название:</strong> {instance.title}
-https://teenwork.com.ua/teenwork_admin_page_secret/board/board/{instance.pk}/change/
+https://teenwork.com.ua/admin/board/board/{instance.pk}/change/
     '''
 
     requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={parse_message}&parse_mode=HTML")

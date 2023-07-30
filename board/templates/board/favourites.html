@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %}
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/profile/favourites/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Teenwork - понравившиеся объявления">
-    <meta name="description" content="Teenwork - оголошення, що сподобалися. Додати кілька, щоб вибрати кращу роботу для себе.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/profile/favourites/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Teenwork - понравившиеся объявления">
-    <meta name="description" content="Teenwork - понравивишиеся объявления. Добавьте несколько, чтобы выбрать лучшую работу для себя.">
-    {% endif %}
+    <meta name="subject" content="Teenwork - {% translate 'понравившиеся объявления' %}">
+    <meta name="description" content="Teenwork - {% translate 'понравивишиеся объявления. Добавьте несколько, чтобы выбрать лучшую работу для себя.' %}">
 {% endblock %}
 
 
@@ -30,32 +19,35 @@
 
     <div class="adt_container">
     {% for val in new %}
-        <div class="adt">
-            <div class="container">
-                <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
-                    <img class="adt_image" src="{{val.image1.url}}" alt="{{val.rubric}}:{{val.title}}">	
-                    <span class="adt_name"> <span class="adt_n">{{val.title}}</span> 
-                        {% if val.author.is_official %}
-                            <div class="tick">
-                                <div class="tick_right"></div>
-                                <div class="tick_left"></div>
-                            </div>
-                            <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
-                        {% endif %}
-                    </span> 
+    <div class="adt">
+        <div class="container">
+            <div class="adt_image_block">
+                <a href="{% url 'board:advertisement' val.slug %}"  class="adt_a">
+                    <img class="adt_image zoom" src="{{val.get_image}}" alt="{{val.rubric}}:{{val.title}}">	
                 </a>
-                <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
-                <br>
+            </div>
+            <div class="container_info">
+                <span class="adt_name"> <span class="adt_n">
+                    <a href="{% url 'board:advertisement' val.slug %}"  class="adt_a">
+                        {{val.title}}
+                    </a>
+                    </span> 
+                    {% if val.author.is_official %}
+                        <div class="tick">
+                            <div class="tick_right"></div>
+                            <div class="tick_left"></div>
+                        </div>
+                        <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+                    {% endif %}
+                    <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
+                </span> 
                 {% if val.age %}
-                    <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} {% translate "лет" %}.</span>
+                    <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} лет.</span>
                 {% else %}
                     <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
                 {% endif %}
-                <br>
                 <span class="adt_rubric">{{val.rubric}}</span>
-                <br>
                 <span class="adt_city">{{ val.city }}</span>
-                <br>
                 <span class="adt_created">
                     {% if time_now1 == val.published|date:"d.m.Y" %}
                         {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
@@ -64,17 +56,17 @@
                     {% else %}
                         {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
                     {% endif %}
+                    <a href="{% url 'account:favourite_add' val.id%}" class="heart">
+                        {% if user in val.favourites.all %}
+                        <img src="{% static 'img/full_heart.svg'%}" alt="">
+                        {% else %}
+                        <img src="{% static 'img/heart.svg'%}" alt="">
+                        {% endif %}
+                    </a> 
                 </span>
-                <div class="heart"> <a href="{% url 'account:favourite_add' val.id%}">
-                    {% if user in val.favourites.all %}
-                    <img src="{% static 'img/full_heart.svg'%}" alt="">
-                    {% else %}
-                    <img src="{% static 'img/heart.svg'%}" alt="">
-                    {% endif %}
-                </a> 
-                </div>
             </div>
         </div>
+    </div>
         {% empty %}
         <h3 class="empty_fav_list" style="position: relative;">{% translate "Пока что понравившихся объявлений нету, поэтому давайте найдём какое-то интересное и нажмём" %} <img src="{% static 'img/full_heart.svg'%}" style="width: 21px;height: 20px;" alt="">
         <a href="{% url 'board:index' %}">{% translate "Перейти к объявлениям" %} <i class="arrow-forward"></i></a></h3>

@@ -1,1 +1,729 @@
-*{font-family:Verdana}.profile_adt{display:initial}@media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){.main{padding:0;padding-bottom:30px}.greeting{font-size:22px;margin:0;text-align:center;padding:25px 0 10px 0}.list{display:none}#adt_header{margin:20px 0 10px 10px;display:block}.adt{all:initial;font-size:12px}.container{position:relative;height:220px;width:31%}.adt_image{all:unset;width:100%;height:50%;object-fit:cover;border-radius:5px 5px 0 0}.adt_name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.adt_salary,.adt_age,.adt_rubric,.adt_created{display:none}.buttons{display:flex;justify-content:center}.edit_btn,.delete_btn,.archive_btn{float:none;width:23%;display:inline-block;text-align:center;margin:auto;font-size:11.5px}.edited_adt{ width: initial; margin: initial; margin-top: -50px; background: #fff; border-radius: 7px; text-align: center; display: initial; }.data{margin:0;margin-top:10px;width:100%;box-sizing:border-box}.photo_field{width:30%}.other_data_field{width:70%}.labels{text-align:left}#id_first_name,#id_last_name,#id_person_age,#id_phone_number{border:0;border-bottom:.5px solid rgba(0,0,0,.3);font-size:15px;background:#fff;outline: none;}#prof_btn{float:none;display:block;width:70%;margin:10px auto}#del_btn{margin:10px auto;display:block;width:30%;float:none}.indent{margin:0}.telegram_on{top:20px;left:2%;border-radius:0 10px 10px 0;width:30%;text-align:center;box-sizing:border-box}input[type="checkbox"]{float:right}.watch_tlg{background:rgba(50,56,64,.35);width:100%;top:0;top:75px;left:25%;margin-left:-25%;z-index:1}.telegram_field{top:20px;left:0;padding:15px;width:55%;margin-right:5%;height:auto;box-sizing:border-box;float:right}.info_text{position:absolute;width:200px;font-size:12px;text-align:center;padding:10px;background:rgba(50,56,64,.85);border-radius:10px;transition:opacity 0.3s ease-in;font-family:Verdana;margin-top:40px;z-index:1;color:rgba(255,255,255,.85);right:10px}.tlg_label_ul{left:0}.tlg_ul{float:none;top:0;left:20%}#tlg_btn{width:70%;margin:10px auto;left:0;top:40px;display:block}.indent_block{display:none}.tlg_header{top:0}}@media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){.main{padding:0;padding-bottom:100px}.greeting{font-size:22px;margin:0;text-align:center;padding:25px 0 10px 0}.list{display:none}#adt_header{margin:20px 0 10px 10px;display:block}.adt{all:initial;font-size:12px}.container{position:relative;height:220px;width:31%}.adt_image{all:unset;width:100%;height:50%;object-fit:cover;border-radius:5px 5px 0 0}.adt_name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.adt_salary,.adt_age,.adt_rubric,.adt_created{display:none}.buttons{display:flex;justify-content:center}.edit_btn,.delete_btn,.archive_btn{float:none;width:20%;display:inline-block;text-align:center;margin:auto}.edited_adt{ width: initial; margin: initial; margin-top: -50px; background: #fff; border-radius: 7px; text-align: center; display: initial; }.data{margin:0;margin-top:0;width:100%;box-sizing:border-box}.photo_field{width:30%}.other_data{width:95%;box-sizing:border-box}.other_data_field{width:70%}.labels{text-align:left}#id_first_name,#id_last_name,#id_person_age,#id_phone_number{border:0;border-bottom:.5px solid rgba(0,0,0,.3);font-size:15px;background:#fff}#prof_btn{float:none;display:block;width:70%;margin:10px auto}#del_btn{margin:10px auto;display:block;width:30%;float:none}.indent{margin:0}.telegram_on{top:20px;left:2%;border-radius:0 10px 10px 0;width:30%;text-align:center;box-sizing:border-box}input[type="checkbox"]{float:right}.watch_tlg{background:rgba(50,56,64,.35);width:100%;top:0;top:75px;left:25%;margin-left:-25%;z-index:1}.telegram_field{top:20px;left:0;padding:15px;width:55%;margin-right:5%;height:auto;box-sizing:border-box;float:right}.info_text{position:absolute;width:200px;font-size:12px;text-align:center;padding:10px;background:rgba(50,56,64,.85);border-radius:10px;transition:opacity 0.3s ease-in;font-family:Verdana;margin-top:40px;z-index:1;color:rgba(255,255,255,.85);right:10px}.tlg_label_ul{left:0}.tlg_ul{float:none;top:0;left:20%}#tlg_btn{width:70%;margin:10px auto;left:0;top:30px;display:block}.indent_block{display:none}.tlg_header{top:0}}@media (orientation:portrait) and (max-width:480px){.container{height:220px;width:98%}.edit_btn,.delete_btn,.archive_btn{font-size:13px}.delete_account_content{height:250px}.empty_list{text-align:center;box-sizing:border-box;padding:10px;margin-left:0}.profile_header{font-size:17px}.data{margin:0}.photo_field{width:100%;margin:0 auto}.photo{width:120px;height:120px}.input_label{width:90%}.other_data_field{width:100%}.other_data{padding:2%;width:100%;height:150px;position:relative;margin:20px auto;box-sizing:border-box}.labels,.labels_options{font-size:15px;display:inline-table;text-align:left;width:48%;height:100%}.labels_options{position:relative;top:0}.first_name_label,.last_name_label,.age_label,.phone_label{display:table-row;width:100%;height:25%}#id_first_name,#id_last_name,#id_person_age,#id_phone_number{margin:0;width:100%;height:25%;display:table-row;border:0;border-bottom:.5px solid rgba(0,0,0,.3);font-size:15px;background:#fff}#prof_btn{float:none;display:block;width:100%;margin:0 auto}#del_btn{margin:10px auto;display:block;width:50%;float:none}.indent{margin-top:10px}.telegram_on{top:0;left:0;width:100%;box-sizing:border-box;margin:10px auto;padding:20px 30px 20px 20px;border-radius:0;float:none}input[type="checkbox"]{float:right}.watch_tlg{background:rgba(50,56,64,.35);width:50%;top:0;top:30px;left:50%;margin-left:-25%;z-index:1}.telegram_field{top:0;left:0;padding:15px;margin-right:0;width:100%;height:auto;box-sizing:border-box;border-radius:0}.info_text{position:absolute;width:200px;font-size:12px;text-align:center;padding:10px;background:rgba(50,56,64,.85);border-radius:10px;transition:opacity 0.3s ease-in;font-family:Verdana;margin-top:40px;z-index:1;color:rgba(255,255,255,.85);right:10px}.tlg_label_ul{left:0}.tlg_ul{float:none;top:0;left:0}#tlg_btn{width:96%;margin:10px auto;left:0;top:15px;display:block}.indent_block{display:none}}@media (orientation:landscape) and (max-width:900px){.container{width:47.5%}.delete_account_content{height:250px}.empty_list{text-align:center;box-sizing:border-box;padding:10px;margin-left:0}.profile_header{font-size:17px}.data{margin:0;width:100%;box-sizing:border-box}.photo_field{width:100%;margin:0 auto}.photo{width:120px;height:120px}.input_label{width:90%}.other_data_field{width:100%}.other_data{padding:2%;width:100%;height:150px;position:relative;margin:20px auto;box-sizing:border-box}.labels,.labels_options{font-size:15px;display:inline-table;text-align:left;width:48%;height:100%}.labels_options{position:relative;top:0}.first_name_label,.last_name_label,.age_label,.phone_label{display:table-row;width:100%;height:25%}#id_first_name,#id_last_name,#id_person_age,#id_phone_number{margin:0;width:100%;height:25%;display:table-row;border:0;border-bottom:.5px solid rgba(0,0,0,.3);font-size:15px;background:#fff}#prof_btn{float:none;display:block;width:100%;margin:0 auto}#del_btn{margin:10px auto;display:block;width:50%;float:none}.indent{margin-top:10px}.telegram_on{top:0;left:0;width:100%;box-sizing:border-box;margin:10px auto;padding:20px 30px 20px 20px;border-radius:0;float:none}input[type="checkbox"]{float:right}.watch_tlg{background:rgba(50,56,64,.35);width:50%;top:0;top:30px;left:50%;margin-left:-25%;z-index:1}.telegram_field{top:0;left:0;padding:15px;width:100%;height:auto;box-sizing:border-box;border-radius:0;margin-right:0}.info_text{position:absolute;width:200px;font-size:12px;text-align:center;padding:10px;background:rgba(50,56,64,.85);border-radius:10px;transition:opacity 0.3s ease-in;font-family:Verdana;margin-top:40px;z-index:1;color:rgba(255,255,255,.85);right:10px}.tlg_label_ul{left:20%}.tlg_ul{float:none;top:0;left:30%}#tlg_btn{width:96%;margin:10px auto;left:0;top:15px;display:block}.indent_block{display:none}}
+*{
+    font-family: Verdana;
+}
+
+/*--------------------------------- ПЛАНШЕТ ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:1025px) and (max-height:1367px){ 
+    .main{
+        padding: 0;
+        padding-bottom: 30px;
+    }
+    .greeting{
+        font-size: 22px;
+        margin: 0;
+        text-align: center;
+        padding: 25px 0px 10px 0;
+    }
+    .list{
+        display: none;
+    }
+    #adt_header{
+        margin: 20px 0 10px 10px;
+        display: block;
+    }
+
+    .adt_name{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
+    .buttons{
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
+    .edit_btn, .delete_btn, .archive_btn{
+        float: none;
+        width: 23%;
+        display: inline-block;
+        text-align: center;
+        margin: auto;
+        font-size: 11.5px;
+    }
+    .edited_adt{
+        width: initial;
+        margin: initial;
+        margin-top: -50px;
+        background: #fff;
+        border-radius: 7px;
+        text-align: center;
+        display: initial;
+    }
+/*------------------------------------------------- ИЗМЕНЕНИЕ АККАУНТА ---------------------------------------------------------------------*/
+    .data{
+        margin: 0;
+        margin-top: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .photo_field{
+        width: 30%;
+    }
+
+
+    .other_data_field{
+        width: 70%;
+    }
+    .labels{
+        text-align: left;
+    }
+    #id_first_name, #id_last_name, #id_person_age, #id_phone_number{
+        border: 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+        font-size: 15px;
+        background:#fff;
+        outline: none;
+    }
+    #prof_btn{
+        float: none;
+        display: block;
+        width: 70%;
+        margin: 10px auto;
+    }
+    #del_btn{
+        margin: 10px auto;
+        display: block;
+        width: 30%;
+        float: none;
+    }
+
+    .indent{
+        margin: 0;
+    }
+    .telegram_on{
+        top: 20px;
+        left: 2%;
+        border-radius: 0 10px 10px 0;
+        width: 30%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    input[type="checkbox"] {
+        float: right;
+    }
+    .watch_tlg{
+        background: rgba(50, 56, 64, 0.35);
+        width: 100%;
+        top: 0;
+        top: 75px;
+        left: 25%;
+        margin-left: -25%;
+        z-index: 1;
+    }
+
+
+
+    .telegram_field {
+        top: 20px;
+        left: 0;
+        padding: 15px;
+        width: 55%;
+        margin-right: 5%;
+        height: auto;
+        box-sizing: border-box;
+    }
+    .info_text{
+        position: absolute;
+        width: 200px;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+        background: rgba(50, 56, 64, 0.85);
+        border-radius: 10px;
+        transition: opacity 0.3s ease-in;
+        font-family: Verdana;
+        margin-top: 40px;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.85);
+        right: 10px;
+    }
+    .tlg_label_ul{
+        left: 0;
+    }
+    .tlg_ul{
+        float: none;
+        top: 0;
+        left: 20%;
+    }
+    #tlg_btn{
+        width: 70%;
+        margin: 10px auto;
+        left: 0;
+        top: 40px;
+        display: block;
+    }
+    .indent_block{
+        display: none;
+    }
+
+    .tlg_header{
+        top: 0;
+    }
+
+}
+@media (orientation:portrait) and (max-width:768px) and (max-height:1024px){ 	
+
+}
+@media (orientation:portrait) and (max-width:600px) and (max-height:960px){ 	
+
+}
+@media (orientation:portrait) and (max-width:540px) and (max-height:720px){ 	
+
+}
+
+/*--------------------------------- ПЛАНШЕТ ГОРИЗОНТАЛЬНО --------------------------------------*/
+@media (orientation:landscape) and (max-width:1367px) and (max-height:1025px){
+    .main{
+        padding: 0;
+        padding-bottom: 100px;
+    }
+    .greeting{
+        font-size: 22px;
+        margin: 0;
+        text-align: center;
+        padding: 25px 0px 10px 0;
+    }
+    .list{
+        display: none;
+    }
+    #adt_header{
+        margin: 20px 0 10px 10px;
+        display: block;
+    }
+    
+    .adt_name{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
+    .buttons{
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
+    .edit_btn, .delete_btn, .archive_btn{
+        float: none;
+        width: 20%;
+        display: inline-block;
+        text-align: center;
+        margin: auto;
+    }
+    .edited_adt{
+        width: initial;
+        margin: initial;
+        margin-top: -50px;
+        background: #fff;
+        border-radius: 7px;
+        text-align: center;
+        display: initial;
+    }
+    /*------------------------------------------------- ИЗМЕНЕНИЕ АККАУНТА ---------------------------------------------------------------------*/
+    .data{
+        margin: 0;
+        margin-top: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .photo_field{
+        width: 30%;
+    }
+
+    .other_data{
+        width: 95%;
+        box-sizing: border-box;
+    }
+    .other_data_field{
+        width: 70%;
+    }
+    .labels{
+        text-align: left;
+    }
+    #id_first_name, #id_last_name, #id_person_age, #id_phone_number{
+        border: 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+        font-size: 15px;
+        background:#fff;
+    }
+    #prof_btn{
+        float: none;
+        display: block;
+        width: 70%;
+        margin: 10px auto;
+    }
+    #del_btn{
+        margin: 10px auto;
+        display: block;
+        width: 30%;
+        float: none;
+    }
+
+    .indent{
+        margin: 0;
+    }
+    .telegram_on{
+        top: 20px;
+        left: 2%;
+        border-radius: 0 10px 10px 0;
+        width: 30%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    input[type="checkbox"] {
+        float: right;
+    }
+    .watch_tlg{
+        background: rgba(50, 56, 64, 0.35);
+        width: 100%;
+        top: 0;
+        top: 75px;
+        left: 25%;
+        margin-left: -25%;
+        z-index: 1;
+    }
+
+
+
+    .telegram_field {
+        top: 20px;
+        left: 0;
+        padding: 15px;
+        width: 55%;
+        margin-right: 5%;
+        height: auto;
+        box-sizing: border-box;
+        float: right;
+    }
+    .info_text{
+        position: absolute;
+        width: 200px;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+        background: rgba(50, 56, 64, 0.85);
+        border-radius: 10px;
+        transition: opacity 0.3s ease-in;
+        font-family: Verdana;
+        margin-top: 40px;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.85);
+        right: 10px;
+    }
+    .tlg_label_ul{
+        left: 0;
+    }
+    .tlg_ul{
+        float: none;
+        top: 0;
+        left: 20%;
+    }
+    #tlg_btn{
+        width: 70%;
+        margin: 10px auto;
+        left: 0;
+        top: 30px;
+        display: block;
+    }
+    .indent_block{
+        display: none;
+    }
+
+    .tlg_header{
+        top: 0;
+    }
+}
+
+
+@media (orientation:landscape) and (max-width:1024px) and (max-height:768px){
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------- Телефон ВЕРТИКАЛЬНО --------------------------------------*/
+@media (orientation:portrait) and (max-width:480px){
+    .adt{
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+    .edit_btn, .delete_btn, .archive_btn{
+        width: 80%;
+        box-sizing: border-box;
+        padding: 5px 0;
+        margin-top: 5px;
+    }
+    .delete_account_content {
+        height: 250px;
+    }
+    .empty_list{
+        text-align: center;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-left: 0;
+    }
+    .buttons{
+        flex-direction: column;
+    }
+        /*------------------------------------------------- ИЗМЕНЕНИЕ АККАУНТА ---------------------------------------------------------------------*/
+    .profile_header{
+        font-size: 17px;
+    }
+    .data{
+        margin: 0;
+    }
+    .photo_field{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .photo{
+        width: 120px;
+        height: 120px;
+    }
+    .input_label{
+        width: 90%;
+    }
+
+
+    .other_data_field{
+        width: 100%;
+    }
+    .other_data{
+        padding: 2%;
+        width: 100%;
+        height: 150px;
+        position: relative;
+        margin: 20px auto;
+        box-sizing: border-box;
+        flex-direction: row;
+    }
+    .labels, .labels_options{
+        font-size: 15px;
+        display: inline-table;
+        text-align: left;
+        width: 48%;
+        height: 100%;
+    }
+    .labels_options{
+        position: relative;
+        top: 0;
+    }
+    .first_name_label, .last_name_label, .age_label, .phone_label{
+        display: table-row;
+        width: 100%;
+        height: 20%;
+    }
+    #id_first_name, #id_last_name, #id_person_age, #id_phone_number{
+        margin: 0;
+        width: 100%;
+        height: 20%;
+        display: table-row;
+        border: 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+        font-size: 15px;
+        background: #fff;
+    }
+    #prof_btn{
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+    }
+    #del_btn{
+        margin: 10px auto;
+        display: block;
+        width: 50%;
+        float: none;
+    }
+
+
+
+
+
+    .telegram_area{
+        flex-direction: column;
+    }
+    .indent {
+        margin-top: 10px;
+    }
+    .telegram_on{
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 10px auto;
+        padding: 20px 30px 20px 20px;
+        border-radius: 0; 
+        float: none;
+        height: auto;
+    }
+    input[type="checkbox"] {
+        float: right;
+    }
+    .watch_tlg{
+        background: rgba(50, 56, 64, 0.35);
+        width: 50%;
+        top: 0;
+        top: 30px;
+        left: 50%;
+        margin-left: -25%;
+        z-index: 1;
+    }
+
+
+
+    .telegram_field {
+        top: 0;
+        left: 0;
+        padding: 15px;
+        margin-right: 0;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        border-radius: 0; 
+    }
+    .info_text{
+        position: absolute;
+        width: 200px;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+        background: rgba(50, 56, 64, 0.85);
+        border-radius: 10px;
+        transition: opacity 0.3s ease-in;
+        font-family: Verdana;
+        margin-top: 40px;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.85);
+        right: 10px;
+    }
+    .tlg_label_ul{
+        left: 0;
+    }
+    .tlg_ul{
+        float: none;
+        top: 0;
+        left: 0;
+    }
+    #tlg_btn{
+        width: 96%;
+        margin: 10px auto;
+        left: 0;
+        top: 15px;
+        display: block;
+    }
+    .indent_block{
+        display: none;
+    }
+}
+@media (max-width:420px){
+
+}
+@media (max-width:380px){
+
+}
+@media (max-width:360px){
+
+}
+@media (max-width:320px){
+
+}
+
+@media (max-width:280px){	
+
+}
+
+
+/*--------------------------------- Телефон Горизонтально --------------------------------------*/
+@media (orientation:landscape) and (max-width:900px){
+    .adt{
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+    .edit_btn, .delete_btn, .archive_btn{
+        width: 80%;
+        box-sizing: border-box;
+        padding: 5px 0;
+        margin-top: 5px;
+    }
+    .delete_account_content {
+        height: 250px;
+    }
+    .empty_list{
+        text-align: center;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-left: 0;
+    }
+    .buttons{
+        flex-direction: column;
+    }
+        /*------------------------------------------------- ИЗМЕНЕНИЕ АККАУНТА ---------------------------------------------------------------------*/
+    .profile_header{
+        font-size: 17px;
+    }
+    .data{
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .photo_field{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .photo{
+        width: 120px;
+        height: 120px;
+    }
+    .input_label{
+        width: 90%;
+    }
+
+
+    .other_data_field{
+        width: 100%;
+    }
+    .other_data{
+        padding: 2%;
+        width: 100%;
+        height: 150px;
+        position: relative;
+        margin: 20px auto;
+        box-sizing: border-box;
+        flex-direction: row;
+    }
+    .labels, .labels_options{
+        font-size: 15px;
+        display: inline-table;
+        text-align: left;
+        width: 48%;
+        height: 100%;
+    }
+    .labels_options{
+        position: relative;
+        top: 0;
+    }
+    .first_name_label, .last_name_label, .age_label, .phone_label{
+        display: table-row;
+        width: 100%;
+        height: 20%;
+    }
+    #id_first_name, #id_last_name, #id_person_age, #id_phone_number{
+        margin: 0;
+        width: 100%;
+        height: 20%;
+        display: table-row;
+        border: 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+        font-size: 15px;
+        background: #fff;
+    }
+    #prof_btn{
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+    }
+    #del_btn{
+        margin: 10px auto;
+        display: block;
+        width: 50%;
+        float: none;
+    }
+
+
+
+
+    .telegram_area{
+        flex-direction: column;
+    }
+    .indent {   
+        margin-top: 10px;
+    }
+    .telegram_on{
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 10px auto;
+        padding: 20px 30px 20px 20px;
+        border-radius: 0; 
+        float: none;
+        height: auto;
+    }
+    input[type="checkbox"] {
+        float: right;
+    }
+    .watch_tlg{
+        background: rgba(50, 56, 64, 0.35);
+        width: 50%;
+        top: 0;
+        top: 30px;
+        left: 50%;
+        margin-left: -25%;
+        z-index: 1;
+    }
+
+
+
+    .telegram_field {
+        top: 0;
+        left: 0;
+        padding: 15px;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        border-radius: 0; 
+        margin-right: 0;
+    }
+    .info_text{
+        position: absolute;
+        width: 200px;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+        background: rgba(50, 56, 64, 0.85);
+        border-radius: 10px;
+        transition: opacity 0.3s ease-in;
+        font-family: Verdana;
+        margin-top: 40px;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.85);
+        right: 10px;
+    }
+    .tlg_label_ul{
+        left: 20%;
+    }
+    .tlg_ul{
+        float: none;
+        top: 0;
+        left: 30%;
+    }
+    #tlg_btn{
+        width: 96%;
+        margin: 10px auto;
+        left: 0;
+        top: 15px;
+        display: block;
+    }
+    .indent_block{
+        display: none;
+    }
+}
+@media (orientation:landscape) and (max-width:850px){
+    
+}
+@media (orientation:landscape) and (max-width:740px){
+    
+}
+@media (orientation:landscape) and (max-width:600px){
+
+}

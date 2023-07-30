@@ -1,4 +1,3 @@
-from this import d
 import uuid
 from django.shortcuts import render, redirect
 from chat.models import Room, Message
@@ -11,6 +10,7 @@ from account.models import Account
 from random import randint
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import get_language
+from django.shortcuts import get_object_or_404
 
 
 @login_required(login_url='/login/')
@@ -37,7 +37,7 @@ def checkview(request, room, message, board_obj):
 @login_required(login_url='/login/')
 def show_chats(request):
     my_rooms = Room.objects.filter(participants__in=[request.user])
-    return render(request, 'chat/chats.html', {'my_rooms':my_rooms, 'current_lang': get_language()})
+    return render(request, 'chat/chats.html', {'my_rooms':my_rooms})
 
 def get_last_msg(request):
     if request.is_ajax:
@@ -61,7 +61,19 @@ def getMessages(request, room):
             return HttpResponse(json.dumps('no_msgs'))
         else:
             messages = Message.objects.filter(room=room_details.id)
-            return JsonResponse({"messages":list(messages.values())})
+            messages_list = []
+            for i in messages:
+                messages_list.append(
+                    {
+                        'id': i.id, 
+                        'value': i.value, 
+                        'room_id': i.room.id, 
+                        'date': i.date, 
+                        'sender': i.sender.email
+                    }
+                )
+            # return JsonResponse({"messages":list(messages.values())})
+            return JsonResponse({"messages":messages_list})
     except:
         return redirect('chat:show_chats')
 
@@ -96,7 +108,6 @@ def room(request, room):
                     show_add_workers_icon = False
 
             context = {
-                'current_lang':get_language(),
                 'this_user':request.user,
                 'participant':participant,
                 'room':this_room,
@@ -113,10 +124,10 @@ def room(request, room):
 def send(request):
     message = request.POST.get('message', None)
     sender = request.POST.get('sender', None)
-    receiver = request.POST.get('receiver', None)
     room_name = request.POST.get('room_name', None)
 
-    new_message = Message.objects.create(value=message, sender=sender, receiver=receiver, room=Room.objects.get(name=room_name))
+    sender = get_object_or_404(Account, email=sender)
+    new_message = Message.objects.create(value=message, sender=sender, room=Room.objects.get(name=room_name))
     new_message.save()
     return HttpResponse('Message sent successfully')
     
@@ -170,7 +181,6 @@ def workers_list(request):
     else:
         context = {
             'board_obj':board_obj,
-            'current_lang':get_language(),
         }
         return render(request, 'chat/workers_list.html', context)
 

@@ -1,5 +1,0 @@
-Host: https://teenwork.com.ua
-Sitemap: https://teenwork.com.ua/sitemap.xml
-User-agent: *
-Disallow: /ajax/load-branches/
-Allow: /

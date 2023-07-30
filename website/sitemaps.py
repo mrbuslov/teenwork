@@ -1,8 +1,8 @@
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import reverse
-from board.models import Age, City, Region, Rubric
+from board.models import Age, Rubric
 from django.db.models import Q
-from account.models import TeenworkBlog
+from board.models import TeenworkBlog
 
 # class StaticViewSitemap(Sitemap):
 #     i18n = True # должны ли URL-адреса этой карты сайта создаваться с использованием всех ваших файлов LANGUAGES
@@ -42,30 +42,7 @@ class AgeSitemap(Sitemap):
     
     def items(self):
         return Age.objects.all()
-
-
-class RegionSitemap(Sitemap):
-    i18n = True 
-    alternates = True 
-    x_default = True 
-    changefreq = 'always'
-    protocol = 'https'
-    
-    def items(self):
-        return Region.objects.all()
-
-
-class CitySitemap(Sitemap):
-    i18n = True 
-    alternates = True 
-    x_default = True 
-    changefreq = 'always'
-    protocol = 'https'
-    
-    def items(self):
-        return City.objects.all()
-        
-        
+                
 
 class BlogSitemap(Sitemap):
     i18n = True 

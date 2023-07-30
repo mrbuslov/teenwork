@@ -1,14 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Rubric, Region, City
+from .models import TeenworkBlog
 
-class RubricTranslationOptions(TranslationOptions):
-    fields = ('name',)
+class TeenworkBlogTranslationOptions(TranslationOptions):
+    fields = ('title', 'content')
 
-class RegionTranslationOptions(TranslationOptions):
-    fields = ('name',)
-class CityTranslationOptions(TranslationOptions):
-    fields = ('name',)
-
-translator.register(Rubric, RubricTranslationOptions)
-translator.register(Region, RegionTranslationOptions)
-translator.register(City, CityTranslationOptions)
+translator.register(TeenworkBlog, TeenworkBlogTranslationOptions)

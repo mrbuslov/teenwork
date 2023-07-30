@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/rules/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Правила Teenwork">
-    <meta name="description" content="Як можна взаємодіяти з сайтом Teenwork та які правила прийняті у наших колах.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/rules/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Правила Teenwork">
-    <meta name="description" content="Как можно взаимодействовать с сайтом Teenwork и какие правила приняты в наших кругах.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Правила Teenwork' %}">
+    <meta name="description" content="{% translate 'Как можно взаимодействовать с сайтом Teenwork и какие правила приняты в наших кругах.' %}">
 {% endblock %}
 
 {% block title %} Правила {% translate "сайта" %} Teenwork{% endblock %}
@@ -81,7 +70,7 @@
 <li> {% translate "работа, требующая заимствования платы за трудоустройство." %}</li>
 </ul>
 <p> {% translate "2.3.2. Команда Teenwork не переводит названия, описания публикаций и все поля, что заполняет создатель объявления." %}</p>
-<p> {% translate "2.3.3. Работодатель обязуется при приёме на работу подростка до 16-ти лет требовать письменное соглашение от родителя(ей) или опекуна." %}</p>
+<p> {% translate "2.3.3. Работодатель обязуется при приёме на работу студента до 16-ти лет требовать письменное соглашение от родителя(ей) или опекуна." %}</p>
 </div>
 <div class="privacy_block">
 <p> <strong> {% translate "3. Заключение правил. " %}</strong></p>

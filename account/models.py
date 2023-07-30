@@ -1,14 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import uuid
-from django.core.cache import cache 
-import datetime
-
-from pytils.third.six import BytesIO
-from website import settings
+from io import BytesIO
 from PIL import ExifTags, Image as PIL_Image
 from django.core.files.base import ContentFile
-from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import PermissionsMixin
 
 
 class MyAccountManager(BaseUserManager):
@@ -40,8 +37,6 @@ class MyAccountManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 
-
-from django.contrib.auth.models import PermissionsMixin
 class Account(AbstractBaseUser, PermissionsMixin):
 	email 					= models.EmailField(verbose_name="email", max_length=60, unique=True)
 	username 				= models.CharField(max_length=30, unique=True)
@@ -59,6 +54,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 	unique_code				= models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
 	email_subscription		= models.BooleanField(default=True)
 	
+	im_working_student		= models.BooleanField(default=False)
+
 	is_asked_for_activ		= models.BooleanField(default=False)
 	
 	image 					= models.ImageField(null=True, blank=True)
@@ -72,16 +69,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
 	def __str__(self):
 		return self.email
 
-	# For checking permissions. to keep it simple all admin have ALL permissons
-# 	def has_perm(self, perm, obj=None):
-# 		return self.is_admin
-
-	# Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
-# 	def has_module_perms(self, app_label):
-# 		return True
-
-	# https://evileg.com/en/post/546/ - if user is online or not , но с записью в БД(((
-
 	def save(self, *args, **kwargs):
 		# if self._state.adding:
 		if self.image:
@@ -91,10 +78,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 			
 				image = PIL_Image.open(self.image)
 				try:
-					if image.mode != "RGB":
-						image = image.convert("RGB")
-				except:
-					pass
+					if image.mode != "RGB": image = image.convert("RGB")
+				except: pass
 
 				try:
 					for orientation in ExifTags.TAGS.keys():
@@ -108,14 +93,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 						image = image.rotate(270, expand=True)
 					elif exif[orientation] == 8:
 						image = image.rotate(90, expand=True)
-				except:
-					pass
+				except: pass
 					
 				image_io = BytesIO()
 				image.save(image_io, format='JPEG', quality=70)
 
 				# change the image field value to be the newly modified image value
-				self.image.save(f'images/users/{self.username}_{str(uuid.uuid4())}{filename}', ContentFile(image_io.getvalue()), save=False)
+				self.image.save(f'users/{self.username}_{str(uuid.uuid4())}{filename}', ContentFile(image_io.getvalue()), save=False)
 			
 		super(Account, self).save(*args, **kwargs)
 
@@ -148,112 +132,3 @@ def translate(string):
         result = result + simb
 
     return result.replace(' ','_').lower()
-
-
-
-from django.utils.safestring import mark_safe
-class SocialNets(models.Model):
-	title = models.CharField(verbose_name='Название', max_length=200)
-	img_src = models.ImageField(upload_to = 'images/social')
-	email_content = models.TextField(verbose_name='Содержание email\'a')
-	instagram_link = models.CharField(verbose_name='Ссылка на Инстаграм пост', max_length=200)
-	facebook_link = models.CharField(verbose_name='Ссылка на Фейсбук пост', max_length=200)
-	published = models.DateTimeField(auto_now_add=True,verbose_name='Опубликовано') 
-	is_published = models.BooleanField(default=False, verbose_name='Публикация отправлена?')
-	
-	class Meta:
-		verbose_name_plural='Публикации в соц.сетях'
-		verbose_name= 'Публикация'	
-		ordering=['-published']
-
-	def image_tag(self):
-		photos = f'<a href="{self.img_src.url}"><img src="{self.img_src.url}" width="150px" style="margin: 0 10px" /></a>'
-		return mark_safe(photos)
-	image_tag.short_description = 'Изображение'
-	image_tag.allow_tags = True
-			
-
-	
-	def __str__(self):
-		return self.title
-
-
-from slugify import slugify
-from django.contrib.sitemaps import ping_google
-class TeenworkBlog(models.Model):
-	title_ru = models.CharField(verbose_name='Название', max_length=200)
-	title_uk = models.CharField(verbose_name='Назва (uk)', max_length=200, blank=True, null=True)
-	slug = models.SlugField(max_length=150, unique = True,verbose_name='Ссылка', blank=True, null=True)
-	img_src = models.CharField(verbose_name='Название фотографии', max_length=200, help_text='Пример: images/social/image.jpg')
-	post_content_ru = models.TextField(verbose_name='Содержание post\'a')
-	post_content_uk = models.TextField(verbose_name='Змiст post\'a (uk)', blank=True, null=True)
-	published = models.DateTimeField(auto_now_add=True,verbose_name='Опубликовано') 
-	views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
-
-
-	STATUS_CHOICES = (
-        ('published', 'Published'),
-        ('draft', 'Draft'),
-    )
-	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-	
-	class Meta:
-		verbose_name_plural='Публикации блога' # verbose - подробный
-		verbose_name= 'Публикация'	
-		ordering=['-published']
-
-	def image_tag(self):
-		photos = f'<a href="{self.img_src}"><img src="{self.img_src}" width="150px" style="margin: 0 10px" /></a>'
-		return mark_safe(photos)
-	image_tag.short_description = 'Изображение'
-	image_tag.allow_tags = True
-			
-
-	
-	def __str__(self):
-		return self.title_ru
-
-
-	def save(self,  *args, **kwargs):
-		if not self.pk:
-			if TeenworkBlog.objects.filter(title_ru=self.title_ru).exists():
-				self.slug = slugify(self.title_ru) + "-" + str(uuid.uuid4())
-			else:
-				self.slug = slugify(self.title_ru)
-			super(TeenworkBlog, self).save(*args, **kwargs)
-		else:
-			super(TeenworkBlog, self).save(*args, **kwargs)
-			
-		try:
-			ping_google() # Вы можете захотеть «пинговать» Google, когда ваша карта сайта изменится, чтобы он знал, что нужно переиндексировать ваш сайт
-		except Exception:
-			pass
-			
-	def get_absolute_url(self): # sitemap
-	    if get_language() == 'uk':
-	        return f'/uk/blog/{self.slug}'
-	    else:
-	        return f'/blog/{self.slug}'
-	        
-	        
-class Mailing(models.Model):
-	title = models.CharField(verbose_name='Назва (uk)', max_length=200)
-	img_src = models.CharField(verbose_name='Название фотографии', max_length=100, help_text='Пример: images/social/image.jpg')
-	content = models.TextField(verbose_name='Змiст (uk)', blank=True, null=True)
-	published = models.DateTimeField(auto_now_add=True,verbose_name='Отправлено') 
-	views = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
-
-	
-	class Meta:
-		verbose_name_plural='Письма рассылки' # verbose - подробный
-		verbose_name= 'Письмо'	
-		ordering=['-published']
-
-	def image_tag(self):
-		photos = f'<a href="{self.img_src}"><img src="{self.img_src}" width="150px" style="margin: 0 10px" /></a>'
-		return mark_safe(photos)
-	image_tag.short_description = 'Изображение'
-	image_tag.allow_tags = True
-			
-	def __str__(self):
-		return self.title

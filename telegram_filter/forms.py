@@ -7,14 +7,13 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.http import request
-from board.models import City
 
 
 class TelegramForm(ModelForm):
     class Meta:
         model = Telegram
         # Быстрое объявление
-        fields=('telegram', 'rubric', 'age', 'region', 'city', 'person')   
+        fields=('telegram', 'rubric', 'age', 'city', 'person')   
         labels={'author':'Автор'}
     
     def __init__(self, *args, **kwargs):

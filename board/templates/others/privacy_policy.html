@@ -2,22 +2,11 @@
 {% load static %} 
 {% load i18n %} 
 
-{% block language %}
-    <html lang="{{current_lang}}">
-{% endblock %}
+
 
 {% block head %}
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/privacy_policy/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Політика конфіденційності Teenwork">
-    <meta name="description" content="Як і чому ми збираємо дані про наших користувачів та гостей.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/privacy_policy/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Политика конфиденциальности Teenwork">
-    <meta name="description" content="Как и почему мы собираем данные о наших пользователях и гостях.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Политика конфиденциальности Teenwork' %}">
+    <meta name="description" content="{% translate 'Как и почему мы собираем данные о наших пользователях и гостях.' %}">
 {% endblock %}
 
 {% block title %} {% translate "Политика конфиденциальности" %} Teenwork{% endblock %}

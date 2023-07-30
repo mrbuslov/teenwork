@@ -1,26 +1,15 @@
 {% load static %}
 {% load i18n %} 
 <!DOCTYPE html>
-<html lang="{{current_lang}}">
+<html lang="{{request.LANGUAGE_CODE}}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJ2BVNFYQ"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)} gtag('js',new Date());gtag('config','G-GJJ2BVNFYQ');</script>
     <link href="{% static 'css/registration.css' %}" type="text/css" rel="stylesheet">
 
-    {% if current_lang == 'uk' %}
-    <link rel="canonical" href="https://teenwork.com.ua/uk/login/">
-    <meta http-equiv="Content-Language" content="uk">
-    <meta name="subject" content="Вхід на Teenwork">
-    <meta name="description" content="Увійдіть у профіль, щоб переглядати та створювати постійні оголошення.">
-    {% else %}
-    <link rel="canonical" href="https://teenwork.com.ua/login/">
-    <meta http-equiv="Content-Language" content="ru">
-    <meta name="subject" content="Вход на Teenwork">
-    <meta name="description" content="Войдите в профиль, чтобы просматривать и создавать постоянные объявления.">
-    {% endif %}
+    <meta name="subject" content="{% translate 'Вход на Teenwork' %}">
+    <meta name="description" content="{% translate 'Войдите в профиль, чтобы просматривать и создавать постоянные объявления.' %}">
     
     <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
     <title>{% translate "Вход" %} на Teenwork</title>

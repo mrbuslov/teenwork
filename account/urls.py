@@ -9,7 +9,7 @@ app_name='account'
 urlpatterns = [
     path('profile/', account_views.profile, name='profile'),
     path('profile_edit/', account_views.profile_edit, name='profile_edit'),
-    path('by/<slug:username>/', account_views.account_profile, name='account_profile'),
+    path('by/<slug:username>/', account_views.account, name='account'),
     path('login/', account_views.user_login ,name='login'),
     path('account/user_logout/', account_views.user_logout, name='logout'),
     path('registration/', account_views.registration, name='registration'),
@@ -21,7 +21,4 @@ urlpatterns = [
 
     path('fav/<str:pk>/', account_views.favourite_add, name='favourite_add'),
     path('profile/favourites/', account_views.favourite_list, name='favourite_list'),
-
-    path('blog/<str:slug>/', account_views.tw_blog_post, name='tw_blog_post'),
-    path('blog/', account_views.tw_blog, name='tw_blog'),
 ]
