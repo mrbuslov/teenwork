@@ -1,0 +1,44 @@
+:root {
+    // Typography
+    --font-family-main: "Roboto", sans-serif;
+    --font-size-m: 14px;
+    --font-size-l: 22px;
+  
+    // Breakpoints
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 375px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1440px;
+  
+    // Spacings
+    --spacing: 8px;
+  
+    // Palette
+    // - Blue
+    --color-blue-main: #2b77ac;
+    --color-blue-light: #afdef1;
+    --color-blue-dark: #004169;
+  
+    // - Red
+    --color-red-main: #e83164;
+    --color-red-pure: red;
+  
+    // - White
+    --color-white-main: #fff;
+    --color-white-blue: #f2f7fa;
+    --color-white-transparent: rgb(255 255 255 / 0.2);
+  
+    // - Grey
+    --color-grey-dark: #959595;
+    --color-grey-main: #dadada;
+    --color-grey-light: #f2f6f9;
+  
+    // - Misc
+    --color-highlight-white: #ffffff13;
+  
+    // - Green
+    --color-green-light: #adce6a;
+    --color-green-pure: green;
+  }
+  
