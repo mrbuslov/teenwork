@@ -1,29 +1,23 @@
 name: "teenwork"
 
+x-common-variables: &common-variables
+  - DATABASE_USER=teenwork
+  - DATABASE_NAME=teenwork
+  - DATABASE_PASSWORD=teenwork
+  - DATABASE_HOST=database
+  - DATABASE_PORT=5432
+  
 services:
   database:
     image: postgres:13.0-alpine
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=teenwork
-      - POSTGRES_PASSWORD=teenwork
-      - POSTGRES_DB=teenwork
+    environment: *common-variables
     ports:
       - "5432:5432"
     env_file:
-      - ./.env
-
-  # nginx:
-  #   build: ./containers/nginx
-  #   ports:
-  #     - 80:8000
-  #   depends_on:
-  #     - server
-  #   volumes:
-  #     - static_volume:/var/teenwork/static
-  #     - media_volume:/var/teenwork/media
+      - ./backend/.env
 
   server:
     build: 
@@ -31,25 +25,33 @@ services:
     command: ["sh", "-c", "/var/teenwork/run.sh"]
     # command: ["python", "manage.py", "runserver"]
     volumes:
-      - ./:/var/teenwork
+      - ./backend/:/var/teenwork
       - static_volume:/var/teenwork/static
       - media_volume:/var/teenwork/media
     # WIth expose port 8000 is only exposed internally, to other Docker services. The port will no longer be published to the host machine.
     # expose:
     #   - 8000
     ports:
-      - 8000:8000
-    environment:
-      - DATABASE_USER=teenwork
-      - DATABASE_NAME=teenwork
-      - DATABASE_PASSWORD=teenwork
-      # host is named as docker-compose server
-      - DATABASE_HOST=database
-      - DATABASE_PORT=5432
+      - 80:80
+    environment: *common-variables
     env_file:
-      - ./.env
+      - ./backend/.env
     depends_on:
       - database
+      - frontend
+
+  frontend:
+    container_name: frontend
+    build:
+      dockerfile: ./containers/frontend/Dockerfile
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 8000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
 
 volumes:
   postgres_data:

@@ -10,4 +10,3 @@ The best practice is using production mode (below)
 - execute commands in container `docker-compose exec [service-name] [command]`, for example: `docker-compose exec server python manage.py createsuperuser`
 
 [Dockerization resource](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
-*(backend) in feeorder/run.sh we have migrate. If you don't want migrate every time you launch container, comment this line.

@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiogram = "*"
+aiohttp = "*"
+celery = "*"
+psycopg2-binary = "*"
+Django = "*"
+django-modeltranslation = "*"
+django-rosetta = "*"
+Pillow = "*"
+python-slugify = "*"
+googletrans = "3.1.0a0"
+django-ckeditor = "*"
+python-dotenv = "*"
+django-extensions = "*"
+django-filter = "*"
+django-cleanup = "*"
+pytils = "*"
+six = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

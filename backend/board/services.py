@@ -12,7 +12,7 @@ from django.shortcuts import redirect, render
 from django.db.models import Case, F, When, Q
 from chat.views import checkview
 from datetime import datetime
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.http.request import QueryDict
 from django.views.decorators.csrf import csrf_exempt

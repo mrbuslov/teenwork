@@ -9,7 +9,7 @@ import datetime
 from django.contrib.sitemaps import ping_google
 from django.utils.translation import get_language
 import uuid
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.safestring import mark_safe
 

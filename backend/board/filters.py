@@ -4,7 +4,7 @@ from django.forms.widgets import TextInput
 from .models import Board, Age
 from django.db.models import Q
 from django.utils.translation import get_language
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class OrderFilter(django_filters.FilterSet):

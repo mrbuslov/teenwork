@@ -21,7 +21,7 @@ TOKEN = os.environ['TELEGRAM_TOKEN']
 NP_KEY = os.environ['NP_KEY']
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ["teenwork.com.ua", "www.teenwork.com.ua"] # в django версии 4 добавь в начало https://
+CSRF_TRUSTED_ORIGINS = ["https://teenwork.com.ua", "https://www.teenwork.com.ua"] 
 
 # http://127.0.0.1:8000/admin/sites/site
 SITE_ID = 1

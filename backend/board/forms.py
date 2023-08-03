@@ -7,7 +7,7 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.http import request
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 # Валидация занесённых данных с 271

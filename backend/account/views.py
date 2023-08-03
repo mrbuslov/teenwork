@@ -10,7 +10,7 @@ from django.conf import settings
 from django.db.models import Q
 
 from django.urls import reverse, reverse_lazy
-from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 import datetime
 from datetime import datetime
@@ -277,7 +277,7 @@ from django.views.generic import View
 class VerificationView(View):
     def get(self,request, uidb64, token):
         try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
+            uid = force_str(urlsafe_base64_decode(uidb64))
             user = Account.objects.get(pk=uid)
         except Exception as e:
             user = None
@@ -485,7 +485,7 @@ class SetNewPswrdView(View):
         }
 
         try:
-            user_id = force_text(urlsafe_base64_decode(uidb64))
+            user_id = force_str(urlsafe_base64_decode(uidb64))
 
             user = Account.objects.get(pk=user_id)
 
@@ -507,7 +507,7 @@ class SetNewPswrdView(View):
             return render(request, 'registration/set_new_pswrd.html', context)
 
         try:
-            user_id = force_text(urlsafe_base64_decode(uidb64))
+            user_id = force_str(urlsafe_base64_decode(uidb64))
 
             user = Account.objects.get(pk=user_id)
             user.set_password(password)
@@ -522,7 +522,7 @@ class SetNewPswrdView(View):
 class UnsubscribeView(View):
     def get(self,request, uidb64, token):
         try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
+            uid = force_str(urlsafe_base64_decode(uidb64))
             user = Account.objects.get(pk=uid)
         except Exception as e:
             user = None

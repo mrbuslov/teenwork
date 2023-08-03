@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from './NavBar.module.scss'
+import styles from './NavBar.module.scss';
 
 const Navbar = () => {
   return (
@@ -9,8 +9,8 @@ const Navbar = () => {
             <img 
                 src="logo.svg" 
                 className={styles.logo}
-                alt="{% translate 'Teenwork service logo' %}"
-                title="{% translate 'Teenwork - work for teenagers and not only' %}"
+                alt="Teenwork service logo"
+                title="Teenwork - work for teenagers and not only"
             />
         </Link>
 
