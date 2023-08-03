@@ -9,4 +9,5 @@ The best practice is using production mode (below)
 - start docker container (production) `docker-compose up` or `docker-compose -f docker-compose.yml up`
 - execute commands in container `docker-compose exec [service-name] [command]`, for example: `docker-compose exec server python manage.py createsuperuser`
 
-[Dockerization resource](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+[Dockerization resource - backend](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+[Dockerization resource - frontend](https://mherman.org/blog/dockerizing-a-react-app/)
