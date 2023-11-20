@@ -1,27 +1,28 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from './NavBar.module.scss';
 
+// difference between NavLink and Link is that NavLink applies "active" attribute to link, if we're on that page
 const Navbar = () => {
   return (
-    <>
+    <header>
         
-        <Link to="/">
-            <img 
-                src="logo.svg" 
-                className={styles.logo}
-                alt="Teenwork service logo"
-                title="Teenwork - work for teenagers and not only"
-            />
-        </Link>
+      <NavLink to="/">
+        <img 
+          src="logo.svg" 
+          className={styles.logo}
+          alt="Teenwork service logo"
+          title="Teenwork - work for teenagers and not only"
+        />
+      </NavLink>
 
-        <div className={styles.langs}>
-            <Link to="/">English</Link>
-            <Link to="/ru">Русский</Link>
-        </div>
+      <div className={styles.langs}>
+          <NavLink to="/">English</NavLink>
+          <NavLink to="/ru">Русский</NavLink>
+      </div>
 
           
 
-    </>
+    </header>
   )
 
     
