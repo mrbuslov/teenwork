@@ -1,23 +1,28 @@
 import { NavLink } from "react-router-dom";
-import styles from './NavBar.module.scss';
+import classes from './NavBar.module.scss';
+
+interface NavLinkProps {
+  isActive: boolean;
+};
+
 
 // difference between NavLink and Link is that NavLink applies "active" attribute to link, if we're on that page
 const Navbar = () => {
+  const setActive = ({isActive}: NavLinkProps) => isActive ? classes.activeLink : "";
   return (
     <header>
-        
       <NavLink to="/">
         <img 
           src="logo.svg" 
-          className={styles.logo}
+          className={classes.logo}
           alt="Teenwork service logo"
           title="Teenwork - work for teenagers and not only"
         />
       </NavLink>
 
-      <div className={styles.langs}>
-          <NavLink to="/">English</NavLink>
-          <NavLink to="/ru">Русский</NavLink>
+      <div className={classes.langs}>
+        <NavLink to="/" className={setActive}>English</NavLink>
+        <NavLink to="/ru" className={setActive}>Русский</NavLink>
       </div>
 
           
@@ -25,7 +30,7 @@ const Navbar = () => {
     </header>
   )
 
-    
+
 //   <ul class="test_ul">
 //   <li>
 //   <div class="account"><div class="account_icon"> <img src="{% static 'img/profile.svg' %}" alt="">

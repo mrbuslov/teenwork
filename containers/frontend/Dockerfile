@@ -5,4 +5,4 @@ WORKDIR /app
 COPY ./frontend/package.json ./
 COPY ./frontend ./
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "docker_start"]

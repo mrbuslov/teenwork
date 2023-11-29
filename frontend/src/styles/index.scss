@@ -5,7 +5,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+a{
+	text-decoration: none;
+}
+body{
+	background: #f2f4f1;
+}
 body,
 #root {
     font-size: var(--font-size-m);

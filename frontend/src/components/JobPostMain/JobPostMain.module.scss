@@ -1,0 +1,143 @@
+.jobPost {
+	line-height: 1.25rem;
+    width: 85%;
+    margin: auto;
+    padding: 0 1.5rem;
+    background: #fff;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+
+    .container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        padding: 0.75rem 0;
+        min-height: 10rem;
+        
+        .imageBlock {
+            width: 12.5rem;
+            min-height: 100%;
+            display: block;
+            overflow: hidden;
+            border-radius: 0.25rem;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                transition: transform 0.5s;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+            padding-left: 0.5rem;
+
+            .nameBlock {
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.25rem;
+                margin-top: 0.25rem;
+                letter-spacing: -0.6px;
+
+                .name {
+                    color: #000;
+                }
+            }
+
+            .additionalBlock {
+                display: flex;
+                flex-direction: column;
+                color: var(--color-grey-dark);
+            }
+
+            .dateCreatedBlock {
+                display: inline-block;
+                font-size: 0.75rem;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+
+                .addedToFav {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    cursor: pointer;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .moreInfo {
+        border-top: 1px solid var(--color-grey-dark);
+        display: flex;
+        flex-direction: column;
+
+        .arrowDownDiv {
+            cursor: pointer;
+
+            .arrowDown {
+                border: solid var(--color-grey-dark);
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 3px;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                margin-left: 1rem;
+                height: 0.5rem; 
+                transition: .5s transform ease-in;
+            }
+
+            .arrowUp {
+                transform: rotate(225deg);
+                -webkit-transform: rotate(225deg);
+            }
+        }
+
+        .info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            gap: 2rem;
+            padding: 0;
+            transition: all .5s ease-in;
+            max-height: 15rem;
+            overflow-y: scroll;
+            
+            .authorInfo {
+                display: flex;
+                flex-direction: column;
+                font-size: 1rem;
+                gap: 0.25rem;
+
+                .name {
+                    text-align: center;
+
+                    .tempUserLabel {
+                        color: white; 
+                        padding: 3px; 
+                        background: #06b006; 
+                        border-radius: 5px;
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .jobContent {
+            width: 50rem;
+            white-space: pre-line;
+        }
+    }
+}

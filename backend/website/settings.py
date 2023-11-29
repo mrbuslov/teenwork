@@ -21,7 +21,8 @@ TOKEN = os.environ['TELEGRAM_TOKEN']
 NP_KEY = os.environ['NP_KEY']
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ["https://teenwork.com.ua", "https://www.teenwork.com.ua"] 
+# CSRF_TRUSTED_ORIGINS = ["https://teenwork.com.ua", "https://www.teenwork.com.ua", "http://localhost"]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # http://127.0.0.1:8000/admin/sites/site
 SITE_ID = 1
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
+    'corsheaders',
     
     'chat',
     'board.apps.BoardConfig',
@@ -66,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
     # 'board.middleware.MyMiddleware', # логгер
 ]

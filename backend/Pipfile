@@ -21,6 +21,7 @@ django-filter = "*"
 django-cleanup = "*"
 pytils = "*"
 six = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
