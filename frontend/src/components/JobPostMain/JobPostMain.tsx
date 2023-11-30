@@ -96,7 +96,7 @@ const JobPostMain = ({jobPost}: Props) => {
 
                 <div className={classes.moreInfo}>
                     <div className={classes.arrowDownDiv} onClick={() => setMoreInfoPanelActive(!isMoreInfoPanelActive)}>
-                        <div className={classNames(classes.arrowDown, isMoreInfoPanelActive && classes.arrowUp)}></div>
+                        <div className={classNames('arrowDown', isMoreInfoPanelActive && 'arrowUp')}></div>
                     </div>
                     {isMoreInfoPanelActive &&
                         <div className={classes.info}>

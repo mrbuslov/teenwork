@@ -1,0 +1,15 @@
+.jobPostsContainer {
+    padding: 2rem 0;
+
+    .loadMoreBtn {
+        background: var(--color-blue-main);
+        color: #fff;
+        width: 10rem;
+        border-radius: 0.25rem;
+        font-size: 1.25rem;
+        padding: 0.5rem 1rem;
+        margin: 1rem auto;
+        cursor: pointer;
+        text-align: center;
+    }
+}

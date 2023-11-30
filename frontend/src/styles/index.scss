@@ -16,3 +16,41 @@ body,
     font-size: var(--font-size-m);
     font-family: var(--font-family-main);
 }
+
+
+.arrow {
+    border: solid var(--color-grey-dark);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 1rem;
+    height: 0.5rem; 
+    transition: .5s transform ease-out;
+}
+
+.arrowDown {
+    @extend .arrow;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrowUp {
+    @extend .arrow;
+    transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
+}
+
+.paginationArrowLeft {
+    @extend .arrow;
+    padding: .5rem;
+    border-width: 0 4px 4px 0;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    cursor: pointer;
+}
+
+.paginationArrowRight {
+    @extend .paginationArrowLeft;
+    transform: rotate(315deg);
+    -webkit-transform: rotate(315deg);
+}
