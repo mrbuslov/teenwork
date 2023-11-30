@@ -54,11 +54,13 @@ const Home = () => {
         {isMorePostsLoading ?
           <Loader />
           :
-          page &&
+          page ?
             <div 
               className={classes.loadMoreBtn}
               onClick={() => handleLoadMorePostsBtnClick()}
             >Load more...</div>
+            :
+            ''
         }
       </div>
     )

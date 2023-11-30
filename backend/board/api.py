@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def main_page_ads(request):
-    # time.sleep(1)
+    # time.sleep(3)
     page = int(request.GET.get('page', 1))
     posts = [
         {
