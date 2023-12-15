@@ -1,0 +1,22 @@
+.container {
+    margin: auto;
+    width: 80%;
+}
+
+.pageTitle {
+    font-size: 3rem;
+    font-weight: normal;
+    margin: 2rem 0;
+}
+.pageNote {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 2rem 0;
+}
+
+.formMain {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: flex-start;
+}
