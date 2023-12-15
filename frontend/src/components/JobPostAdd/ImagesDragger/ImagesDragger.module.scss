@@ -2,12 +2,11 @@
     font-size: 1.5rem;
     border: 3px solid var(--color-grey-main);
     border-style: dashed;
-    padding: 2rem;
+    padding: 5rem;
     cursor: pointer;
 }
 
 .imagesSquares {
-    width: 30rem;
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -15,11 +14,23 @@
 
 .imgSquare {
     height: 9rem;
-    width: 9rem;
+    width: 11.5rem;
     overflow: hidden;
+    border: 0.2px solid #000;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    transition: scale .2s ease-in-out;
+    cursor: move;
 
     img {
         height: 100%;
         object-fit: cover;
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        scale: 1.05;
     }
 }

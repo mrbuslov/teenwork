@@ -65,7 +65,6 @@ const ImagesDragger = () => {
                                     <Draggable 
                                         key={sq.orderNumber.toString()}
                                         draggableId={sq.orderNumber.toString()} 
-                                        // index={sq.orderNumber} 
                                         index={index}
                                     >
                                         {(provided: any) => (
