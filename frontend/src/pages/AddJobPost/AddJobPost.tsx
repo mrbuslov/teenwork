@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import { Formik, Field, Form, FormikHelpers, FormikProps } from 'formik';
-import classes from './AddJobPost.module.scss';
 import Input from '../../components/Input/Input';
 import BorderBox from '../../components/BorderBox/BorderBox'
 import ImagesDragger from '../../components/JobPostAdd/ImagesDragger/ImagesDragger';
 import JobPostBlank from '../../components/JobPostAdd/JobPostBlank/JobPostBlank';
+import classes from './AddJobPost.module.scss';
 
 
 const AddJobPost = () => {
+  const [descriptionWordsCount, setDescriptionWordsCount] = useState(0)
+  const MAX_DESC_WORDS_NUM = 5000;
+
+
   return (
     <div className={classes.container}>
       <h1 className={classes.pageTitle}>Let's add a job post</h1>
@@ -22,6 +26,7 @@ const AddJobPost = () => {
           price: 0,
           currency: '', 
           workersNum: 0,
+          description: '',
         }}
         onSubmit={(values, actions) => {
           setTimeout(() => {
@@ -58,6 +63,23 @@ const AddJobPost = () => {
                   name='workersNum'   
                   onChange={props.handleChange}     
                 /> 
+              </div>
+            </BorderBox>
+            <BorderBox label="Let's describe your job offer">
+              <div style={{position: 'relative'}}>
+                <textarea 
+                  name='description'
+                  value={props.values.description}
+                  className={classes.description}
+                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+                    if (e.target.value.length <= MAX_DESC_WORDS_NUM){
+                      props.handleChange(e)
+                      setDescriptionWordsCount(e.target.value.length)
+                    }
+                  }}   
+                  placeholder='I suggest you write the address, location, working conditions and much more...'
+                ></textarea>
+                <span className={classes.descWordsCounter}>{descriptionWordsCount}/{MAX_DESC_WORDS_NUM}</span>
               </div>
             </BorderBox>
             <button type="submit">Submit</button>

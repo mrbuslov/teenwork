@@ -30,4 +30,24 @@
 .workersNum {
     background: #fff;
     width: 2.5rem;
+    border: none;
+}
+
+.description {
+    background: #fff;
+    padding: 1rem;
+    width: 50rem;
+    height: 20rem;
+    outline: none;
+    resize: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+}
+
+.descWordsCounter {
+    color: var(--color-grey-main);
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
 }
