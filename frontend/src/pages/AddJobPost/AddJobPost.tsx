@@ -6,11 +6,6 @@ import BorderBox from '../../components/BorderBox/BorderBox'
 import ImagesDragger from '../../components/JobPostAdd/ImagesDragger/ImagesDragger';
 import JobPostBlank from '../../components/JobPostAdd/JobPostBlank/JobPostBlank';
 
-interface Values {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
 
 const AddJobPost = () => {
   return (
@@ -26,6 +21,7 @@ const AddJobPost = () => {
           city: '',
           price: 0,
           currency: '', 
+          workersNum: 0,
         }}
         onSubmit={(values, actions) => {
           setTimeout(() => {
@@ -50,6 +46,19 @@ const AddJobPost = () => {
                 onChange={props.handleChange}
                 setFieldValue={props.setFieldValue}
               />
+              <div className={classes.workersNumBlock}>
+                <span>How many people do you need</span>
+                &nbsp;
+                <span>(optional):</span>
+                &nbsp;
+                <Input
+                  fontSize='medium'
+                  value={props.values.workersNum}
+                  className={classes.workersNum}
+                  name='workersNum'   
+                  onChange={props.handleChange}     
+                /> 
+              </div>
             </BorderBox>
             <button type="submit">Submit</button>
           </form>
