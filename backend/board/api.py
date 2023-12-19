@@ -3,6 +3,8 @@ import time
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from consts.consts import UA_CITIES
+
 @csrf_exempt
 def main_page_ads(request):
     # time.sleep(3)
@@ -80,3 +82,10 @@ def main_page_ads(request):
         "nextPage": page + 1 if page < len(posts) else None
     }
     return JsonResponse(data)
+
+
+@csrf_exempt
+def ua_cities(request):
+    return JsonResponse({
+        "cities": UA_CITIES,
+    })

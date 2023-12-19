@@ -1,12 +1,15 @@
-import React, {FC, PropsWithChildren, HTMLAttributes, ReactNode} from 'react'
+import React, {FC, PropsWithChildren, HTMLAttributes, ReactNode, ChangeEvent} from 'react'
 import classNames from "classnames";
 import classes from "./Input.module.scss";
 
 
 interface InputProps {
-  value: string;
+  value: string | number;
+  onChange: (e?: any) => void;
+  handleOptionClick?: (e?: any) => void;
   fontSize: "small" | "medium" | "large";
   isDisabled?: boolean;
+  dropdownOptions?: (string | number)[]; // if user should select from options
   [key: string]: any; // ...props
 }
 
@@ -23,24 +26,66 @@ const calculateFontSize = (fontSize: string) => {
   }
 }
 
+const InputNode = ({
+  value,
+  fontSize,
+  onChange,
+  dropdownOptions,
+  isDisabled,
+  ...props
+}: InputProps) => (
+  <input
+    {...props}
+    className={classNames(
+      classes.input,
+      props.className
+    )}
+    style={{
+      fontSize: calculateFontSize(fontSize)
+    }}
+    value={Boolean(value) ? value : ''}
+    disabled={isDisabled}
+    onChange={onChange}
+  />
+)
+
 const Input: FC<InputProps> = ({
   value,
   fontSize,
+  onChange,
+  dropdownOptions,
+  handleOptionClick,
   isDisabled = false,
   ...props
 }) => {
   return (
-    <input
-      {...props}
-      className={classNames(
-        classes.input,
-      )}
-      style={{
-        fontSize: calculateFontSize(fontSize)
-      }}
-      value={value}
-      disabled={isDisabled}
-    />
+    <>
+      {!dropdownOptions? 
+        <InputNode 
+          value={value}
+          fontSize={fontSize}
+          onChange={onChange}
+          isDisabled={isDisabled}
+          {...props}
+        />
+        :
+        <span style={{position: 'relative'}}>
+          <InputNode 
+            value={value}
+            fontSize={fontSize}
+            onChange={onChange}
+            dropdownOptions={dropdownOptions}
+            isDisabled={isDisabled}
+            {...props}
+          />
+          <ul className={classes.dropdownOptions}>
+            {dropdownOptions.map((option, i) => 
+              <li key={i} onClick={handleOptionClick} >{option}</li>
+            )}
+          </ul>
+        </span>
+      }
+    </>
   )
 }
 

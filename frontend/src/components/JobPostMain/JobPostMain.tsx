@@ -74,7 +74,7 @@ const JobPostMain = ({jobPost}: Props) => {
                         </span> 
                         <div className={classes.additionalBlock}>
                             <span className={classes.age}>
-                                Age: {jobPost.age ? <>{ jobPost.age } лет.</> : <>All</>}
+                                Age (from): {jobPost.age ? <>{ jobPost.age } years.</> : <>All</>}
                             </span>
                             <span className={classes.rubric}>{jobPost.rubric}</span>
                             <span className={classes.city}>{jobPost.city}</span>

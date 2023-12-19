@@ -4,6 +4,7 @@ import classes from './AddJobPost.module.scss';
 import Input from '../../components/Input/Input';
 import BorderBox from '../../components/BorderBox/BorderBox'
 import ImagesDragger from '../../components/JobPostAdd/ImagesDragger/ImagesDragger';
+import JobPostBlank from '../../components/JobPostAdd/JobPostBlank/JobPostBlank';
 
 interface Values {
   firstName: string;
@@ -18,7 +19,14 @@ const AddJobPost = () => {
       <h3 className={classes.pageNote}>This post will be active for 24 hours and then we will unfortunately delete it. <br />
       To publish permanent posts you need to sign up for free .</h3>
       <Formik
-        initialValues={{ firstName: 'jared' }}
+        initialValues={{ 
+          title: '',
+          rubric: '',
+          age: 0,
+          city: '',
+          price: 0,
+          currency: '', 
+        }}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -31,69 +39,29 @@ const AddJobPost = () => {
             <BorderBox label="Let's start by uploading up to 3 photos">
               <ImagesDragger />
             </BorderBox>
-            <BorderBox label='Label'>
-              <Input
-                fontSize='medium'
-                value={props.values.firstName}
-                onBlur={props.handleBlur}
-                name='firstName'   
-                onChange={props.handleChange}     
+            <BorderBox label="Fill in all fields">
+              <JobPostBlank
+                titleDefaultValue={props.values.title}
+                rubricDefaultValue={props.values.rubric}
+                ageDefaultValue={props.values.age}
+                cityDefaultValue={props.values.city}
+                priceDefaultValue={props.values.price}
+                currencyDefaultValue={props.values.currency}
+                onChange={props.handleChange}
+                setFieldValue={props.setFieldValue}
               />
             </BorderBox>
             <button type="submit">Submit</button>
           </form>
         )}
       </Formik>
-        {/* <Formik 
-        initialValues={{ email: '', color: 'red', firstName: '', lastName: '' }}
-        onSubmit={(values, actions) => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }}
-      >
-        {(props: FormikProps<any>) => (
-          <Form>
-            <h1 className={classes.title}>Let's add a JOB POST!</h1>
-            <h3 className={classes.title}>This ad will be active for 24 hours, and then, unfortunately, we will delete it.<br/>
-            To publish permanent posts, you should sign up for free.</h3>
-              <Field name="firstName">
-              {({
-                field, // { name, value, onChange, onBlur }
-                form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                meta,
-              }: any) => (
-                <div>
-                  <Input
-                    fontSize='medium'
-                    value={props.values.name}
-                    onBlur={props.handleBlur}
-                    name='firstName'   
-                    onChange={props.handleChange}     
-                  />
-                  {meta.touched && meta.error && (
-                    <div className="error">{meta.error}</div>
-                  )}
-                </div>
-              )}
-            </Field>
-
-
-            <label htmlFor="lastName">Last Name</label>
-            <Field id="lastName" name="lastName" placeholder="Doe" />
-
-            <label htmlFor="email">Email</label>
-            <Field
-              id="email"
-              name="email"
-              placeholder="john@acme.com"
-              type="email"
-            />
-
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik> */}
-
+              {/* <Input
+                fontSize='medium'
+                value={props.values.firstName}
+                onBlur={props.handleBlur}
+                name='firstName'   
+                onChange={props.handleChange}     
+              /> */}
     </div>
   )
 }

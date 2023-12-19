@@ -25,7 +25,8 @@ urlpatterns_others = [
 ]
 
 urlpatterns_api = [
-    path('main_page_ads/', api.main_page_ads, name='main_page_ads')
+    path('main_page_ads/', api.main_page_ads, name='main_page_ads'),
+    path('ua_cities/', api.ua_cities, name='ua_cities'),
 ]
 
 urlpatterns = [
