@@ -51,3 +51,47 @@
     top: 0;
     right: 1.5rem;
 }
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30rem;
+
+    .userInfoPart {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        span {
+            font-size: 1.25rem;
+        }
+
+        input {
+            border: none;
+            border-bottom: var(--border-light);
+        }
+    }
+}
+
+.submitBtn {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    width: 90%;
+    height: 3rem;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: var(--color-blue-main);
+    font-weight: bold;
+    padding: 10px 0;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background .3s ease;
+
+    &:hover {
+        background: var(--color-blue-light);
+    }
+}

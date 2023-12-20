@@ -15,6 +15,7 @@ export interface JobPostProps {
     cityDefaultValue: string;
     priceDefaultValue: number;
     currencyDefaultValue: string;
+    errors: {[key: string]: string};
 
     onChange: (e: ChangeEvent<any>) => void;
     setFieldValue: (f_name: string, f_value: any) => void;
@@ -67,6 +68,10 @@ const JobPostBlank = (jobPost: JobPostProps) => {
         }
     }
 
+    const fieldsErrors = {
+        title: jobPost.errors.title && <div className={classes.errorBlock}>{jobPost.errors.title}</div>,
+    }
+
     return (
         <>
             <div className={classes.jobPost}>
@@ -83,6 +88,7 @@ const JobPostBlank = (jobPost: JobPostProps) => {
                                 onChange={jobPost.onChange}
                                 name='title'
                                 placeholder="Enter what we're going to do"
+                                error={fieldsErrors.title}
                             />
                             <span className={classes.salary}>
                                 <Input 

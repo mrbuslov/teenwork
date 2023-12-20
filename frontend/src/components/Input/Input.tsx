@@ -7,6 +7,7 @@ interface InputProps {
   value: string | number;
   onChange: (e?: any) => void;
   handleOptionClick?: (e?: any) => void;
+  error?: any;
   fontSize: "small" | "medium" | "large";
   isDisabled?: boolean;
   dropdownOptions?: (string | number)[]; // if user should select from options
@@ -32,21 +33,25 @@ const InputNode = ({
   onChange,
   dropdownOptions,
   isDisabled,
+  error,
   ...props
 }: InputProps) => (
-  <input
-    {...props}
-    className={classNames(
-      classes.input,
-      props.className
-    )}
-    style={{
-      fontSize: calculateFontSize(fontSize)
-    }}
-    value={Boolean(value) ? value : ''}
-    disabled={isDisabled}
-    onChange={onChange}
-  />
+  <>
+    <input
+      {...props}
+      className={classNames(
+        classes.input,
+        props.className
+      )}
+      style={{
+        fontSize: calculateFontSize(fontSize)
+      }}
+      value={Boolean(value) ? value : ''}
+      disabled={isDisabled}
+      onChange={onChange}
+    />
+    {/* <span style={{position: 'absolute', top: '1rem', fontSize: '0.75rem'}}>{error}</span> */}
+  </>
 )
 
 const Input: FC<InputProps> = ({
@@ -56,6 +61,7 @@ const Input: FC<InputProps> = ({
   dropdownOptions,
   handleOptionClick,
   isDisabled = false,
+  error,
   ...props
 }) => {
   return (
@@ -66,6 +72,7 @@ const Input: FC<InputProps> = ({
           fontSize={fontSize}
           onChange={onChange}
           isDisabled={isDisabled}
+          error={error}
           {...props}
         />
         :
@@ -76,6 +83,7 @@ const Input: FC<InputProps> = ({
             onChange={onChange}
             dropdownOptions={dropdownOptions}
             isDisabled={isDisabled}
+            error={error}
             {...props}
           />
           <ul className={classes.dropdownOptions}>
@@ -90,25 +98,3 @@ const Input: FC<InputProps> = ({
 }
 
 export default Input
-
-
-// import React from 'react';
-
-// interface MyComponentProps {
-//   name?: string;
-//   [key: string]: any; // Allow any other prop
-// }
-
-// const Input: React.FC<MyComponentProps> = ({ name, ...otherProps }) => {
-//   // You can use 'name' here as it's defined in the interface
-//   // 'otherProps' will contain any other additional props passed to the component
-
-//   return (
-//     <div>
-//       <p>Name: {name}</p>
-//       {/* You can use otherProps here */}
-//     </div>
-//   );
-// };
-
-// export default Input;

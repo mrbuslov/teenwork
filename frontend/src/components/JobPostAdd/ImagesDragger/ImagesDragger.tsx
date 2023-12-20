@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import classes from "./ImagesDragger.module.scss";
 // NOTE: we can't use react-beautiful-dnd, bevause it's not typed. Use @hello-pangea/dnd instead! 
@@ -12,7 +12,15 @@ interface ImgSquareProps {
     imgFile: File;
 }
 
-const ImagesDragger = () => {
+interface ImgProps {
+    images: File[];
+    setImages: (e: File[]) => void;
+}
+
+const ImagesDragger: FC<ImgProps> = ({
+    images,
+    setImages
+}) => {
     const [imageSquares, setImageSquares] = useState<ImgSquareProps[]>();
 
     const handleChange = (filesList: any) => {
@@ -20,7 +28,7 @@ const ImagesDragger = () => {
         filesList = Object.values(filesList).slice(0, 3) // convert dict to list
         const filesDict = filesList.map((fileObj: File, i: number) => {return {orderNumber: i, imgFile: fileObj}})
         setImageSquares(filesDict);
-        console.log('filesDict', filesDict)
+        setImages(filesList);
     };
 
     function handleOnDragEnd(result: any) {
@@ -30,8 +38,10 @@ const ImagesDragger = () => {
         const items = Array.from(imageSquares!);
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
+        const itemsFiles = items.map((i) => i.imgFile)
 
         setImageSquares(items);
+        setImages(itemsFiles)
     }
 
     return (
