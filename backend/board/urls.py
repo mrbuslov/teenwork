@@ -4,8 +4,19 @@ from board import views, api
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from rest_framework import routers
 
 app_name='board'
+
+# api
+router = routers.DefaultRouter()
+router.register(r'posts', api.BoardViewSet)
+urlpatterns_api = [
+    path('main_page_ads/', api.main_page_ads, name='main_page_ads'),
+    path('ua_cities/', api.ua_cities, name='ua_cities'),
+]
+urlpatterns_api += router.urls
+
 
 urlpatterns_others = [
     path('how_24h_works/', views.how_24h_works, name='how_24h_works'),
@@ -22,11 +33,6 @@ urlpatterns_others = [
     path('blog/<str:slug>/', views.tw_blog_post, name='tw_blog_post'),
     path('blog/', views.tw_blog, name='tw_blog'),
     path('add_blog_post/', views.add_blog_post, name='add_blog_post'),
-]
-
-urlpatterns_api = [
-    path('main_page_ads/', api.main_page_ads, name='main_page_ads'),
-    path('ua_cities/', api.ua_cities, name='ua_cities'),
 ]
 
 urlpatterns = [

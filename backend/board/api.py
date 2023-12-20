@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import time
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from board.models import Board
 
 from consts.consts import UA_CITIES
 
@@ -89,3 +90,16 @@ def ua_cities(request):
     return JsonResponse({
         "cities": UA_CITIES,
     })
+
+
+
+from rest_framework import permissions, viewsets
+from board.serializers import BoardSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import action
+
+
+class BoardViewSet(viewsets.ModelViewSet):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    permission_classes = [permissions.IsAuthenticated]

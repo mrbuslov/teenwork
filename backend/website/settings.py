@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     
     'ckeditor',
     'ckeditor_uploader',
+
+    # rest api
+    'rest_framework'
 ]
 
 AUTH_USER_MODEL = 'account.Account'
@@ -207,6 +210,11 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 
 

@@ -8,7 +8,7 @@ aiogram = "*"
 aiohttp = "*"
 celery = "*"
 psycopg2-binary = "*"
-Django = "*"
+Django = "==4.2.7"
 django-modeltranslation = "*"
 django-rosetta = "*"
 Pillow = "*"
@@ -22,6 +22,7 @@ django-cleanup = "*"
 pytils = "*"
 six = "*"
 django-cors-headers = "*"
+djangorestframework = "==3.14.0"
 
 [dev-packages]
 
