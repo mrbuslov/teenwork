@@ -6,27 +6,29 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 export interface JobPostAuthor {
-    profile_link: string
     name: string
     phone_number: string
     email: string
     is_official: boolean
 }
 
+interface Image {
+    image: string
+}
+
 export interface JobPostProps {
     id: number
     slug: string
-    url: string
     title: string
     rubric: string
-    image_link: string
+    image_set: Image[]
     age: number
     city: string
     published_date: Date
     content: string
     price: number
     currency: string
-    owner: JobPostAuthor
+    author: JobPostAuthor
     is_added_to_favourites: boolean
 }
 
@@ -51,10 +53,6 @@ function returnJobPostDateString(datePublished: Date) {
     }
 }
 
-function toggleMoreInfoArrow() {
-    
-}
-
 const JobPostMain = ({jobPost}: Props) => {
     const [isMoreInfoPanelActive, setMoreInfoPanelActive] = useState(false)
 
@@ -62,12 +60,12 @@ const JobPostMain = ({jobPost}: Props) => {
         <>
             <div className={classes.jobPost}>
                 <div className={classes.container}>
-                    <Link to={jobPost.url} className={classes.imageBlock}>
-                        <img src={jobPost.image_link} />	
+                    <Link to={`/p/${jobPost.slug}`} className={classes.imageBlock}>
+                        <img src={jobPost.image_set[0].image} />	
                     </Link>
                     <div className={classes.info}>
                         <span className={classes.nameBlock}>
-                            <Link to={jobPost.url} className={classes.name}>
+                            <Link to={`/p/${jobPost.slug}`} className={classes.name}>
                                 {jobPost.title}
                             </Link>
                             <span className={classes.salary}>{ jobPost.price } { jobPost.currency }</span>
@@ -102,18 +100,18 @@ const JobPostMain = ({jobPost}: Props) => {
                         <div className={classes.info}>
                             <div className={classes.authorInfo}>
                                 <span className={classes.name}>
-                                    {jobPost.owner.profile_link ?
-                                        <Link to={jobPost.owner.profile_link}>{jobPost.owner.name}</Link>
+                                    {jobPost.author.name ?
+                                        <Link to={jobPost.author.name}>{jobPost.author.name}</Link>
                                         :
                                         <>
-                                            <span style={{fontWeight: "bold"}}>{jobPost.owner.name}</span>
+                                            <span style={{fontWeight: "bold"}}>{jobPost.author.name}</span>
                                             <span className={classes.tempUserLabel}>24h</span>
                                         </>
 
                                     }
                                 </span>
-                                <span>Phone number: <a href={`tel:${jobPost.owner.phone_number}`}>{jobPost.owner.phone_number}</a></span> 
-                                <span>Email: <a href= {`mailto:${jobPost.owner.email}`}>{jobPost.owner.email}</a></span>            
+                                <span>Phone number: <a href={`tel:${jobPost.author.phone_number}`}>{jobPost.author.phone_number}</a></span> 
+                                <span>Email: <a href= {`mailto:${jobPost.author.email}`}>{jobPost.author.email}</a></span>            
                             </div>
                             <div className={classes.jobContent}>{jobPost.content}</div>
                         </div>

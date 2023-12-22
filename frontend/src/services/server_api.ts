@@ -12,9 +12,10 @@ export async function getMainPagePosts(page: number = 1) {
         'Content-Type': 'application/json',
     }
     const options = { headers: headers }
-    console.log(`${SERVER_ENDPOINT}/api/main_page_ads?${paramsString}`)
+    console.log(`${SERVER_ENDPOINT}/api/v1/posts/`) // ?${paramsString}
     // const response = await axios.get(`${SERVER_ENDPOINT}/api/main_page_ads/`, options) // ?${paramsString}
-    const response = await axios.get(`${SERVER_ENDPOINT}/api/main_page_ads/?${paramsString}`, options)
+    const response = await axios.get(`${SERVER_ENDPOINT}/api/v1/posts/`, options) // ?${paramsString}
+    console.log('response', response)
     
-    return response.data
+    return response.data.results
 }

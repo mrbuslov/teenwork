@@ -48,7 +48,7 @@ urlpatterns = [
     path('get_ntu_students/', views.get_ntu_students, name='get_ntu_students'),
     path('students/<str:university>/', views.get_students, name='get_students'),
     
-    path('api/', include(urlpatterns_api)),
+    path('api/v1/', include(urlpatterns_api)),
 
 ]
 urlpatterns.extend(urlpatterns_others)

@@ -19,7 +19,7 @@ const Home = () => {
     const res = await getMainPagePosts();
     console.log('get posts res', res)
 
-    setData(res.result)
+    setData(res)
     setLoading(false)
   }
   useEffect(() => {

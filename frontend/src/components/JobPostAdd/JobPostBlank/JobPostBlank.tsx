@@ -33,7 +33,7 @@ const JobPostBlank = (jobPost: JobPostProps) => {
     useEffect(() => {
         const getCities = async () => {
             // TODO: move to services
-            const { data } = await axios.get(SERVER_ENDPOINT + '/api/ua_cities/')
+            const { data } = await axios.get(SERVER_ENDPOINT + '/api/v1/ua_cities/')
             const citiesNames = data.cities.map((c: any) => c.city).sort()
             setUaCities(citiesNames)
         }
