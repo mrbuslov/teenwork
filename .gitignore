@@ -133,7 +133,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-# .env
+.env
 .venv
 env/
 venv/
@@ -463,11 +463,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-
-
-
-
-
-### for freeorderproj
-# .env*
