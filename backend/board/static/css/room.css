@@ -1,6 +1,6 @@
 *{
     box-sizing: border-box;
-    font-family: Verdana;
+    font-family: Roboto;
     margin: 0;
     padding: 0;
 }
@@ -268,7 +268,7 @@ max-width: 15%;
 .title_name{
 position: relative;
 color: #000;
-font-family: Verdana;
+font-family: Roboto;
 font-size: 13px;
 overflow: hidden;
 white-space: nowrap;

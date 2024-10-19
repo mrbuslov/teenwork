@@ -23,6 +23,7 @@ pytils = "*"
 six = "*"
 django-cors-headers = "*"
 djangorestframework = "==3.14.0"
+g4f = "*"
 
 [dev-packages]
 

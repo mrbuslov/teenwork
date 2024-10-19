@@ -76,32 +76,10 @@ def account(request, username):
 @login_required(login_url='/login/')
 @csrf_exempt 
 def profile_edit(request):
-
-    if request.is_ajax():
-        data = request.POST.get('data', None)
-        isTelegram = request.POST.get('isTelegram', None)
-
-        
-        tel = Telegram.objects.get(person = request.user)
-        if data:
-            if data == 'checked':
-                tel.telegram = True
-                data = 'true'
-            else:
-                tel.telegram = False
-                data = 'false'
-            tel.save()
-            return JsonResponse(data, safe=False)
-        elif isTelegram:
-            if tel.telegram == True:
-                isTelegram = 'true'
-            else:
-                isTelegram = 'false'
-            return JsonResponse(isTelegram, safe=False)
-
-
     username = request.user.username
-    account = Account.objects.get(username=username) 
+    account = Account.objects.get(username=username)
+    tlg_obj = Telegram.objects.get(person=request.user)
+    tlg_form = TelegramForm(instance=tlg_obj)
     form = ProfileEditForm(instance=account)
     if request.method == 'POST' and 'profile_edit_btn' in request.POST:
         form = ProfileEditForm(request.POST, instance=account)
@@ -112,8 +90,6 @@ def profile_edit(request):
             post.save()
         return redirect('account:profile_edit')
 
-    tlg_obj = Telegram.objects.get(person=request.user)
-    tlg_form = TelegramForm(instance=tlg_obj)
     if request.method =='POST' and 'tlg_btn' in request.POST:
         tlg_form = TelegramForm(request.POST, instance=tlg_obj)
         if tlg_form.is_valid():
@@ -130,6 +106,27 @@ def profile_edit(request):
         Account.objects.get(id=request.user.id).delete()
         return redirect('board:index')
 
+    elif request.method == 'POST':
+        data = request.POST.get('data', None)
+        isTelegram = request.POST.get('isTelegram', None)
+
+        tel = Telegram.objects.get(person=request.user)
+        if data:
+            if data == 'checked':
+                tel.telegram = True
+                data = 'true'
+            else:
+                tel.telegram = False
+                data = 'false'
+            tel.save()
+            return JsonResponse(data, safe=False)
+        elif isTelegram:
+            if tel.telegram == True:
+                isTelegram = 'true'
+            else:
+                isTelegram = 'false'
+            return JsonResponse(isTelegram, safe=False)
+
     return render(request, 'user/profile_edit.html', {'form':form, 'account':account, 'tlg_form':tlg_form,})
 
 
@@ -142,7 +139,7 @@ def registration(request):
         password = request.POST.get('password')
         phone_number = request.POST.get('phone_number')
 
-        if request.is_ajax():
+        if request.method == 'POST':
             data=''
             username_check = request.POST.get('username', None)
             email_check = request.POST.get('email', None)
@@ -303,7 +300,7 @@ def user_login(request):
     else:
         if request.method == 'POST':
 
-            if request.is_ajax():
+            if request.POST.get('email_login', None):
                 data=''
                 email_check = request.POST.get('email_login', None)
 
@@ -540,6 +537,5 @@ class UnsubscribeView(View):
             return render(request, 'others/user_unsubscribed.html')
         else:
             raise Exception
-            
             
             

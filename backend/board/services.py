@@ -17,6 +17,9 @@ from django.utils import translation
 from django.http.request import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from utils.utils import ask_llm, translate_sentence
+from django.forms.models import model_to_dict
+from django.http import Http404
 
 
 def add_advert(request, form):
@@ -164,7 +167,6 @@ def archive_adt(request, pk):
         return redirect('/')
 
 
-from django.http import Http404
 def show_advertisement(request,slug):
     if Board.objects.filter(slug=slug).exists():
         board_obj = Board.objects.get(slug=slug)
@@ -218,13 +220,22 @@ def show_advertisement(request,slug):
         # raise Exception('qwe')
 
 
+
+
+@csrf_exempt
+def llm_generate_job_search_query(user: Account):
+    prompt = f'''
+    You are the programmer that generates django queries for search. 
+    Your task is to generate a job search query based on user parameters to search the job.
+    you must return only query dict
+    User: {model_to_dict(user)}
+    Job structure: {Board.__dict__}
+    '''.strip()
+    res = ask_llm(prompt, 'en')
+
+    return res
+
 def show_index(request):
-    # смотрим, если у нас один запрос, переадресовываем на страницу нормальную, не через ?title_content&...
-    # mydict1 = {'title_content': [''], 'price_min': [''], 'price_max': [''], 'age': [''], 'city': [''], 'rubric': ['']}
-    # mydict2 = dict(request.GET)
-    # vals = [tuple(sorted(x)) for x in mydict1.values()]
-    # mydict2 = {k:v for (k,v) in mydict2.items() if tuple(sorted(v)) not in vals}
-    
     if request.user.is_authenticated:
         if request.user.is_blocked:
             return redirect('account:logout')
@@ -265,44 +276,10 @@ def show_index(request):
         response = paginator.page(1)
     except EmptyPage:
         response = paginator.page(paginator.num_pages)
-
-    # for val in Board.objects.all():
-    #     print(val)
-    #     if val.pk == 71:
-    #         print('val')
-    #         val.delete()
-
-    # print(Board.objects.get(pk=68))
-
-    # def get_ip(request):
-    #     adress = request.META.get('HTTP_X_FORWARDED_FOR')
-    #     if adress:
-    #         ip = adress.split(',')[-1].strip()
-    #     else:
-    #         ip = request.META.get('REMOTE_ADDR')
-    #     return ip
-    # ip = get_ip(request)
-    # user_ip = UserIp(ip_adress = ip)
-    #print(ip)
-    # result = UserIp.objects.filter(Q(ip_adress__icontains=ip))
-    # if len(result)==1:
-    #     #print('User exists')
-    #     pass
         
-    # elif len(result) > 1:
-    #     #print('User exists more...')
-    #     pass
-    # else:
-    #     user_ip.email = request.user
-    #     user_ip.save()
-    #     #print('user is unique')
-    
-    # count = UserIp.objects.all().count
-
     context={
         'response':response,
         'myFilter':myFilter,
-        # 'count':count,
         'time_now1':time_now1,
         'time_now2':time_now2,
         'age_range':Age.objects.all(),

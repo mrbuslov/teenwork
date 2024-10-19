@@ -19,6 +19,9 @@ urlpatterns_api += router.urls
 
 
 urlpatterns_others = [
+    path('llm_chat/', views.llm_chat , name='llm_chat'),
+    path('llm_generate_job_desc/', views.llm_generate_job_desc, name='llm_generate_job_desc'),
+
     path('how_24h_works/', views.how_24h_works, name='how_24h_works'),
     path('about_cookies/', views.about_cookies, name='about_cookies'),
     path('others_page/', views.others_page, name='others_page'),

@@ -1,5 +1,5 @@
 body{
-    font-family: Verdana;
+    font-family: Roboto;
 }
 a{
   text-decoration: none;
@@ -9,7 +9,7 @@ a{
 	font-weight: normal; 
 	margin-left: 120px;
 	top: 20%; 
-	font-family: Verdana;
+	font-family: Roboto;
 	letter-spacing: -0.6px;
 }
 .dark .empty_list{
@@ -352,7 +352,7 @@ input[type='button']:hover{
 
 .h2_delete_account{
 	margin: 20px 0 20px 0;
-	font-family: Verdana;
+	font-family: Roboto;
 	line-height: 40px; 
 }
 
@@ -368,7 +368,7 @@ input[type='button']:hover{
 	border-radius: 40px;
 	background: #005259;
 	margin: auto;
-	font-family: Verdana;
+	font-family: Roboto;
 	cursor:pointer;
 
   transition: color 0.3s ease-in;
@@ -416,7 +416,7 @@ input[type='button']:hover{
 
 .h2_delete_adt{
 	margin: 20px 0 20px 0;
-	font-family: Verdana;
+	font-family: Roboto;
 	line-height: 40px; 
   font-weight: normal;
   letter-spacing: -0.6px;
@@ -439,7 +439,7 @@ input[type='button']:hover{
 	border-radius: 40px;
 	background: #005259;
 	margin: auto;
-	font-family: Verdana;
+	font-family: Roboto;
   border: none;
 
   transition: color 0.3s ease-in;

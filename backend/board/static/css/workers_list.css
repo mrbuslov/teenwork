@@ -72,7 +72,7 @@
 .adt_title{
   position: relative;
   color: #000;
-  font-family: Verdana;
+  font-family: Roboto;
   bottom: 7px;
   font-size: 13px;
 }
@@ -122,7 +122,7 @@ ul{
 
 
 *{
-  font-family: Verdana;
+  font-family: Roboto;
 }
 .page_title{
   background: #fff;

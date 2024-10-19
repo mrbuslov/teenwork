@@ -10,9 +10,11 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.admin.views import decorators
 import functools
 from googletrans import Translator
+from utils.utils import ask_llm, translate_sentence
+from django.forms.models import model_to_dict
 
 
-def staff_member_required(view_func): # переопределим декоратор
+def staff_member_required(view_func):  # переопределим декоратор
     def _checklogin(request, *args, **kwargs):
         if request.user.is_active and request.user.is_staff:
             return view_func(request, *args, **kwargs)
@@ -32,6 +34,54 @@ def load_more(request):
 
 def advertisement(request,slug):
     return show_advertisement(request,slug)
+
+
+@csrf_exempt
+def llm_chat(request):
+    messages_list = json.loads(request.body.decode('utf-8'))
+
+    messages_list_str = "\n\n".join([
+        f"{msg['type']}:\n{msg['value']}"
+        for msg in messages_list
+    ])
+
+    prompt = f'''
+You are the manager of the Ukrainian platform for teenagers "Teenwork". 
+Your task is to respond to users' requests within the scope of your duties as a manager.
+Attached below is a chain of messages between the manager (assistant) and the user. 
+Based on this chain, give a relevant answer.
+Message chain:
+-----------------------------
+{messages_list_str}
+-----------------------------
+    '''.strip()
+    prompt_en = translate_sentence(prompt)
+    res = ask_llm(prompt_en, 'uk')
+    res = res.replace('менеджер:', '').strip()
+
+    return JsonResponse({
+        'message': res
+    })
+
+
+
+@csrf_exempt
+def llm_generate_job_desc(request):
+    title = json.loads(request.body.decode('utf-8'))['title']
+    prompt = f'''
+    You are the manager of the Ukrainian platform for work for teenagers. 
+    Your task is to generate a job description for the user based on the job title
+    Generate a job description with 3000 chars.
+    Title: {title}
+    '''.strip()
+    prompt_en = translate_sentence(prompt)
+    res = ask_llm(prompt_en, 'uk')
+    res = res.replace('менеджер:', '').strip()
+
+    return JsonResponse({
+        'description': res
+    })
+
 
 @csrf_exempt 
 def add_save(request):

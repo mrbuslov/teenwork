@@ -1,5 +1,5 @@
 *{
-  font-family: Verdana !important;
+  font-family: Roboto !important;
 }
 .main{
   padding-bottom: 30px;
@@ -462,4 +462,3 @@
 @media (orientation:landscape) and (max-width:600px){
 
 }
-  

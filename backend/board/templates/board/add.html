@@ -23,6 +23,8 @@
     <link href="{% static 'css/adaptive_add.css' %}" type="text/css" rel="stylesheet"  media="(max-width: 1367px)">
     <link href="{% static 'css/adaptive_add_.css' %}" type="text/css" rel="stylesheet">
 
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
     
     <link rel="shortcut icon" href="{% static 'img/icons/teenwork.ico' %}" type="image/x-icon">
     <title>{% translate "Добавить объявление" %} на Teenwork</title>
@@ -99,6 +101,7 @@
 
     <div class="add_border_desc">
       <p class="border_name_ad">{% translate "Опишем Вашу работу" %}</p>
+      <img src="{% static 'img/generate_llm.png' %}" class="generate_desc_img">
       {{form.content}}
       <span class="desc_count">0/5000</span>
     </div>
@@ -148,5 +151,20 @@
 
 <script src="{% static 'js/add.js' %}"></script>
 </body>
+
+<script>
+
+document.querySelector('.generate_desc_img').addEventListener('click', function(e) {
+  $.ajax({
+      url: '/llm_generate_job_desc/',
+      type: 'POST',
+      async: true,
+      data: JSON.stringify({"title": document.querySelector('.adt_name').value}),
+        success: function(data) {
+          document.querySelector('.adt_desc').value = data.description
+      }
+  });
+})
+</script>
 
 </html>

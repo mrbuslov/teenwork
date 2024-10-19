@@ -2,7 +2,7 @@
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	font-family: Verdana;
+	font-family: Roboto;
 }
 a{
 	color: #2b84cd; 
@@ -158,7 +158,7 @@ li{
 	align-items: center;
 	display: flex;
 	position: absolute;
-	font-family: Verdana;
+	font-family: Roboto;
 	visibility: hidden;
 	opacity: 0;
 }
@@ -474,7 +474,7 @@ html{
 .adt_salary{
 	position: relative;
 	font-size: 17px;
-	font-family: Verdana;
+	font-family: Roboto;
 	letter-spacing: -0.6px;
 	white-space: nowrap;
 	margin-left: auto;
@@ -513,7 +513,7 @@ html{
 }
 .adt_city{
 	padding-left: 5px;
-	font-family: Verdana;
+	font-family: Roboto;
 	letter-spacing: -0.6px;
 	color: #545454; 
 	font-size: 13px;
@@ -522,7 +522,7 @@ html{
 
 .adt_age, .adt_rubric, .adt_created, .adt_city{
 	padding-left: 5px;
-	font-family: Verdana;
+	font-family: Roboto;
 	letter-spacing: -0.6px;
 	color: #545454; 
 }
@@ -543,7 +543,7 @@ html{
 	font-size: 12px;
 	height: 20px;
 	overflow: hidden;
-    font-family: Verdana;
+    font-family: Roboto;
 }
 .adt_content_header{
   font-weight: bold;
@@ -598,7 +598,7 @@ html{
 }
 /* ################################## FAVOURITES ######################################################## */
 .fav_title{
-	font-family: Verdana;
+	font-family: Roboto;
 	position: relative;
 	display: inline-block;
 	top: 10px;
@@ -619,7 +619,7 @@ hr{
 	margin-left: 120px;
 	top: 22%; 
 	position: absolute; 
-	font-family: Verdana;
+	font-family: Roboto;
 	letter-spacing: -0.6px;
 }
 .dark .empty_fav_list{

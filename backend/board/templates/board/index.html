@@ -1,22 +1,23 @@
-{% extends 'board/base.html' %} 
-{% load static %} 
-{% load i18n %} 
+{% extends 'board/base.html' %}
+{% load static %}
+{% load i18n %}
 
 
 
 {% block head %}
-    <meta name="subject" content="{% translate 'Работа для студентов' %}">
-    <meta name="description" content="{% translate 'Teenwork - платформа, где студенты, молодые люди и не только могут найти подработку или официальную работу в Украине, которая им по душе, на teenwork.com.ua.' %}">
+<meta name="subject" content="{% translate 'Работа для студентов' %}">
+<meta name="description"
+    content="{% translate 'Teenwork - платформа, где студенты, молодые люди и не только могут найти подработку или официальную работу в Украине, которая им по душе, на teenwork.com.ua.' %}">
 {% endblock %}
 
 {% block title %}Teenwork{% endblock %}
 
-{% block content %}  
-    {% if response.number < 2 %}
-        <div class="logo_teenwork">
-            <img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы студентам Teenwork' %}" class="logo_teenwork_img">
-        </div>
-    
+{% block content %}
+{% if response.number < 2 %} <div class="logo_teenwork">
+    <img src="{% static 'img/logo.svg' %}" alt="{% translate 'Логотип сервиса для работы студентам Teenwork' %}"
+        class="logo_teenwork_img">
+    </div>
+
 
     <form method="get" id="searchForm">
         <div class="search_field">
@@ -30,12 +31,12 @@
                         {{myFilter.form.price}}
                     </span>
                 </div>
-        
+
                 <div class="age_field">
                     <label for="id_age">{% translate "Возраст" %}</label>
                     {{myFilter.form.age}}
                 </div>
-        
+
                 <div class="region_field">
                     <div class="city" style="position: relative;">
                         <label for="id_city">{% translate "Город" %}</label>
@@ -43,7 +44,7 @@
                         <div id="city_results"></div>
                     </div>
                 </div>
-        
+
                 <div class="type_of_emp">
                     <label for="id_rubric">{% translate "Вид занятости" %}</label>
                     {{myFilter.form.rubric}}
@@ -51,73 +52,75 @@
             </div>
         </div>
     </form>
-    
+
     <div class="age_main">
         <h1 class="age_span">
             {% translate "Работа по Вашему возрасту" %}:
         </h1>
         <div class="age_block" id="age_block">
-          <ul class="age_range">
-            {% for age in age_range %}
-            <a href="?title_content=&price_min=&price_max=&age={{age.id}}&region=&city=&rubric=">
-              <li class="age_circle">
-                {{age}}
-              </li>
-            </a>
-            {% endfor %}
-          </ul>
+            <ul class="age_range">
+                {% for age in age_range %}
+                <a href="?title_content=&price_min=&price_max=&age={{age.id}}&region=&city=&rubric=">
+                    <li class="age_circle">
+                        {{age}}
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
         </div>
-        <span class="invite_ntu_students">{% translate 'У нас есть ответственные студенты из НТУ "ДП"!' %} <a href="{% url 'board:get_students' 'ntu' %}">{% translate 'Предложите им работу' %}</a></span>
-      </div>
+        <span class="invite_ntu_students">{% translate 'У нас есть ответственные студенты из НТУ "ДП"!' %} <a
+                href="{% url 'board:get_students' 'ntu' %}">{% translate 'Предложите им работу' %}</a></span>
+    </div>
 
     <div class="lines_container">
-        <span class="invite_ntu_students">{% translate 'У нас есть ответственные студенты из НТУ "ДП"!' %} <a href="{% url 'board:get_students' 'ntu' %}">{% translate 'Предложите им работу' %}</a></span>
+        <span class="invite_ntu_students">{% translate 'У нас есть ответственные студенты из НТУ "ДП"!' %} <a
+                href="{% url 'board:get_students' 'ntu' %}">{% translate 'Предложите им работу' %}</a></span>
         <div class="lines">
-          <div class="diamond"></div>
+            <div class="diamond"></div>
         </div>
     </div>
 
     {% endif %}
-    
 
-<div class="adt_container"> 
-    {% for val in response %}
+
+    <div class="adt_container">
+        {% for val in response %}
         <div class="adt">
             <div class="container">
                 <div class="adt_image_block">
-                    <a href="{% url 'board:advertisement' val.slug %}"  class="adt_a">
-                        <img class="adt_image zoom" src="{{val.get_image}}" alt="{{val.rubric}}:{{val.title}}">	
+                    <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
+                        <img class="adt_image zoom" src="{{val.get_image}}" alt="{{val.rubric}}:{{val.title}}">
                     </a>
                 </div>
                 <div class="container_info">
                     <span class="adt_name"> <span class="adt_n">
-                        <a href="{% url 'board:advertisement' val.slug %}"  class="adt_a">
-                            {{val.title}}
-                        </a>
-                        </span> 
+                            <a href="{% url 'board:advertisement' val.slug %}" class="adt_a">
+                                {{val.title}}
+                            </a>
+                        </span>
                         {% if val.author.is_official %}
-                            <div class="tick">
-                                <div class="tick_right"></div>
-                                <div class="tick_left"></div>
-                            </div>
-                            <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
+                        <div class="tick">
+                            <div class="tick_right"></div>
+                            <div class="tick_left"></div>
+                        </div>
+                        <span class="tick_text">{% translate "Это официальный аккаунт" %}</span>
                         {% endif %}
                         <span class="adt_salary">{{ val.price }} {{ val.currency }}</span>
-                    </span> 
+                    </span>
                     {% if val.age %}
-                        <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} лет.</span>
+                    <span class="adt_age">{% translate "Возраст" %}: {{ val.age }} лет.</span>
                     {% else %}
-                        <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
+                    <span class="adt_age">{% translate "Возраст" %}: {% translate "Все" %}</span>
                     {% endif %}
                     <span class="adt_rubric">{{val.rubric}}</span>
                     <span class="adt_city">{{ val.city }}</span>
                     <span class="adt_created">
                         {% if time_now1 == val.published|date:"d.m.Y" %}
-                            {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
+                        {% translate "Сегодня" %} в {{val.published|date:"H:i"}}
                         {% elif time_now2 == val.published|date:"d.m.Y" %}
-                            {% translate "Вчера" %} в {{val.published|date:"H:i"}}
+                        {% translate "Вчера" %} в {{val.published|date:"H:i"}}
                         {% else %}
-                            {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
+                        {{val.published|date:"d M"}} в {{val.published|date:"H:i"}}
                         {% endif %}
                         <a href="{% url 'account:favourite_add' val.id%}" class="heart">
                             {% if user in val.favourites.all %}
@@ -125,35 +128,39 @@
                             {% else %}
                             <img src="{% static 'img/heart.svg'%}" alt="">
                             {% endif %}
-                        </a> 
+                        </a>
                     </span>
                 </div>
             </div>
 
             <div class="adt_more_info">
-                <div class="adt_arrow_down_div"><em class="adt_arrow_down"></em></div> 
+                <div class="adt_arrow_down_div"><em class="adt_arrow_down"></em></div>
                 <div class="adt_info">
                     <div id="close_adt_more_info">+</div>
                     <div class="adt_author_info">
                         <span class="name">
                             {% if val.author.pk %}
-                                <a href="{% url 'account:account' val.author.username %}">{{val.author_name}}</a>
+                            <a href="{% url 'account:account' val.author.username %}">{{val.author_name}}</a>
                             {% else %}
-                                {{val.author_name}} <span style="color: white; padding: 3px; background: #06b006; border-radius: 5px;">24h</span>
+                            {{val.author_name}} <span
+                                style="color: white; padding: 3px; background: #06b006; border-radius: 5px;">24h</span>
                             {% endif %}
                         </span>
-                        <span class="phone_n_span">{% translate "Номер телефона" %}:<span class="phone_number">{{val.phone_number}}</span></span> 
-                        <span class="email_span">Email: <span class="email">{{val.email}}</span></span>            
+                        <span class="phone_n_span">{% translate "Номер телефона" %}:<span
+                                class="phone_number">{{val.phone_number}}</span></span>
+                        <span class="email_span">Email: <span class="email">{{val.email}}</span></span>
                     </div>
                     <div class="adt_content">{{ val.content|linebreaks }}</div>
                 </div>
             </div>
         </div>
-    {% empty %}
-    <span class="empty_index">{% translate "Пока что объявлений нет. Подпишитесь на" %} <a href="{% url 'telegram_filter:get_unique_code' %}">{% translate "Телеграм Бота" %}</a> {% translate ", чтобы получать свежие вакансии, когда они появятся." %}</span>
-    <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Это платформа, где студенты и не только могут помочь Вам в работе. " %}<a href="{% url 'board:add' %}" style="color: inherit;">{% translate "Опубликуйте объявление" %}</a>{% translate ", чтобы дать задание." %}</div>
-    <!-- <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Есть работа, но не хватает рук? " %}<a href="{% url 'board:add' %}" style="color: inherit;">{% translate "Дайте задание" %}</a>{% translate " молодым людям за небольшую оплату." %}</div> -->
-    <!-- <img src="{% static 'img/main_empty.svg' %}" alt="Телеграм Бот отправит Вам уведомление, когда появится новая вакансия" style="margin: auto; display: block;"> -->
+        {% empty %}
+        <span class="empty_index">{% translate "Пока что объявлений нет. Подпишитесь на" %} <a
+                href="{% url 'telegram_filter:get_unique_code' %}">{% translate "Телеграм Бота" %}</a> {% translate ",чтобы получать свежие вакансии, когда они появятся." %}</span>
+        <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Это платформа, где студенты и не только могут помочь Вам в работе. " %}<a
+                href="{% url 'board:add' %}" style="color: inherit;">{% translate "Опубликуйте объявление" %}</a>{% translate ", чтобы дать задание." %}</div>
+        <!-- <div style="text-align: center; font-size: 15px; margin: 20px auto; color: #969696; max-width: 70%;">{% translate "Есть работа, но не хватает рук? " %}<a href="{% url 'board:add' %}" style="color: inherit;">{% translate "Дайте задание" %}</a>{% translate " молодым людям за небольшую оплату." %}</div> -->
+        <!-- <img src="{% static 'img/main_empty.svg' %}" alt="Телеграм Бот отправит Вам уведомление, когда появится новая вакансия" style="margin: auto; display: block;">
 
 
     <div class="main_img">
@@ -170,14 +177,145 @@
             <img src="{% static 'img/main_teen.svg' %}" alt="">
         </div>
     </div>
-    {% endfor %} 
+    {% endfor %}
 </div>
     {% if response %}
         <button class="load_main_btn" id="load_main">{% translate "Загрузить ещё" %}</button>
-    {% endif %} 
-    
+    {% endif %}
+
     <div style="position: relative; width: 100%; height: 50px;"></div>
 
-{% endblock %}
-{% block scripts %}
-{% endblock %}
+
+ -->
+
+
+
+        <link href="{% static 'css/floating-chat.css' %}" type="text/css" rel="stylesheet">
+
+
+        <div class="chat">
+            <div class="chat-title">
+                <h1>Dina</h1>
+                <h2>AI Assistant</h2>
+                <figure class="avatar">
+                    <img
+                        src="https://as2.ftcdn.net/v2/jpg/05/68/10/63/1000_F_568106369_Pny1cnVCwoEv37MKBX2ps1sX7oSxz2Dw.jpg" />
+                </figure>
+            </div>
+            <div class="messages">
+                <div class="messages-content"></div>
+            </div>
+            <div class="message-box">
+                <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                <button type="submit" class="message-submit">Send</button>
+            </div>
+
+        </div>
+        {% endblock %}
+
+
+        {% block scripts %}
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"
+            integrity="sha512-Yk47FuYNtuINE1w+t/KT4BQ7JaycTCcrvlSvdK/jry6Kcxqg5vN7/svVWCxZykVzzJHaxXk5T9jnFemZHSYgnw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            var $messages = $('.messages-content'),
+                d, h, m,
+                i = 0;
+
+            var messages_list = []
+
+            $(window).on('load', function () {
+                $messages.mCustomScrollbar();
+                setTimeout(function () {
+                    $('<div class="message loading new"><figure class="avatar"><img src="https://as2.ftcdn.net/v2/jpg/05/68/10/63/1000_F_568106369_Pny1cnVCwoEv37MKBX2ps1sX7oSxz2Dw.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+                    updateScrollbar();
+                    sendMessageFromAi("Привіт, я Діна, помічник ШІ. Я допоможу вам із запитаннями Teenwork. Давайте поговоримо!");
+                }, 100);
+            });
+
+            function updateScrollbar() {
+                $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+                    scrollInertia: 10,
+                    timeout: 0
+                });
+            }
+
+            function setDate() {
+                d = new Date()
+                if (m != d.getMinutes()) {
+                    m = d.getMinutes();
+                    $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
+                }
+            }
+
+            function insertMessage() {
+                msg = $('.message-input').val();
+                if ($.trim(msg) == '') {
+                    return false;
+                }
+                messages_list.push({
+                    'type': 'user',
+                    'value': msg
+                })
+
+                $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+                setDate();
+                $('.message-input').val(null);
+                updateScrollbar();
+
+                $('<div class="message loading new"><figure class="avatar"><img src="https://as2.ftcdn.net/v2/jpg/05/68/10/63/1000_F_568106369_Pny1cnVCwoEv37MKBX2ps1sX7oSxz2Dw.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+                updateScrollbar();
+
+                $.ajax({
+                    url: '/llm_chat/',
+                    type: 'POST',
+                    async: true,
+                    data: JSON.stringify(messages_list),
+                    success: function(data) {
+                        setTimeout(function () {
+                            sendMessageFromAi(data.message);
+                        }, 1000 + (Math.random() * 20) * 100);
+                    }
+                });
+            }
+
+            $('.message-submit').click(function () {
+                insertMessage();
+            });
+
+            $(window).on('keydown', function (e) {
+                if (e.which == 13) {
+                    insertMessage();
+                    return false;
+                }
+            })
+
+            function sendMessageFromAi(message_str) {
+                if ($('.message-input').val() != '') {
+                    return false;
+                }
+
+                setTimeout(function () {
+                    $('.message.loading').remove();
+                    $('<div class="message new"><figure class="avatar"><img src="https://as2.ftcdn.net/v2/jpg/05/68/10/63/1000_F_568106369_Pny1cnVCwoEv37MKBX2ps1sX7oSxz2Dw.jpg" /></figure>' + message_str + '</div>').appendTo($('.mCSB_container')).addClass('new');
+
+                    messages_list.push({
+                        'type': 'assistant',
+                        'value': message_str
+                    })
+
+                    setDate();
+                    updateScrollbar();
+                    i++;
+                }, 1000 + (Math.random() * 20) * 100);
+
+            }
+        </script>
+
+        {% endblock %}

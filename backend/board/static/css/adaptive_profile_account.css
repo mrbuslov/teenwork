@@ -1,5 +1,5 @@
 *{
-    font-family: Verdana;
+    font-family: Roboto;
 }
 
 /*--------------------------------- ПЛАНШЕТ ВЕРТИКАЛЬНО --------------------------------------*/
@@ -131,7 +131,7 @@
         background: rgba(50, 56, 64, 0.85);
         border-radius: 10px;
         transition: opacity 0.3s ease-in;
-        font-family: Verdana;
+        font-family: Roboto;
         margin-top: 40px;
         z-index: 1;
         color: rgba(255, 255, 255, 0.85);
@@ -302,7 +302,7 @@
         background: rgba(50, 56, 64, 0.85);
         border-radius: 10px;
         transition: opacity 0.3s ease-in;
-        font-family: Verdana;
+        font-family: Roboto;
         margin-top: 40px;
         z-index: 1;
         color: rgba(255, 255, 255, 0.85);
@@ -498,7 +498,7 @@
         background: rgba(50, 56, 64, 0.85);
         border-radius: 10px;
         transition: opacity 0.3s ease-in;
-        font-family: Verdana;
+        font-family: Roboto;
         margin-top: 40px;
         z-index: 1;
         color: rgba(255, 255, 255, 0.85);
@@ -693,7 +693,7 @@
         background: rgba(50, 56, 64, 0.85);
         border-radius: 10px;
         transition: opacity 0.3s ease-in;
-        font-family: Verdana;
+        font-family: Roboto;
         margin-top: 40px;
         z-index: 1;
         color: rgba(255, 255, 255, 0.85);
